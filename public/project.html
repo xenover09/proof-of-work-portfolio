@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Project Proof &amp; Deliverables — Proof-of-Work</title>
-  <meta name="description" content="In-depth technical proof-of-work project: problem statement, architectural trade-offs, dated artefacts, and verified client confirmation.">
+  <meta name="description" content="In-depth technical proof-of-work project case study: problem statement, architectural trade-offs, micro-attribution, defensible metrics, dated artefacts, and verified client confirmation.">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -12,10 +12,11 @@
   <nav class="navbar">
     <div class="container nav-container">
       <a href="/" class="nav-brand" id="brand-link">
+        <div class="nav-brand-icon">PoW</div>
         <span>Proof-of-Work</span>
-        <span class="nav-tag">Project Evidence</span>
+        <span class="nav-tag">Project Case Study</span>
       </a>
-      <div class="nav-menu" style="display: flex; gap: 14px;">
+      <div class="nav-menu" style="display: flex; gap: 14px; align-items: center;">
         <a id="back-to-portfolio" href="/" class="nav-link">&larr; Back to Portfolio</a>
         <a href="/create" class="btn btn-primary btn-sm">+ Add Project</a>
       </div>
@@ -24,8 +25,8 @@
 
   <main class="section">
     <div class="container container-narrow">
-      <div id="project-loading" style="color: var(--text-muted); font-size: 0.95rem; text-align: center; padding: 40px 0;">
-        Loading project evidence...
+      <div id="project-loading" style="color: var(--text-muted); font-size: 0.95rem; text-align: center; padding: 60px 0;">
+        Loading project evidence dossier...
       </div>
 
       <div id="project-content" style="display: none;">
@@ -40,13 +41,21 @@
             </div>
           </div>
 
-          <h1 id="proj-title" style="font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 800; letter-spacing: -0.025em; line-height: 1.25; margin-bottom: 14px;"></h1>
-          
-          <div style="display: flex; align-items: center; gap: 12px; font-size: 0.9rem; color: var(--text-muted); flex-wrap: wrap;">
-            <span>By <a id="author-link" href="#" style="color: var(--text-main); font-weight: 600; text-decoration: underline;"></a> (<span id="author-role"></span>)</span>
+          <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px;">
+            <h1 id="proj-title" style="font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 800; letter-spacing: -0.025em; line-height: 1.25; margin-bottom: 0;"></h1>
+            <span id="proj-nda-badge" style="display: none;" class="badge-nda">NDA &bull; Confidential Client</span>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 12px; font-size: 0.9rem; color: var(--text-muted); flex-wrap: wrap; margin-bottom: 18px;">
+            <span>By <a id="author-link" href="#" style="color: var(--text-main); font-weight: 700; text-decoration: underline;"></a> (<span id="author-role"></span>)</span>
             <span>&bull;</span>
             <span id="proj-date"></span>
             <span id="client-info-meta"></span>
+          </div>
+
+          <!-- Project External Links Strip -->
+          <div id="proj-links-strip" class="links-strip" style="margin-bottom: 0;">
+            <!-- Rendered links -->
           </div>
         </header>
 
@@ -62,19 +71,21 @@
           </div>
         </div>
 
-        <!-- Problem Statement -->
-        <section style="margin-bottom: 40px;">
-          <h2 style="font-size: 1.3rem; font-weight: 700; border-bottom: 1px solid var(--border-light); padding-bottom: 10px; margin-bottom: 16px;">
-            1. The Real Technical Problem Solved
+        <!-- Section 1: The Real Technical Problem & Constraints -->
+        <section style="margin-bottom: 36px;">
+          <div class="section-subhead">Section 01</div>
+          <h2 style="font-size: 1.35rem; font-weight: 800; border-bottom: 1px solid var(--border-light); padding-bottom: 10px; margin-bottom: 16px;">
+            The Real Technical Problem &amp; Operational Constraints
           </h2>
-          <div id="proj-problem" style="font-size: 1rem; color: var(--text-body); line-height: 1.65; white-space: pre-wrap;"></div>
+          <div id="proj-problem" style="font-size: 1rem; color: var(--text-body); line-height: 1.7; white-space: pre-wrap;"></div>
         </section>
 
-        <!-- Decisions & Rejected Alternatives -->
-        <section style="margin-bottom: 40px;">
+        <!-- Section 2: Decisions & Rejected Alternatives -->
+        <section style="margin-bottom: 36px;">
+          <div class="section-subhead">Section 02</div>
           <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--border-light); padding-bottom: 10px; margin-bottom: 18px; flex-wrap: wrap; gap: 8px;">
-            <h2 style="font-size: 1.3rem; font-weight: 700;">
-              2. Architectural Decisions &amp; Rejected Alternatives
+            <h2 style="font-size: 1.35rem; font-weight: 800;">
+              Architectural Decisions &amp; Rejected Alternatives
             </h2>
             <span id="decisions-count-badge" class="badge badge-neutral">0 Decisions</span>
           </div>
@@ -83,11 +94,50 @@
           </div>
         </section>
 
-        <!-- Dated Artefacts Timeline (Receipts) -->
-        <section style="margin-bottom: 40px;">
+        <!-- Section 3: Measurable Result & Defensible Metric -->
+        <section style="margin-bottom: 36px;">
+          <div class="section-subhead">Section 03</div>
+          <h2 style="font-size: 1.35rem; font-weight: 800; border-bottom: 1px solid var(--border-light); padding-bottom: 10px; margin-bottom: 16px;">
+            Measurable Outcome &amp; Defensible Metric
+          </h2>
+          <div id="proj-result" style="font-size: 1rem; color: var(--text-main); font-weight: 500; background: var(--bg-surface); border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 20px; line-height: 1.65; white-space: pre-wrap; margin-bottom: 16px;"></div>
+
+          <div id="proj-defensible-container" class="defensible-metric-card" style="display: none;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 4px;">
+              Defensible Number / Performance Benchmark
+            </div>
+            <div id="proj-defensible-val" class="defensible-metric-value"></div>
+          </div>
+        </section>
+
+        <!-- Section 4: Micro-Attribution & AI Disclosure -->
+        <section style="margin-bottom: 36px;">
+          <div class="section-subhead">Section 04</div>
+          <h2 style="font-size: 1.35rem; font-weight: 800; border-bottom: 1px solid var(--border-light); padding-bottom: 10px; margin-bottom: 16px;">
+            Attribution &amp; AI-Assistance Disclosure
+          </h2>
+
+          <div id="proj-attribution-box" class="micro-attribution-box" style="display: none;">
+            <div style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 4px;">
+              My Contribution (Micro-Attribution)
+            </div>
+            <div id="proj-attribution-text"></div>
+          </div>
+
+          <div id="proj-ai-box" class="ai-disclosure-box" style="display: none;">
+            <div style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 4px;">
+              AI-Assistance Disclosure
+            </div>
+            <div id="proj-ai-text"></div>
+          </div>
+        </section>
+
+        <!-- Section 5: Dated Receipts Timeline -->
+        <section style="margin-bottom: 36px;">
+          <div class="section-subhead">Section 05</div>
           <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--border-light); padding-bottom: 10px; margin-bottom: 18px; flex-wrap: wrap; gap: 8px;">
-            <h2 style="font-size: 1.3rem; font-weight: 700;">
-              3. Dated Artefacts (The Receipts)
+            <h2 style="font-size: 1.35rem; font-weight: 800;">
+              Dated Artefacts (The Verifiable Receipts)
             </h2>
             <span id="artefacts-count-badge" class="badge badge-neutral">0 Artefacts</span>
           </div>
@@ -96,30 +146,24 @@
           </div>
         </section>
 
-        <!-- Measurable Result -->
-        <section style="margin-bottom: 40px;">
-          <h2 style="font-size: 1.3rem; font-weight: 700; border-bottom: 1px solid var(--border-light); padding-bottom: 10px; margin-bottom: 16px;">
-            4. Measurable Result / Outcome
-          </h2>
-          <div id="proj-result" style="font-size: 1rem; color: var(--text-main); background: var(--bg-surface); border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 20px; line-height: 1.65; white-space: pre-wrap;"></div>
-        </section>
-
-        <!-- AI Claim-Evidence Corroboration Section -->
-        <section id="ai-evidence-section" style="margin-bottom: 40px; border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 22px; background: var(--bg-surface);">
+        <!-- Section 6: AI Claim-Evidence Corroboration Engine -->
+        <section id="ai-evidence-section" style="margin-bottom: 36px; border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 24px; background: #ffffff;">
+          <div class="section-subhead">Section 06</div>
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
             <div>
-              <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 2px;">5. AI Claim-Evidence Corroboration</h2>
-              <div style="font-size: 0.82rem; color: var(--text-muted);">Matches technical claims and decisions against attached receipts</div>
+              <h2 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 2px;">AI Claim-Evidence Corroboration</h2>
+              <div style="font-size: 0.82rem; color: var(--text-muted);">Local open-weight semantic vector analysis of claims against attached receipts</div>
             </div>
             <span id="evidence-status-badge" class="badge"></span>
           </div>
-          <p id="evidence-summary" style="font-size: 0.92rem; color: var(--text-body); margin-bottom: 16px; line-height: 1.55;"></p>
-          <div id="evidence-findings-list" style="display: flex; flex-direction: column; gap: 8px;"></div>
+          <p id="evidence-summary" style="font-size: 0.95rem; color: var(--text-body); margin-bottom: 18px; line-height: 1.6;"></p>
+          <div id="evidence-findings-list" style="display: flex; flex-direction: column; gap: 10px;"></div>
         </section>
 
-        <!-- Client Confirmation Box -->
-        <section id="confirmation-cta-box" style="margin-bottom: 48px; border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 24px; background: var(--bg-surface);">
-          <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 8px;">6. Client Confirmation Status</h3>
+        <!-- Section 7: Client Confirmation Status -->
+        <section id="confirmation-cta-box" style="margin-bottom: 48px; border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 24px; background: #ffffff;">
+          <div class="section-subhead">Section 07</div>
+          <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 8px;">Client Confirmation Status</h3>
           <p id="confirm-box-desc" style="font-size: 0.92rem; color: var(--text-body); margin-bottom: 18px; line-height: 1.5;"></p>
           <div id="confirm-box-action"></div>
         </section>
@@ -160,7 +204,7 @@
         }
 
         const p = data.project;
-        document.title = `${p.title} — Proof-of-Work`;
+        document.title = `${p.title} — Proof-of-Work Project Dossier`;
 
         document.getElementById('project-loading').style.display = 'none';
         document.getElementById('project-content').style.display = 'block';
@@ -174,8 +218,105 @@
         document.getElementById('author-role').textContent = p.author_role || 'Software Engineer';
         document.getElementById('proj-date').textContent = new Date(p.created_at).toLocaleDateString();
 
+        if (p.is_nda) {
+          document.getElementById('proj-nda-badge').style.display = 'inline-block';
+        }
+
         if (p.client_name) {
           document.getElementById('client-info-meta').innerHTML = `<span>&bull;</span> <span>Client: <strong>${escapeHtml(p.client_name)}</strong></span>`;
+        }
+
+        // External Links Strip
+        const linksStripEl = document.getElementById('proj-links-strip');
+        let linksHtml = '';
+        if (p.live_url) {
+          linksHtml += `<a href="${escapeHtml(p.live_url)}" target="_blank" rel="noopener noreferrer">🌐 Live Demo &#x2197;</a>`;
+        }
+        if (p.repo_url) {
+          linksHtml += `<a href="${escapeHtml(p.repo_url)}" target="_blank" rel="noopener noreferrer">💻 Git Repository &#x2197;</a>`;
+        }
+        if (p.readme_url) {
+          linksHtml += `<a href="${escapeHtml(p.readme_url)}" target="_blank" rel="noopener noreferrer">📄 Technical README &#x2197;</a>`;
+        }
+        linksStripEl.innerHTML = linksHtml;
+
+        // Problem & Result
+        document.getElementById('proj-problem').textContent = p.problem;
+        document.getElementById('proj-result').textContent = p.result;
+
+        // Defensible Number
+        if (p.defensible_number) {
+          const defBox = document.getElementById('proj-defensible-container');
+          defBox.style.display = 'block';
+          document.getElementById('proj-defensible-val').textContent = p.defensible_number;
+        }
+
+        // Micro-Attribution & AI Disclosure
+        if (p.my_role_attribution) {
+          const attrBox = document.getElementById('proj-attribution-box');
+          attrBox.style.display = 'block';
+          document.getElementById('proj-attribution-text').textContent = p.my_role_attribution;
+        }
+
+        if (p.ai_disclosure) {
+          const aiBox = document.getElementById('proj-ai-box');
+          aiBox.style.display = 'block';
+          document.getElementById('proj-ai-text').textContent = p.ai_disclosure;
+        }
+
+        // Decisions
+        const decisionsContainer = document.getElementById('proj-decisions');
+        const decisions = p.decisions || [];
+        document.getElementById('decisions-count-badge').textContent = `${decisions.length} Decisions`;
+
+        if (decisions.length === 0) {
+          decisionsContainer.innerHTML = `<p style="color: var(--text-muted); font-size: 0.95rem;">No trade-offs documented yet.</p>`;
+        } else {
+          decisionsContainer.innerHTML = decisions.map((d, idx) => `
+            <div style="background: var(--bg-subtle); border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 18px 22px; margin-bottom: 14px;">
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                <span class="badge badge-neutral" style="font-family: var(--font-mono); font-size: 0.72rem;">DECISION #${idx + 1}</span>
+                <strong style="color: var(--text-main); font-size: 1rem;">${escapeHtml(d.decision)}</strong>
+              </div>
+              <div style="color: var(--danger-text); font-size: 0.92rem; margin-bottom: 6px;">
+                <strong>Rejected Alternative:</strong> ${escapeHtml(d.rejected_alternative)}
+              </div>
+              ${d.reason ? `
+                <div style="font-size: 0.9rem; color: var(--text-body); line-height: 1.5;">
+                  <strong>Reasoning:</strong> ${escapeHtml(d.reason)}
+                </div>
+              ` : ''}
+            </div>
+          `).join('');
+        }
+
+        // Artefacts
+        const artefactsContainer = document.getElementById('proj-artefacts');
+        const artefacts = p.artefacts || [];
+        document.getElementById('artefacts-count-badge').textContent = `${artefacts.length} Artefacts`;
+
+        if (artefacts.length === 0) {
+          artefactsContainer.innerHTML = `<p style="color: var(--text-muted); font-size: 0.95rem;">No receipts attached yet.</p>`;
+        } else {
+          artefactsContainer.innerHTML = artefacts.map(a => `
+            <div class="artefact-item" style="margin-bottom: 12px;">
+              <div>
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px; flex-wrap: wrap;">
+                  <span class="badge badge-neutral" style="font-family: var(--font-mono); font-size: 0.72rem;">${a.type.toUpperCase()}</span>
+                  <strong style="color: var(--text-main); font-size: 0.95rem;">${escapeHtml(a.title)}</strong>
+                </div>
+                ${a.notes ? `<div style="font-size: 0.88rem; color: var(--text-body); margin-bottom: 6px;">${escapeHtml(a.notes)}</div>` : ''}
+                <div style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--accent-blue); word-break: break-all;">
+                  ${a.url_or_hash.startsWith('http') 
+                    ? `<a href="${escapeHtml(a.url_or_hash)}" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">${escapeHtml(a.url_or_hash)} &#x2197;</a>`
+                    : `<span>Commit Hash: ${escapeHtml(a.url_or_hash)}</span>`}
+                </div>
+              </div>
+              <div class="artefact-meta">
+                <span style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-muted);">${escapeHtml(a.artefact_date)}</span>
+              </div>
+            </div>
+          `).join('');
         }
 
         // Status Badge & Action
@@ -184,7 +325,7 @@
         const confirmBoxAction = document.getElementById('confirm-box-action');
 
         if (p.is_sample) {
-          statusEl.innerHTML = `<span class="badge badge-neutral" style="border: 1px dashed var(--border-dark); font-size: 0.85rem; padding: 5px 12px;">SAMPLE DATA &mdash; Not a Real Confirmation</span>`;
+          statusEl.innerHTML = `<span class="badge-sample-lg">SAMPLE DATA &mdash; NOT A REAL CONFIRMATION</span>`;
           confirmBoxDesc.textContent = `This is a sample demonstration entry. It does not represent an actual authenticated deliverable or real client review.`;
           confirmBoxAction.innerHTML = `<span class="badge badge-neutral">Demonstration Mock</span>`;
         } else if (p.client_confirm_status === 'confirmed') {
@@ -198,7 +339,7 @@
           }
 
           confirmBoxDesc.textContent = `This project has been officially verified by ${p.client_name || 'the client'}. The technical constraints, artefacts, and deliverables have been authenticated.`;
-          confirmBoxAction.innerHTML = `<span class="badge badge-confirmed">Verification Sealed</span>`;
+          confirmBoxAction.innerHTML = `<span class="badge badge-confirmed">&check; Link Authenticated by Client</span>`;
 
         } else if (p.client_confirm_status === 'pending') {
           statusEl.innerHTML = `<span class="badge badge-pending" style="font-size: 0.85rem; padding: 5px 12px;">&bull; Awaiting client confirmation</span>`;
@@ -219,7 +360,7 @@
           `;
         } else if (p.client_confirm_status === 'disputed') {
           statusEl.innerHTML = `<span class="badge badge-disputed" style="font-size: 0.85rem; padding: 5px 12px;">&times; Disputed by Client</span>`;
-          confirmBoxDesc.textContent = `The client reviewed this submission and marked it as disputed or inaccurate. Note: ${p.client_feedback || 'No feedback provided.'}`;
+          confirmBoxDesc.textContent = `The client reviewed this submission and marked it as disputed. Feedback: ${p.client_feedback || 'None provided.'}`;
         } else {
           statusEl.innerHTML = `<span class="badge badge-neutral" style="font-size: 0.85rem; padding: 5px 12px;">Verification Unrequested</span>`;
           confirmBoxDesc.textContent = `No client confirmation link has been generated yet for this project.`;
@@ -244,82 +385,16 @@
                 ? '<span class="badge badge-confirmed" style="font-size: 0.72rem;">&check; Supported</span>'
                 : (f.status === 'Unclear' ? '<span class="badge badge-pending" style="font-size: 0.72rem;">&bull; Unclear</span>' : '<span class="badge badge-disputed" style="font-size: 0.72rem;">&times; Unsupported</span>');
               return `
-                <div style="background: var(--bg-subtle); border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 10px 14px; font-size: 0.88rem;">
+                <div style="background: var(--bg-subtle); border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 12px 16px; font-size: 0.9rem;">
                   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; gap: 8px;">
                     <strong style="color: var(--text-main);">${escapeHtml(f.claim)}</strong>
                     ${fBadge}
                   </div>
-                  <div style="color: var(--text-muted); font-size: 0.82rem;">${escapeHtml(f.evidence)}</div>
+                  <div style="color: var(--text-muted); font-size: 0.84rem;">${escapeHtml(f.evidence)}</div>
                 </div>
               `;
             }).join('');
           }
-        }
-
-        // Problem & Result
-        document.getElementById('proj-problem').textContent = p.problem;
-        document.getElementById('proj-result').textContent = p.result;
-
-        // Decisions
-        const decisionsContainer = document.getElementById('proj-decisions');
-        document.getElementById('decisions-count-badge').textContent = `${p.decisions.length} Decisions`;
-
-        if (p.decisions.length === 0) {
-          decisionsContainer.innerHTML = `<p style="color: var(--text-muted); font-size: 0.92rem;">No architectural trade-offs recorded for this project.</p>`;
-        } else {
-          decisionsContainer.innerHTML = p.decisions.map((d, idx) => `
-            <div class="decision-block">
-              <div class="decision-row">
-                <div class="decision-label">Decision #${idx + 1}</div>
-                <div class="decision-content" style="font-weight: 700; color: var(--text-main);">
-                  ${escapeHtml(d.decision)}
-                </div>
-              </div>
-              <div class="decision-row">
-                <div class="decision-label" style="color: var(--danger-text);">Rejected</div>
-                <div class="decision-content decision-rejected">
-                  ${escapeHtml(d.rejected_alternative)}
-                </div>
-              </div>
-              <div class="decision-row">
-                <div class="decision-label">Rationale</div>
-                <div class="decision-content">
-                  ${escapeHtml(d.reason || 'No rationale provided.')}
-                </div>
-              </div>
-            </div>
-          `).join('');
-        }
-
-        // Artefacts
-        const artefactsContainer = document.getElementById('proj-artefacts');
-        document.getElementById('artefacts-count-badge').textContent = `${p.artefacts.length} Artefacts`;
-
-        if (p.artefacts.length === 0) {
-          artefactsContainer.innerHTML = `<p style="color: var(--text-muted); font-size: 0.92rem;">No dated artefacts attached.</p>`;
-        } else {
-          artefactsContainer.innerHTML = p.artefacts.map(a => {
-            const isUrl = a.url_or_hash.startsWith('http://') || a.url_or_hash.startsWith('https://');
-            const linkHtml = isUrl
-              ? `<a href="${escapeHtml(a.url_or_hash)}" target="_blank" rel="noopener noreferrer" class="artefact-link">${escapeHtml(a.url_or_hash)}</a>`
-              : `<span style="font-family: var(--font-mono); background: var(--bg-subtle); padding: 3px 8px; border-radius: 4px; border: 1px solid var(--border-light); font-size: 0.82rem;">${escapeHtml(a.url_or_hash)}</span>`;
-
-            return `
-              <div class="artefact-item">
-                <div class="artefact-info">
-                  <div class="artefact-header">
-                    <span class="artefact-type">${escapeHtml(a.type)}</span>
-                    <span class="artefact-title">${escapeHtml(a.title)}</span>
-                  </div>
-                  ${a.notes ? `<p style="font-size: 0.88rem; color: var(--text-body); margin-top: 4px;">${escapeHtml(a.notes)}</p>` : ''}
-                </div>
-                <div class="artefact-meta">
-                  <span>${escapeHtml(a.artefact_date)}</span>
-                  <span>${linkHtml}</span>
-                </div>
-              </div>
-            `;
-          }).join('');
         }
 
       } catch (err) {
@@ -327,29 +402,29 @@
       }
     }
 
-    function copyDirectConfirmLink() {
-      const input = document.getElementById('direct-confirm-url');
-      input.select();
-      navigator.clipboard.writeText(input.value);
-      alert('Client confirmation link copied to clipboard.');
-    }
-
-    async function requestConfirm(id) {
+    async function requestConfirm(projectId) {
       try {
-        const res = await fetch(`/api/projects/${id}/request-confirm`, {
+        const res = await fetch(`/api/projects/${projectId}/request-confirm`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({})
         });
         const data = await res.json();
         if (data.success) {
-          location.reload();
+          window.location.reload();
         } else {
           alert('Failed to generate confirmation link: ' + data.error);
         }
       } catch (err) {
         alert('Error: ' + err.message);
       }
+    }
+
+    function copyDirectConfirmLink() {
+      const input = document.getElementById('direct-confirm-url');
+      input.select();
+      navigator.clipboard.writeText(input.value);
+      alert('Client confirmation link copied to clipboard!');
     }
 
     function escapeHtml(str) {

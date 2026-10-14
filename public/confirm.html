@@ -75,15 +75,32 @@
           <p id="v-problem" style="color: var(--text-body); font-size: 0.92rem; line-height: 1.6;"></p>
         </div>
 
-        <div>
+        <div style="margin-bottom: 16px;">
           <div style="font-size: 0.78rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px;">
-            Reported Result
+            Reported Result &amp; Defensible Metric
           </div>
           <p id="v-result" style="color: var(--text-main); font-weight: 600; font-size: 0.92rem; line-height: 1.5;"></p>
+          <div id="v-defensible-box" style="display: none; font-family: var(--font-mono); font-size: 0.85rem; background: #ffffff; border: 1px solid var(--border-medium); border-left: 3px solid var(--accent-blue); padding: 8px 12px; margin-top: 8px; border-radius: var(--radius-xs);">
+            <strong>Metric to Verify:</strong> <span id="v-defensible-val"></span>
+          </div>
+        </div>
+
+        <!-- Micro Attribution -->
+        <div id="v-attribution-box" style="display: none; margin-bottom: 16px; background: #ffffff; border: 1px solid var(--border-light); padding: 10px 14px; border-radius: var(--radius-xs); font-size: 0.88rem;">
+          <strong style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; display: block; margin-bottom: 2px;">Builder's Stated Contribution:</strong>
+          <span id="v-attribution-val"></span>
+        </div>
+
+        <!-- Decisions List -->
+        <div id="v-decisions-container" style="margin-bottom: 16px;">
+          <div style="font-size: 0.78rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px;">
+            Documented Architectural Decisions
+          </div>
+          <div id="v-decisions-list" style="display: flex; flex-direction: column; gap: 6px;"></div>
         </div>
 
         <!-- Artefacts List -->
-        <div id="v-artefacts-container" style="margin-top: 18px; border-top: 1px solid var(--border-light); padding-top: 16px;">
+        <div id="v-artefacts-container" style="border-top: 1px solid var(--border-light); padding-top: 14px;">
           <div style="font-size: 0.78rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px;">
             Attached Receipts (<span id="v-artefacts-count">0</span> Verified)
           </div>
@@ -182,6 +199,28 @@
         document.getElementById('v-project-title').textContent = currentProject.title;
         document.getElementById('v-problem').textContent = currentProject.problem;
         document.getElementById('v-result').textContent = currentProject.result;
+
+        if (currentProject.defensible_number) {
+          document.getElementById('v-defensible-box').style.display = 'block';
+          document.getElementById('v-defensible-val').textContent = currentProject.defensible_number;
+        }
+
+        if (currentProject.my_role_attribution) {
+          document.getElementById('v-attribution-box').style.display = 'block';
+          document.getElementById('v-attribution-val').textContent = currentProject.my_role_attribution;
+        }
+
+        const decisions = currentProject.decisions || [];
+        const decList = document.getElementById('v-decisions-list');
+        if (decisions.length === 0) {
+          decList.innerHTML = `<span style="font-size: 0.85rem; color: var(--text-muted);">None documented.</span>`;
+        } else {
+          decList.innerHTML = decisions.map(d => `
+            <div style="font-size: 0.88rem; background: #ffffff; border: 1px solid var(--border-light); padding: 8px 12px; border-radius: var(--radius-xs);">
+              <strong>Choice:</strong> ${escapeHtml(d.decision)} <span style="color: var(--danger-text);">[Rejected: ${escapeHtml(d.rejected_alternative)}]</span>
+            </div>
+          `).join('');
+        }
 
         if (currentProject.client_name) {
           document.getElementById('client-name-input').value = currentProject.client_name;

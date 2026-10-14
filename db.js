@@ -75,11 +75,35 @@ function initDb() {
     CREATE INDEX IF NOT EXISTS idx_artefacts_project ON artefacts(project_id);
   `);
 
-  try {
-    db.exec('ALTER TABLE projects ADD COLUMN is_sample INTEGER DEFAULT 0');
-  } catch (e) {
-    // column already exists
-  }
+  const projectMigrations = [
+    'ALTER TABLE projects ADD COLUMN is_sample INTEGER DEFAULT 0',
+    'ALTER TABLE projects ADD COLUMN defensible_number TEXT',
+    'ALTER TABLE projects ADD COLUMN my_role_attribution TEXT',
+    'ALTER TABLE projects ADD COLUMN ai_disclosure TEXT',
+    'ALTER TABLE projects ADD COLUMN is_nda INTEGER DEFAULT 0',
+    'ALTER TABLE projects ADD COLUMN live_url TEXT',
+    'ALTER TABLE projects ADD COLUMN repo_url TEXT',
+    'ALTER TABLE projects ADD COLUMN readme_url TEXT'
+  ];
+
+  const profileMigrations = [
+    'ALTER TABLE profiles ADD COLUMN location TEXT',
+    'ALTER TABLE profiles ADD COLUMN about TEXT',
+    'ALTER TABLE profiles ADD COLUMN experience TEXT',
+    'ALTER TABLE profiles ADD COLUMN open_source TEXT',
+    'ALTER TABLE profiles ADD COLUMN writing_talks TEXT',
+    'ALTER TABLE profiles ADD COLUMN skills TEXT',
+    'ALTER TABLE profiles ADD COLUMN resume_url TEXT',
+    'ALTER TABLE profiles ADD COLUMN contact_email TEXT'
+  ];
+
+  [...projectMigrations, ...profileMigrations].forEach(migration => {
+    try {
+      db.exec(migration);
+    } catch (e) {
+      // Column already exists
+    }
+  });
 }
 
 initDb();
@@ -92,25 +116,58 @@ function getProfileById(id) {
   return db.prepare('SELECT * FROM profiles WHERE id = ?').get(id);
 }
 
-function createOrUpdateProfile({ username, full_name, bio = '', role = '', email = '', github_url = '' }) {
+function createOrUpdateProfile({
+  username,
+  full_name,
+  bio = '',
+  role = '',
+  email = '',
+  github_url = '',
+  location = '',
+  about = '',
+  experience = '',
+  open_source = '',
+  writing_talks = '',
+  skills = '',
+  resume_url = '',
+  contact_email = ''
+}) {
   const cleanUsername = username.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '');
   const existing = getProfileByUsername(cleanUsername);
   
   if (existing) {
     db.prepare(`
       UPDATE profiles 
-      SET full_name = ?, bio = ?, role = ?, email = ?, github_url = ?
+      SET full_name = ?, bio = ?, role = ?, email = ?, github_url = ?,
+          location = COALESCE(NULLIF(?, ''), location),
+          about = COALESCE(NULLIF(?, ''), about),
+          experience = COALESCE(NULLIF(?, ''), experience),
+          open_source = COALESCE(NULLIF(?, ''), open_source),
+          writing_talks = COALESCE(NULLIF(?, ''), writing_talks),
+          skills = COALESCE(NULLIF(?, ''), skills),
+          resume_url = COALESCE(NULLIF(?, ''), resume_url),
+          contact_email = COALESCE(NULLIF(?, ''), contact_email)
       WHERE id = ?
-    `).run(full_name, bio, role, email, github_url, existing.id);
+    `).run(
+      full_name, bio, role, email, github_url,
+      location, about, experience, open_source, writing_talks, skills, resume_url, contact_email,
+      existing.id
+    );
     return getProfileById(existing.id);
   }
 
   const id = crypto.randomUUID();
   const created_at = new Date().toISOString();
   db.prepare(`
-    INSERT INTO profiles (id, username, full_name, bio, role, email, github_url, created_at)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-  `).run(id, cleanUsername, full_name, bio, role, email, github_url, created_at);
+    INSERT INTO profiles (
+      id, username, full_name, bio, role, email, github_url,
+      location, about, experience, open_source, writing_talks, skills, resume_url, contact_email, created_at
+    )
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `).run(
+    id, cleanUsername, full_name, bio, role, email, github_url,
+    location, about, experience, open_source, writing_talks, skills, resume_url, contact_email, created_at
+  );
 
   return getProfileById(id);
 }
@@ -121,6 +178,13 @@ function createProject({
   summary = '',
   problem,
   result,
+  defensible_number = '',
+  my_role_attribution = '',
+  ai_disclosure = '',
+  is_nda = 0,
+  live_url = '',
+  repo_url = '',
+  readme_url = '',
   client_name = '',
   client_email = '',
   request_confirmation = false,
@@ -142,9 +206,10 @@ function createProject({
 
   const insertProject = db.prepare(`
     INSERT INTO projects (
-      id, profile_id, title, slug, summary, problem, result, 
+      id, profile_id, title, slug, summary, problem, result,
+      defensible_number, my_role_attribution, ai_disclosure, is_nda, live_url, repo_url, readme_url,
       client_name, client_email, client_confirm_token, client_confirm_status, is_sample, created_at
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
 
   const insertDecision = db.prepare(`
@@ -160,6 +225,7 @@ function createProject({
   const transaction = db.transaction(() => {
     insertProject.run(
       id, profile_id, title, slug, summary, problem, result,
+      defensible_number, my_role_attribution, ai_disclosure, is_nda ? 1 : 0, live_url, repo_url, readme_url,
       client_name, client_email, confirm_token, confirm_status, is_sample ? 1 : 0, created_at
     );
 
@@ -216,8 +282,7 @@ function getProjectById(id) {
 
   // Compute Claim-Evidence matching
   const evidenceAnalysis = matcher.matchClaimEvidence({
-    problem: project.problem,
-    result: project.result,
+    ...project,
     decisions,
     artefacts
   });
@@ -239,8 +304,7 @@ function getProjectsByProfileId(profileId) {
     const decisions = db.prepare('SELECT * FROM decisions WHERE project_id = ? ORDER BY sort_order ASC').all(p.id);
     const artefacts = db.prepare('SELECT * FROM artefacts WHERE project_id = ? ORDER BY sort_order ASC').all(p.id);
     const evidenceAnalysis = matcher.matchClaimEvidence({
-      problem: p.problem,
-      result: p.result,
+      ...p,
       decisions,
       artefacts
     });
@@ -261,8 +325,7 @@ function getAllProjects(limit = 20) {
     const artefacts = db.prepare('SELECT * FROM artefacts WHERE project_id = ?').all(p.id);
     const decisions = db.prepare('SELECT * FROM decisions WHERE project_id = ?').all(p.id);
     const evidenceAnalysis = matcher.matchClaimEvidence({
-      problem: p.problem,
-      result: p.result,
+      ...p,
       decisions,
       artefacts
     });
@@ -289,8 +352,7 @@ function getProjectByConfirmToken(token) {
   const decisions = db.prepare('SELECT * FROM decisions WHERE project_id = ? ORDER BY sort_order ASC').all(project.id);
   const artefacts = db.prepare('SELECT * FROM artefacts WHERE project_id = ? ORDER BY sort_order ASC').all(project.id);
   const evidenceAnalysis = matcher.matchClaimEvidence({
-    problem: project.problem,
-    result: project.result,
+    ...project,
     decisions,
     artefacts
   });

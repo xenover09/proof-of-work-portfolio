@@ -17,11 +17,32 @@ Generative AI and automated resume writers have caused a collapse of trust in te
 Recruiters and clients are drowning in unverified, exaggerated claims. Resumes without receipts carry zero signal.
 
 ### The Solution:
-**Proof-of-Work Portfolio** is an anti-hallucination, evidence-first portfolio builder for software engineers, freelancers, and students. Every project is anchored by:
-1. **The Hard Problem Statement:** Explicit technical friction, constraints, and bottlenecks — not generic bullet points.
-2. **Architectural Decisions & Rejected Alternatives:** Clear rationale demonstrating why Alternative A was chosen over Alternative B (e.g., PostgreSQL vs MongoDB, REST vs gRPC). Authentic engineers articulate real trade-offs that AI cannot fabricate.
-4. **One-Tap Client Confirmation Flow:** A private, link-based verification URL issued to the client or product lead. The client reviews the deliverable summary and authenticates it in five seconds with zero signup required. The project immediately displays the verified seal.
-5. **AI Claim-Evidence Matching Engine:** Open-weight semantic vector analysis that compares stated technical decisions and results against attached git commits and benchmark receipts (Supported / Unsupported / Unclear).
+**Proof-of-Work Portfolio** is an anti-hallucination, evidence-first portfolio builder for software engineers, freelancers, and students. Built on the researched structure used by senior and staff engineers at top technology companies:
+
+#### 1. The Researched Portfolio Structure:
+`Hero → About → Experience → 2-4 Finished Projects (Best First) → Open Source → Writing & Talks → Honest Skills → Identifiable Recommendations → Contact + CV`
+
+#### 2. The Senior Case Study Standard:
+Every project is documented as an auditable technical case study:
+- **Specific Problem & Constraints:** Explicit operational friction, latency, and scale bottlenecks &mdash; never generic tutorial bullet points.
+- **Architectural Decisions & Rejected Alternatives:** Clear technical trade-offs documenting what was evaluated and **why alternatives were rejected**.
+- **Measurable Result & Defensible Number:** A concrete, auditable metric (e.g. `4,800 req/s @ p99 38ms`) backed by benchmark logs. If confidential under NDA, mark "Confidential" &mdash; never invent percentages.
+- **Micro-Attribution:** Explicit demarcation of what you personally engineered versus team or template code.
+- **AI-Assistance Disclosure:** Radical honesty on where AI helped (boilerplate, mock tests) vs what you engineered and who made architectural decisions.
+- **Verifiable Code Links:** Direct links to Live Demo, Git Repository, and Technical README.
+- **Dated Technical Receipts:** Git commit hashes, PR diffs, staging URLs, and benchmark runs.
+
+#### 3. Ethical NDA Handling:
+If client work is confidential: anonymize the client to industry and scale (e.g., *"Tier-1 Payment Gateway &bull; ~10M MAU"*), keep the technical challenge and individual contribution 100% specific, and mark metrics as *"Confidential"*.
+
+#### 4. Radical Honesty Guarantees:
+- **Zero Fake Personas:** No fabricated names, fake organizations, or simulated testimonials.
+- **Identifiable Recommendations Only:** Recommendations appear only when a real client authenticates the deliverable via private link.
+- **Real Platform Stats:** Stats display only verified counts (0 if none confirmed yet &mdash; never simulated counts).
+- **Clear Sample Badging:** Any demonstration entry carries a prominent `SAMPLE DATA — NOT A REAL CONFIRMATION` badge and is excluded from stats.
+
+#### 5. AI Claim-Evidence Corroboration Engine:
+Local open-weight semantic vector analysis that compares user claims and architectural trade-offs against attached commit SHAs, PR diffs, and benchmark logs, outputting an auditable verdict: `Supported`, `Unclear`, or `Unsupported`.
 
 ---
 

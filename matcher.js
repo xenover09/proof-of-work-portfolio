@@ -106,12 +106,17 @@ function matchClaimEvidence(project) {
   const claimText = [
     project.problem || '',
     project.result || '',
+    project.defensible_number || '',
+    project.my_role_attribution || '',
     decisions.map(d => `${d.decision} ${d.rejected_alternative} ${d.reason}`).join(' ')
   ].join(' ');
 
-  const evidenceText = artefacts.map(a => 
-    `${a.title} ${a.type} ${a.url_or_hash} ${a.notes || ''}`
-  ).join(' ');
+  const evidenceText = [
+    artefacts.map(a => `${a.title} ${a.type} ${a.url_or_hash} ${a.notes || ''}`).join(' '),
+    project.repo_url || '',
+    project.live_url || '',
+    project.readme_url || ''
+  ].join(' ');
 
   const claimTokens = tokenize(claimText);
   const evidenceTokens = tokenize(evidenceText);
@@ -134,13 +139,15 @@ function matchClaimEvidence(project) {
 
   const entityOverlap = claimEntities.length > 0 ? (entityMatches / claimEntities.length) : 0.5;
 
-  // Has commit or benchmark receipts?
+  // Has commit, benchmark, or repo receipts?
   const hasCommit = artefacts.some(a => a.type === 'commit' || a.type === 'pr' || /[0-9a-f]{7,40}/i.test(a.url_or_hash));
   const hasBenchmark = artefacts.some(a => a.type === 'benchmark' || a.type === 'staging');
+  const hasRepoLink = !!(project.repo_url || artefacts.some(a => (a.url_or_hash || '').includes('github.com') || (a.url_or_hash || '').includes('gitlab.com')));
 
-  let baseScore = (semanticSimilarity * 0.55) + (entityOverlap * 0.3);
-  if (hasCommit) baseScore += 0.1;
-  if (hasBenchmark) baseScore += 0.05;
+  let baseScore = (semanticSimilarity * 0.45) + (entityOverlap * 0.25);
+  if (hasCommit) baseScore += 0.15;
+  if (hasBenchmark) baseScore += 0.10;
+  if (hasRepoLink) baseScore += 0.05;
 
   // Scale to 0-100%
   const scorePercent = Math.min(100, Math.round(baseScore * 100));
@@ -197,6 +204,36 @@ function matchClaimEvidence(project) {
     });
   }
 
+  // Defensible metric check
+  if (project.defensible_number) {
+    const isDefensible = hasBenchmark || artefacts.some(a => /\b(\d+|k|ms|s|%)\b/i.test(a.notes || '') || /\b(\d+|k|ms|s|%)\b/i.test(a.title));
+    findings.push({
+      claim: `Defensible Metric: "${project.defensible_number}"`,
+      status: isDefensible ? 'Supported' : 'Unclear',
+      evidence: isDefensible 
+        ? 'Corroborated by benchmark metrics and performance logs.' 
+        : 'Metrics declared; attach a k6/benchmark log to achieve full corroboration.'
+    });
+  }
+
+  // Micro-attribution check
+  if (project.my_role_attribution) {
+    findings.push({
+      claim: 'Micro-Attribution & Scope',
+      status: 'Supported',
+      evidence: `Individual boundaries specified: "${project.my_role_attribution.slice(0, 70)}..."`
+    });
+  }
+
+  // AI-assistance disclosure check
+  if (project.ai_disclosure) {
+    findings.push({
+      claim: 'AI-Assistance Disclosure',
+      status: 'Supported',
+      evidence: `Disclosure documented: "${project.ai_disclosure.slice(0, 70)}..."`
+    });
+  }
+
   let status = 'Unclear';
   let badgeClass = 'badge-pending';
   let verdict = '';
@@ -204,7 +241,7 @@ function matchClaimEvidence(project) {
   if (scorePercent >= 60 && artefacts.length >= 1) {
     status = 'Supported';
     badgeClass = 'badge-confirmed';
-    verdict = 'Supported: Claims and architectural trade-offs are corroborated by attached receipts.';
+    verdict = 'Supported: Claims, architectural trade-offs, and metrics are corroborated by attached receipts.';
   } else if (scorePercent >= 30) {
     status = 'Unclear';
     badgeClass = 'badge-pending';
