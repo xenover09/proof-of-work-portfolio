@@ -173,17 +173,19 @@
           let statusBadge = '';
           let confirmAction = '';
 
-          if (p.client_confirm_status === 'confirmed') {
+          if (p.is_sample) {
+            statusBadge = `<span class="badge badge-neutral" style="border: 1px dashed var(--border-dark);">SAMPLE DATA</span>`;
+          } else if (p.client_confirm_status === 'confirmed') {
             statusBadge = `<span class="badge badge-confirmed">&check; Confirmed by Client</span>`;
           } else if (p.client_confirm_status === 'pending') {
-            statusBadge = `<span class="badge badge-pending">&bull; Confirmation Pending</span>`;
+            statusBadge = `<span class="badge badge-pending">&bull; Awaiting client confirmation</span>`;
             confirmAction = `
               <button type="button" class="btn btn-secondary btn-sm" onclick="showConfirmModal('${p.id}', '${p.client_confirm_token || ''}')">
-                Client Confirm Link
+                Copy Client Link
               </button>
             `;
           } else if (p.client_confirm_status === 'disputed') {
-            statusBadge = `<span class="badge badge-disputed">Disputed by Client</span>`;
+            statusBadge = `<span class="badge badge-disputed">&times; Disputed by Client</span>`;
           } else {
             statusBadge = `<span class="badge badge-neutral">Unrequested</span>`;
             confirmAction = `
@@ -191,6 +193,13 @@
                 Request Confirmation
               </button>
             `;
+          }
+
+          // Evidence Match Badge
+          let aiBadge = '';
+          if (p.evidenceAnalysis) {
+            const ea = p.evidenceAnalysis;
+            aiBadge = `<span class="badge ${ea.badgeClass}" style="font-size: 0.72rem;">Evidence: ${ea.status} (${ea.score}%)</span>`;
           }
 
           // Trade-off snippet
@@ -232,6 +241,7 @@
                 </div>
                 <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
                   ${statusBadge}
+                  ${aiBadge}
                   ${confirmAction}
                 </div>
               </div>

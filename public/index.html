@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Proof-of-Work Portfolio — Evidence-First Developer Portfolios</title>
-  <meta name="description" content="The anti-hallucination portfolio builder for engineers, freelancers, and students. Every claim is anchored by dated artefacts, architectural trade-offs, and one-tap client confirmations.">
+  <meta name="description" content="The honest portfolio builder for engineers, freelancers, and students. Every claim is grounded in linked evidence, dated artefacts, architectural trade-offs, and link-based client confirmations.">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body class="bg-grid">
@@ -23,6 +23,7 @@
 
       <div class="nav-menu" id="nav-menu">
         <a href="#how-it-works" class="nav-link">How It Works</a>
+        <a href="#claim-evidence" class="nav-link">Evidence Matching</a>
         <a href="#comparison" class="nav-link">AI vs Proof</a>
         <a href="#recent-proofs" class="nav-link">Live Proofs</a>
         <a href="https://github.com/xenover09/proof-of-work-portfolio" target="_blank" class="nav-link">GitHub</a>
@@ -45,9 +46,9 @@
           <h1 class="hero-title">Portfolios Backed by Proof, Not AI Hallucinations.</h1>
           
           <p class="hero-subtitle">
-            AI resume writers and ChatGPT portfolios have made claims worthless. 
-            <strong>Proof-of-Work</strong> anchors your projects in dated technical artefacts, 
-            documented trade-offs, and tamper-proof client confirmations.
+            AI resume writers and prompt generators have flooded the market with unverified claims. 
+            <strong>Proof-of-Work</strong> anchors technical deliverables in dated receipts, 
+            explicit architectural trade-offs, and authentic link-based client confirmations.
           </p>
 
           <div class="hero-actions">
@@ -61,55 +62,61 @@
           <div class="hero-guarantee">
             <span>&check; 100% Free Forever</span>
             <span>&bull;</span>
-            <span>&check; No Account Required for Clients</span>
+            <span>&check; No Client Account Required</span>
             <span>&bull;</span>
-            <span>&check; Open Source</span>
+            <span>&check; Real Data Only</span>
           </div>
         </div>
 
-        <!-- Right Column: Interactive Live Proof Showcase -->
+        <!-- Right Column: Clearly-Labeled SAMPLE Showcase Card -->
         <div class="hero-preview">
           <div class="mockup-card">
-            <div class="mockup-header">
+            <!-- Explicit SAMPLE Notice Badge -->
+            <div style="background: #ffffff; border: 1px dashed var(--border-dark); border-radius: var(--radius-xs); padding: 6px 12px; text-align: center; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.05em; color: var(--text-main); text-transform: uppercase;">
+              SAMPLE DATA &mdash; Not a Real Confirmation
+            </div>
+
+            <div class="mockup-header" style="padding-top: 6px;">
               <div class="mockup-user">
-                <div class="mockup-avatar">AH</div>
+                <div class="mockup-avatar" style="background: var(--text-muted);">EX</div>
                 <div class="mockup-user-info">
-                  <span class="mockup-user-name">Alex Henderson</span>
-                  <span class="mockup-user-role">Distributed Systems Engineer</span>
+                  <span class="mockup-user-name">Example Builder [SAMPLE]</span>
+                  <span class="mockup-user-role">Systems Engineer &bull; Demonstration</span>
                 </div>
               </div>
-              <span class="badge badge-confirmed">&check; Client Confirmed</span>
+              <span class="badge badge-pending">&bull; Awaiting Client Confirmation</span>
             </div>
 
             <div>
-              <div class="mockup-title">High-Throughput Webhook Processing Pipeline</div>
-              <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; font-family: var(--font-mono);">
-                Published Oct 13, 2026 &bull; Production Release v1.2
+              <div class="mockup-title">Sample Event Ingestion Engine</div>
+              <div style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px; font-family: var(--font-mono);">
+                Example project format &bull; Demo data only
               </div>
             </div>
 
             <div class="mockup-tradeoff">
-              <div class="mockup-tradeoff-label">Architectural Trade-Off</div>
+              <div class="mockup-tradeoff-label">Sample Trade-Off Documented</div>
               <div style="font-weight: 700; color: var(--text-main); margin-bottom: 2px;">
-                Selected SQLite with WAL mode over MongoDB Replica Set
+                Chose Local WAL-Backed Storage over Distributed Cluster
               </div>
               <div style="font-size: 0.8rem; color: var(--text-muted);">
-                Rejected MongoDB: Avoided network latency and ensured strict ACID payment auditability.
+                Rejected distributed replica set: Eliminated cross-node network latency and ops complexity.
               </div>
             </div>
 
             <div class="mockup-receipt">
               <div style="display: flex; align-items: center; gap: 8px;">
-                <span class="badge badge-neutral" style="font-size: 0.7rem; font-family: var(--font-mono);">COMMIT</span>
-                <span style="font-family: var(--font-mono); font-weight: 600; color: var(--accent-blue);">9e4a1f8b2c</span>
+                <span class="badge badge-neutral" style="font-size: 0.7rem; font-family: var(--font-mono);">COMMIT [MOCK]</span>
+                <span style="font-family: var(--font-mono); font-weight: 600; color: var(--accent-blue);">3f8a1c9e</span>
               </div>
-              <span style="font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono);">5.2k req/s at p99 42ms</span>
+              <span style="font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono);">4.8k req/s at p99 38ms</span>
             </div>
 
-            <div class="mockup-client-banner">
-              <strong>Verified by Sarah Chen (VP Engineering at FinFlow):</strong>
-              <div style="margin-top: 2px; font-style: italic;">
-                "Alex eliminated our webhook drop rate completely. Delivered ahead of deadline."
+            <!-- Honest Mock Testimonial Preview -->
+            <div style="background: var(--bg-subtle); border: 1px dashed var(--border-medium); border-radius: var(--radius-sm); padding: 12px 14px; font-size: 0.85rem; color: var(--text-body); line-height: 1.45;">
+              <strong style="color: var(--text-main);">Client Confirmation Preview:</strong>
+              <div style="margin-top: 4px; font-style: italic; color: var(--text-muted);">
+                "When your real client opens your private link and clicks 'Yes', their authentic quote and verified status will appear here."
               </div>
             </div>
           </div>
@@ -118,25 +125,77 @@
     </div>
   </header>
 
-  <!-- Live Stats Ribbon -->
+  <!-- Live Stats Ribbon (Honest Counts Only) -->
   <section class="stats-section">
     <div class="container">
       <div class="stats-grid">
         <div class="stat-card">
           <div class="stat-value" id="stat-confirmed">0</div>
           <div class="stat-label">Client Confirmed Proofs</div>
+          <div id="stat-confirmed-sub" style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">Real confirmations only</div>
         </div>
         <div class="stat-card">
           <div class="stat-value" id="stat-artefacts">0</div>
           <div class="stat-label">Dated Artefacts Logged</div>
+          <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">Commits, drafts &amp; logs</div>
         </div>
         <div class="stat-card">
           <div class="stat-value" id="stat-decisions">0</div>
           <div class="stat-label">Trade-Offs Documented</div>
+          <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">Evaluated &amp; rejected choices</div>
         </div>
         <div class="stat-card">
           <div class="stat-value" id="stat-profiles">0</div>
           <div class="stat-label">Verified Creators</div>
+          <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">Real registered profiles</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Core Feature: Claim-Evidence Matching -->
+  <section class="section" id="claim-evidence" style="background-color: #ffffff;">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">AI Core Verification</span>
+        <h2 class="section-title">Claim-Evidence Corroboration Engine</h2>
+        <p class="section-desc">
+          Automated semantic vector analysis that compares your stated technical claims against attached commit SHAs, PR diffs, and benchmark logs. Evaluated into three honest tiers:
+        </p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card" style="border-top: 4px solid var(--success-solid);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+            <span class="badge badge-confirmed">&check; Supported</span>
+            <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">&ge; 60% Match</span>
+          </div>
+          <h3 class="step-title" style="font-size: 1.15rem;">Corroborated by Receipts</h3>
+          <p class="step-text">
+            Stated problem, decisions, and measurable outcomes directly match attached commit hashes, benchmark metrics, or production pull requests.
+          </p>
+        </div>
+
+        <div class="step-card" style="border-top: 4px solid #f59e0b;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+            <span class="badge badge-pending">&bull; Unclear</span>
+            <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">30% &ndash; 59% Match</span>
+          </div>
+          <h3 class="step-title" style="font-size: 1.15rem;">Partial Evidence Provided</h3>
+          <p class="step-text">
+            Some claims have matching receipts, but key architectural trade-offs or performance claims lack specific verifying links or execution logs.
+          </p>
+        </div>
+
+        <div class="step-card" style="border-top: 4px solid var(--danger-text);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+            <span class="badge badge-disputed">&times; Unsupported</span>
+            <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">&lt; 30% Match</span>
+          </div>
+          <h3 class="step-title" style="font-size: 1.15rem;">Missing Corroboration</h3>
+          <p class="step-text">
+            No relevant external artefacts, code diffs, or benchmark data were attached to substantiate the stated claims.
+          </p>
         </div>
       </div>
     </div>
@@ -147,9 +206,9 @@
     <div class="container">
       <div class="section-header">
         <span class="section-badge">The Signal Problem</span>
-        <h2 class="section-title">Generic AI Portfolios vs. Verifiable Proof</h2>
+        <h2 class="section-title">Generic Resumes vs. Evidence-Backed Portfolios</h2>
         <p class="section-desc">
-          Anyone can ask ChatGPT to write "Built a high-scale microservices platform". Proof-of-Work separates true builders from resume prompt-crafters by requiring receipts.
+          Anyone can ask an LLM to write "Built a high-scale microservices platform". Proof-of-Work separates true builders from resume prompt-crafters by requiring receipts.
         </p>
       </div>
 
@@ -187,7 +246,7 @@
         <!-- Proof-of-Work Portfolio -->
         <div class="comparison-card highlight">
           <div class="comparison-header">
-            <span class="badge badge-confirmed" style="margin-bottom: 8px;">Tamper-Resistant Proof</span>
+            <span class="badge badge-confirmed" style="margin-bottom: 8px;">Evidence-Backed Proof</span>
             <h3 class="comparison-title">Proof-of-Work Portfolio</h3>
           </div>
           <ul class="comparison-list">
@@ -205,11 +264,11 @@
             </li>
             <li class="comparison-item">
               <span class="icon check">&#10003;</span>
-              <span><strong>1-Tap Client Confirmation:</strong> Verified directly by the buyer via a private token link.</span>
+              <span><strong>Link-Based Client Confirmation:</strong> Verified directly by the buyer via a private token link.</span>
             </li>
             <li class="comparison-item">
               <span class="icon check">&#10003;</span>
-              <span><strong>Impossible to Hallucinate:</strong> Grounded in real-world human and cryptographic authentication.</span>
+              <span><strong>Grounded in Linked Evidence:</strong> Corroborated by semantic vector matching and authentic reviews.</span>
             </li>
           </ul>
         </div>
@@ -222,9 +281,9 @@
     <div class="container">
       <div class="section-header">
         <span class="section-badge">How It Works</span>
-        <h2 class="section-title">Three Steps to Unshakeable Credibility</h2>
+        <h2 class="section-title">Three Steps to Honest Credibility</h2>
         <p class="section-desc">
-          Built for software developers, freelancers, and technical students who want their work to speak for itself.
+          Built for software developers, freelancers, and technical students who want their work grounded in reality.
         </p>
       </div>
 
@@ -242,16 +301,16 @@
           <div class="step-number-badge">02</div>
           <h3 class="step-title">Attach Dated Receipts</h3>
           <p class="step-text">
-            Provide immutable evidence: Git commit SHAs, timestamped pull request links, staging previews, or terminal benchmark outputs. Genuine proof has verifiable timestamps.
+            Provide verifiable evidence: Git commit SHAs, timestamped pull request links, staging previews, or terminal benchmark outputs.
           </p>
         </div>
 
         <div class="step-card">
           <div class="step-number-badge">03</div>
-          <h3 class="step-title">1-Tap Client Authentication</h3>
+          <h3 class="step-title">Link-Based Confirmation</h3>
           <p class="step-text">
-            Issue a private confirmation link. Send it via WhatsApp, Slack, or Email. Your client taps 
-            <strong>"Yes, I Confirm Deliverable"</strong> in 5 seconds with zero signup required. Your portfolio turns green instantly.
+            Issue a private confirmation link. Send it to your client. Your client reviews the summary and clicks 
+            <strong>"Yes, I Confirm Deliverable"</strong> with zero signup required.
           </p>
         </div>
       </div>
@@ -267,9 +326,9 @@
     <div class="container">
       <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px; flex-wrap: wrap; gap: 16px;">
         <div>
-          <span class="section-badge">Live Submissions</span>
-          <h2 class="section-title" style="margin-bottom: 6px;">Verified Deliverables &amp; Projects</h2>
-          <p class="section-desc" style="margin-bottom: 0;">Authentic projects authenticated by real clients and documented trade-offs.</p>
+          <span class="section-badge">Real Submissions</span>
+          <h2 class="section-title" style="margin-bottom: 6px;">Published Projects &amp; Status</h2>
+          <p class="section-desc" style="margin-bottom: 0;">Live deliverables. Confirmations reflect actual client actions.</p>
         </div>
         <a href="/create" class="btn btn-secondary btn-sm">+ Publish Your Project</a>
       </div>
@@ -290,7 +349,7 @@
         Stop Competing Against Fabricated AI Portfolios.
       </h2>
       <p style="color: var(--text-body); margin-bottom: 32px; font-size: 1.1rem; line-height: 1.6;">
-        Build a portfolio that clients and recruiters can actually verify. Free, open-source, and hosted on zero-cost infrastructure.
+        Build a portfolio grounded in real constraints and verified receipts. Free, open-source, and hosted on zero-cost infrastructure.
       </p>
       <a href="/create" class="btn btn-primary btn-lg" id="final-cta-btn">Create Your Portfolio Now &rarr;</a>
     </div>
@@ -326,7 +385,18 @@
         const statsRes = await fetch('/api/stats');
         const statsData = await statsRes.json();
         if (statsData.success) {
-          document.getElementById('stat-confirmed').textContent = statsData.stats.confirmedProjects;
+          const confirmedCount = statsData.stats.confirmedProjects;
+          const statConfirmedEl = document.getElementById('stat-confirmed');
+          const statConfirmedSub = document.getElementById('stat-confirmed-sub');
+
+          if (confirmedCount === 0) {
+            statConfirmedEl.textContent = '0';
+            statConfirmedSub.textContent = '0 — Be the first to verify';
+          } else {
+            statConfirmedEl.textContent = confirmedCount;
+            statConfirmedSub.textContent = 'Real client confirmations';
+          }
+
           document.getElementById('stat-artefacts').textContent = statsData.stats.totalArtefacts;
           document.getElementById('stat-decisions').textContent = statsData.stats.totalDecisions;
           document.getElementById('stat-profiles').textContent = statsData.stats.totalProfiles;
@@ -338,11 +408,25 @@
 
         if (projData.success && projData.projects && projData.projects.length > 0) {
           container.innerHTML = projData.projects.map(p => {
-            const statusBadge = p.client_confirm_status === 'confirmed'
-              ? `<span class="badge badge-confirmed">&check; Confirmed by Client</span>`
-              : (p.client_confirm_status === 'pending'
-                ? `<span class="badge badge-pending">&bull; Client Confirmation Pending</span>`
-                : `<span class="badge badge-neutral">Unrequested</span>`);
+            let statusBadge = '';
+            if (p.is_sample) {
+              statusBadge = `<span class="badge badge-neutral" style="border: 1px dashed var(--border-dark);">SAMPLE DATA</span>`;
+            } else if (p.client_confirm_status === 'confirmed') {
+              statusBadge = `<span class="badge badge-confirmed">&check; Confirmed by Client</span>`;
+            } else if (p.client_confirm_status === 'pending') {
+              statusBadge = `<span class="badge badge-pending">&bull; Awaiting client confirmation</span>`;
+            } else if (p.client_confirm_status === 'disputed') {
+              statusBadge = `<span class="badge badge-disputed">&times; Disputed</span>`;
+            } else {
+              statusBadge = `<span class="badge badge-neutral">Unrequested</span>`;
+            }
+
+            // Evidence Match Badge
+            let aiBadge = '';
+            if (p.evidenceAnalysis) {
+              const ea = p.evidenceAnalysis;
+              aiBadge = `<span class="badge ${ea.badgeClass}" style="font-size: 0.72rem;">Evidence: ${ea.status} (${ea.score}%)</span>`;
+            }
 
             return `
               <div class="card">
@@ -355,8 +439,9 @@
                       <span>${new Date(p.created_at).toLocaleDateString()}</span>
                     </div>
                   </div>
-                  <div>
+                  <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
                     ${statusBadge}
+                    ${aiBadge}
                   </div>
                 </div>
                 <p style="color: var(--text-body); margin-bottom: 16px; font-size: 0.95rem; line-height: 1.6;">
@@ -375,7 +460,7 @@
             <div style="border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 48px 24px; text-align: center; background: #ffffff;">
               <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 8px;">No Proofs Published Yet</h3>
               <p style="color: var(--text-body); margin-bottom: 20px; max-width: 480px; margin-left: auto; margin-right: auto; font-size: 0.95rem;">
-                No pre-baked dummy data. Everything is published and verified by real builders. Be the first to publish your authentic work.
+                Zero dummy data. Everything is published and verified by real builders. Be the first to publish your authentic work.
               </p>
               <a href="/create" class="btn btn-primary">Create Your Portfolio &rarr;</a>
             </div>

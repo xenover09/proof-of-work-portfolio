@@ -104,9 +104,22 @@
           <div id="proj-result" style="font-size: 1rem; color: var(--text-main); background: var(--bg-surface); border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 20px; line-height: 1.65; white-space: pre-wrap;"></div>
         </section>
 
+        <!-- AI Claim-Evidence Corroboration Section -->
+        <section id="ai-evidence-section" style="margin-bottom: 40px; border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 22px; background: var(--bg-surface);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+            <div>
+              <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 2px;">5. AI Claim-Evidence Corroboration</h2>
+              <div style="font-size: 0.82rem; color: var(--text-muted);">Matches technical claims and decisions against attached receipts</div>
+            </div>
+            <span id="evidence-status-badge" class="badge"></span>
+          </div>
+          <p id="evidence-summary" style="font-size: 0.92rem; color: var(--text-body); margin-bottom: 16px; line-height: 1.55;"></p>
+          <div id="evidence-findings-list" style="display: flex; flex-direction: column; gap: 8px;"></div>
+        </section>
+
         <!-- Client Confirmation Box -->
         <section id="confirmation-cta-box" style="margin-bottom: 48px; border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 24px; background: var(--bg-surface);">
-          <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 8px;">Client Confirmation Status</h3>
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 8px;">6. Client Confirmation Status</h3>
           <p id="confirm-box-desc" style="font-size: 0.92rem; color: var(--text-body); margin-bottom: 18px; line-height: 1.5;"></p>
           <div id="confirm-box-action"></div>
         </section>
@@ -170,7 +183,11 @@
         const confirmBoxDesc = document.getElementById('confirm-box-desc');
         const confirmBoxAction = document.getElementById('confirm-box-action');
 
-        if (p.client_confirm_status === 'confirmed') {
+        if (p.is_sample) {
+          statusEl.innerHTML = `<span class="badge badge-neutral" style="border: 1px dashed var(--border-dark); font-size: 0.85rem; padding: 5px 12px;">SAMPLE DATA &mdash; Not a Real Confirmation</span>`;
+          confirmBoxDesc.textContent = `This is a sample demonstration entry. It does not represent an actual authenticated deliverable or real client review.`;
+          confirmBoxAction.innerHTML = `<span class="badge badge-neutral">Demonstration Mock</span>`;
+        } else if (p.client_confirm_status === 'confirmed') {
           statusEl.innerHTML = `<span class="badge badge-confirmed" style="font-size: 0.85rem; padding: 5px 12px;">&check; Confirmed by Client</span>`;
           
           document.getElementById('confirmed-banner').style.display = 'block';
@@ -184,7 +201,7 @@
           confirmBoxAction.innerHTML = `<span class="badge badge-confirmed">Verification Sealed</span>`;
 
         } else if (p.client_confirm_status === 'pending') {
-          statusEl.innerHTML = `<span class="badge badge-pending" style="font-size: 0.85rem; padding: 5px 12px;">&bull; Client Confirmation Pending</span>`;
+          statusEl.innerHTML = `<span class="badge badge-pending" style="font-size: 0.85rem; padding: 5px 12px;">&bull; Awaiting client confirmation</span>`;
           
           const confirmUrl = data.confirmUrl || `${window.location.origin}/confirm/${p.client_confirm_token}`;
           
@@ -192,7 +209,7 @@
             <a href="${confirmUrl}" target="_blank" class="btn btn-secondary btn-sm">Open Client Portal &#x2197;</a>
           `;
 
-          confirmBoxDesc.textContent = `A unique client verification link has been issued for this project. Once the client taps "Yes", this page will permanently display the verified seal.`;
+          confirmBoxDesc.textContent = `A unique link-based confirmation token has been issued for this project. Once your client opens the link and confirms, this project will display the verified seal.`;
           confirmBoxAction.innerHTML = `
             <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
               <input type="text" id="direct-confirm-url" value="${confirmUrl}" readonly class="form-control" style="font-family: var(--font-mono); font-size: 0.85rem; max-width: 440px; flex: 1 1 240px;">
@@ -201,7 +218,7 @@
             </div>
           `;
         } else if (p.client_confirm_status === 'disputed') {
-          statusEl.innerHTML = `<span class="badge badge-disputed" style="font-size: 0.85rem; padding: 5px 12px;">Disputed by Client</span>`;
+          statusEl.innerHTML = `<span class="badge badge-disputed" style="font-size: 0.85rem; padding: 5px 12px;">&times; Disputed by Client</span>`;
           confirmBoxDesc.textContent = `The client reviewed this submission and marked it as disputed or inaccurate. Note: ${p.client_feedback || 'No feedback provided.'}`;
         } else {
           statusEl.innerHTML = `<span class="badge badge-neutral" style="font-size: 0.85rem; padding: 5px 12px;">Verification Unrequested</span>`;
@@ -209,6 +226,34 @@
           confirmBoxAction.innerHTML = `
             <button type="button" class="btn btn-secondary btn-sm" onclick="requestConfirm('${p.id}')">Generate Client Confirmation Link</button>
           `;
+        }
+
+        // Render AI Claim-Evidence Corroboration
+        if (p.evidenceAnalysis) {
+          const ea = p.evidenceAnalysis;
+          const statusBadgeEl = document.getElementById('evidence-status-badge');
+          statusBadgeEl.className = `badge ${ea.badgeClass}`;
+          statusBadgeEl.textContent = `${ea.status} (${ea.score}% Match)`;
+
+          document.getElementById('evidence-summary').textContent = ea.summary;
+
+          const findingsListEl = document.getElementById('evidence-findings-list');
+          if (ea.findings && ea.findings.length > 0) {
+            findingsListEl.innerHTML = ea.findings.map(f => {
+              const fBadge = f.status === 'Supported' 
+                ? '<span class="badge badge-confirmed" style="font-size: 0.72rem;">&check; Supported</span>'
+                : (f.status === 'Unclear' ? '<span class="badge badge-pending" style="font-size: 0.72rem;">&bull; Unclear</span>' : '<span class="badge badge-disputed" style="font-size: 0.72rem;">&times; Unsupported</span>');
+              return `
+                <div style="background: var(--bg-subtle); border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 10px 14px; font-size: 0.88rem;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; gap: 8px;">
+                    <strong style="color: var(--text-main);">${escapeHtml(f.claim)}</strong>
+                    ${fBadge}
+                  </div>
+                  <div style="color: var(--text-muted); font-size: 0.82rem;">${escapeHtml(f.evidence)}</div>
+                </div>
+              `;
+            }).join('');
+          }
         }
 
         // Problem & Result

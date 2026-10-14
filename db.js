@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const Database = require('better-sqlite3');
 const crypto = require('crypto');
+const matcher = require('./matcher.js');
 
 const dataDir = path.join(__dirname, 'data');
 if (!fs.existsSync(dataDir)) {
@@ -41,6 +42,7 @@ function initDb() {
       client_confirm_status TEXT NOT NULL DEFAULT 'unrequested', -- unrequested, pending, confirmed, disputed
       client_confirmed_at TEXT,
       client_feedback TEXT,
+      is_sample INTEGER DEFAULT 0,
       created_at TEXT NOT NULL,
       FOREIGN KEY(profile_id) REFERENCES profiles(id)
     );
@@ -59,7 +61,7 @@ function initDb() {
       id TEXT PRIMARY KEY,
       project_id TEXT NOT NULL,
       title TEXT NOT NULL,
-      type TEXT NOT NULL, -- commit, pr, draft, staging, screenshot, document
+      type TEXT NOT NULL, -- commit, pr, draft, staging, screenshot, document, benchmark
       url_or_hash TEXT NOT NULL,
       artefact_date TEXT NOT NULL,
       notes TEXT,
@@ -72,6 +74,12 @@ function initDb() {
     CREATE INDEX IF NOT EXISTS idx_decisions_project ON decisions(project_id);
     CREATE INDEX IF NOT EXISTS idx_artefacts_project ON artefacts(project_id);
   `);
+
+  try {
+    db.exec('ALTER TABLE projects ADD COLUMN is_sample INTEGER DEFAULT 0');
+  } catch (e) {
+    // column already exists
+  }
 }
 
 initDb();
@@ -116,6 +124,7 @@ function createProject({
   client_name = '',
   client_email = '',
   request_confirmation = false,
+  is_sample = 0,
   decisions = [],
   artefacts = []
 }) {
@@ -134,8 +143,8 @@ function createProject({
   const insertProject = db.prepare(`
     INSERT INTO projects (
       id, profile_id, title, slug, summary, problem, result, 
-      client_name, client_email, client_confirm_token, client_confirm_status, created_at
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      client_name, client_email, client_confirm_token, client_confirm_status, is_sample, created_at
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
 
   const insertDecision = db.prepare(`
@@ -151,7 +160,7 @@ function createProject({
   const transaction = db.transaction(() => {
     insertProject.run(
       id, profile_id, title, slug, summary, problem, result,
-      client_name, client_email, confirm_token, confirm_status, created_at
+      client_name, client_email, confirm_token, confirm_status, is_sample ? 1 : 0, created_at
     );
 
     decisions.forEach((d, idx) => {
@@ -205,10 +214,19 @@ function getProjectById(id) {
     SELECT * FROM artefacts WHERE project_id = ? ORDER BY sort_order ASC, artefact_date DESC
   `).all(project.id);
 
+  // Compute Claim-Evidence matching
+  const evidenceAnalysis = matcher.matchClaimEvidence({
+    problem: project.problem,
+    result: project.result,
+    decisions,
+    artefacts
+  });
+
   return {
     ...project,
     decisions,
-    artefacts
+    artefacts,
+    evidenceAnalysis
   };
 }
 
@@ -220,7 +238,13 @@ function getProjectsByProfileId(profileId) {
   return projects.map(p => {
     const decisions = db.prepare('SELECT * FROM decisions WHERE project_id = ? ORDER BY sort_order ASC').all(p.id);
     const artefacts = db.prepare('SELECT * FROM artefacts WHERE project_id = ? ORDER BY sort_order ASC').all(p.id);
-    return { ...p, decisions, artefacts };
+    const evidenceAnalysis = matcher.matchClaimEvidence({
+      problem: p.problem,
+      result: p.result,
+      decisions,
+      artefacts
+    });
+    return { ...p, decisions, artefacts, evidenceAnalysis };
   });
 }
 
@@ -234,9 +258,20 @@ function getAllProjects(limit = 20) {
   `).all(limit);
 
   return projects.map(p => {
-    const artefactsCount = db.prepare('SELECT COUNT(*) as count FROM artefacts WHERE project_id = ?').get(p.id).count;
-    const decisionsCount = db.prepare('SELECT COUNT(*) as count FROM decisions WHERE project_id = ?').get(p.id).count;
-    return { ...p, artefactsCount, decisionsCount };
+    const artefacts = db.prepare('SELECT * FROM artefacts WHERE project_id = ?').all(p.id);
+    const decisions = db.prepare('SELECT * FROM decisions WHERE project_id = ?').all(p.id);
+    const evidenceAnalysis = matcher.matchClaimEvidence({
+      problem: p.problem,
+      result: p.result,
+      decisions,
+      artefacts
+    });
+    return {
+      ...p,
+      artefactsCount: artefacts.length,
+      decisionsCount: decisions.length,
+      evidenceAnalysis
+    };
   });
 }
 
@@ -253,11 +288,18 @@ function getProjectByConfirmToken(token) {
 
   const decisions = db.prepare('SELECT * FROM decisions WHERE project_id = ? ORDER BY sort_order ASC').all(project.id);
   const artefacts = db.prepare('SELECT * FROM artefacts WHERE project_id = ? ORDER BY sort_order ASC').all(project.id);
+  const evidenceAnalysis = matcher.matchClaimEvidence({
+    problem: project.problem,
+    result: project.result,
+    decisions,
+    artefacts
+  });
 
   return {
     ...project,
     decisions,
-    artefacts
+    artefacts,
+    evidenceAnalysis
   };
 }
 
@@ -313,11 +355,27 @@ function updateConfirmStatus(token, decision, clientName, clientFeedback) {
 }
 
 function getStats() {
-  const totalProjects = db.prepare('SELECT COUNT(*) as count FROM projects').get().count;
-  const confirmedProjects = db.prepare("SELECT COUNT(*) as count FROM projects WHERE client_confirm_status = 'confirmed'").get().count;
-  const totalArtefacts = db.prepare('SELECT COUNT(*) as count FROM artefacts').get().count;
-  const totalDecisions = db.prepare('SELECT COUNT(*) as count FROM decisions').get().count;
-  const totalProfiles = db.prepare('SELECT COUNT(*) as count FROM profiles').get().count;
+  // Real counts only: strictly exclude is_sample = 1
+  const totalProjects = db.prepare('SELECT COUNT(*) as count FROM projects WHERE is_sample = 0').get().count;
+  const confirmedProjects = db.prepare("SELECT COUNT(*) as count FROM projects WHERE is_sample = 0 AND client_confirm_status = 'confirmed'").get().count;
+  const totalArtefacts = db.prepare(`
+    SELECT COUNT(*) as count 
+    FROM artefacts a 
+    JOIN projects p ON a.project_id = p.id 
+    WHERE p.is_sample = 0
+  `).get().count;
+  const totalDecisions = db.prepare(`
+    SELECT COUNT(*) as count 
+    FROM decisions d 
+    JOIN projects p ON d.project_id = p.id 
+    WHERE p.is_sample = 0
+  `).get().count;
+  const totalProfiles = db.prepare(`
+    SELECT COUNT(DISTINCT prof.id) as count 
+    FROM profiles prof 
+    JOIN projects p ON p.profile_id = prof.id 
+    WHERE p.is_sample = 0
+  `).get().count;
 
   return {
     totalProjects,

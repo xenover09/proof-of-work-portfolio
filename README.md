@@ -20,8 +20,8 @@ Recruiters and clients are drowning in unverified, exaggerated claims. Resumes w
 **Proof-of-Work Portfolio** is an anti-hallucination, evidence-first portfolio builder for software engineers, freelancers, and students. Every project is anchored by:
 1. **The Hard Problem Statement:** Explicit technical friction, constraints, and bottlenecks — not generic bullet points.
 2. **Architectural Decisions & Rejected Alternatives:** Clear rationale demonstrating why Alternative A was chosen over Alternative B (e.g., PostgreSQL vs MongoDB, REST vs gRPC). Authentic engineers articulate real trade-offs that AI cannot fabricate.
-3. **Dated Artefacts (The Receipts):** Verifiable links, immutable git commit SHAs, PR diffs, early design drafts, and benchmark terminal logs with immutable timestamps.
-4. **One-Tap Client Confirmation Flow:** A private, tamper-proof verification URL issued to the client or product lead. The client reviews the deliverable summary and authenticates it in five seconds with zero signup required. The project immediately displays the verified seal.
+4. **One-Tap Client Confirmation Flow:** A private, link-based verification URL issued to the client or product lead. The client reviews the deliverable summary and authenticates it in five seconds with zero signup required. The project immediately displays the verified seal.
+5. **AI Claim-Evidence Matching Engine:** Open-weight semantic vector analysis that compares stated technical decisions and results against attached git commits and benchmark receipts (Supported / Unsupported / Unclear).
 
 ---
 
@@ -70,7 +70,7 @@ Adhering strictly to a 100% free, vendor-neutral architecture:
 5. **Dedicated Project Proof View (`/project/:id`):**
    - Granular breakdown of the problem, complete architectural decision matrix, chronological receipts timeline, and client endorsement testimonial banner.
 6. **Client Confirmation Portal (`/confirm/:token`):**
-   - Tamper-proof token page for buyers/clients.
+   - Link-based token page for buyers/clients.
    - One-tap **"Yes, I Confirm Deliverable"** or **"No, Dispute Claim"**.
    - Optional client name/organization & testimonial quote input.
    - Instant state transition with live portfolio update.
