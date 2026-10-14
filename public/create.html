@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apna Portfolio Banao — Proof-of-Work Project Creator</title>
+  <meta name="description" content="Create a verified proof-of-work portfolio project with problem definitions, architectural trade-offs, dated artefacts, and 1-tap client confirmations.">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="/" class="nav-brand" id="brand-link">
+        <span>Proof-of-Work</span>
+        <span class="nav-brand-badge">Portfolio Creator</span>
+      </a>
+      <div class="nav-links">
+        <a href="/" class="nav-link">&larr; Back to Home</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="section">
+    <div class="container container-narrow">
+      <div style="margin-bottom: 32px;">
+        <span class="badge badge-neutral" style="margin-bottom: 8px;">Proof-First Submission</span>
+        <h1 style="font-size: 2.2rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px;">
+          Apna Proof-of-Work Portfolio Banao
+        </h1>
+        <p style="color: var(--text-secondary); font-size: 1rem;">
+          Har daawe ke saath saboot. No buzzwords, no AI-generated fluff. 
+          Fill out your real project, trade-offs, dated artefacts, and client confirmation request.
+        </p>
+      </div>
+
+      <form id="portfolio-form">
+        <!-- Section 1: Profile Information -->
+        <div class="card">
+          <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+            1. Creator Profile
+          </h2>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="full_name">Full Name *</label>
+              <input type="text" id="full_name" class="form-control" placeholder="e.g. Salaar Hussain" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="username">Username (Public URL) *</label>
+              <input type="text" id="username" class="form-control" placeholder="e.g. salaarhussain" pattern="[a-zA-Z0-9_-]+" required>
+              <div class="form-hint">Your portfolio will be at /p/username</div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="role">Role / Specialization *</label>
+              <input type="text" id="role" class="form-control" placeholder="e.g. Backend Engineer / Systems Architect" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="github_url">GitHub Profile URL</label>
+              <input type="url" id="github_url" class="form-control" placeholder="https://github.com/yourhandle">
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom: 0;">
+            <label class="form-label" for="bio">Bio / One-Liner</label>
+            <input type="text" id="bio" class="form-control" placeholder="Building reliable systems with verifiable evidence.">
+          </div>
+        </div>
+
+        <!-- Section 2: Project Core & Problem -->
+        <div class="card">
+          <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+            2. Project Core & The Hard Problem
+          </h2>
+          <div class="form-group">
+            <label class="form-label" for="title">Project Title *</label>
+            <input type="text" id="title" class="form-control" placeholder="e.g. High-Throughput Webhook Processing Pipeline" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="summary">Summary (1-2 sentences)</label>
+            <input type="text" id="summary" class="form-control" placeholder="Zero-downtime event queuing engine handling 5k webhook deliveries per second.">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="problem">The Real Problem Solved * (Not vague fluff)</label>
+            <textarea id="problem" class="form-control" rows="4" placeholder="Detail the exact problem: What was failing, slow, or broken before? E.g., The existing third-party webhook receiver dropped 12% of payloads during traffic spikes due to synchronous HTTP blocking." required></textarea>
+            <div class="form-hint">AI writes generic summaries; true engineers articulate the actual constraints and bottlenecks.</div>
+          </div>
+          <div class="form-group" style="margin-bottom: 0;">
+            <label class="form-label" for="result">Measurable Result / Outcome *</label>
+            <textarea id="result" class="form-control" rows="3" placeholder="e.g. Payload delivery success reached 99.99%, latency reduced from 820ms to 45ms, processed 2.4M webhooks on single $5/mo VM." required></textarea>
+          </div>
+        </div>
+
+        <!-- Section 3: Decisions & Rejected Alternatives -->
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+            <div>
+              <h2 style="font-size: 1.25rem; font-weight: 700;">3. Architectural Decisions & Rejected Alternatives</h2>
+              <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 2px;">
+                Show what you rejected and why. This is the #1 proof that you actually built it.
+              </div>
+            </div>
+            <button type="button" class="btn btn-secondary btn-sm" id="add-decision-btn">+ Add Decision</button>
+          </div>
+
+          <div id="decisions-container">
+            <!-- Dynamic decision items added here -->
+          </div>
+        </div>
+
+        <!-- Section 4: Dated Artefacts -->
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+            <div>
+              <h2 style="font-size: 1.25rem; font-weight: 700;">4. Dated Artefacts (The Receipts)</h2>
+              <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 2px;">
+                Attach verifiable links, commit hashes, PRs, or dated draft milestones.
+              </div>
+            </div>
+            <button type="button" class="btn btn-secondary btn-sm" id="add-artefact-btn">+ Add Artefact</button>
+          </div>
+
+          <div id="artefacts-container">
+            <!-- Dynamic artefact items added here -->
+          </div>
+        </div>
+
+        <!-- Section 5: Client Confirmation Request -->
+        <div class="card">
+          <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+            5. Client Confirmation Flow
+          </h2>
+          <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 16px;">
+            Issuing a confirmation link generates an un-falsifiable token. You can send this link to your client or buyer. 
+            Once they tap "Yes", your portfolio gains the green <strong>"✓ Confirmed by Client"</strong> verification badge.
+          </p>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="client_name">Client / Stakeholder Name</label>
+              <input type="text" id="client_name" class="form-control" placeholder="e.g. Alex Rivera, Head of Product">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="client_email">Client Email (Optional)</label>
+              <input type="email" id="client_email" class="form-control" placeholder="client@company.com">
+            </div>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 10px; margin-top: 8px;">
+            <input type="checkbox" id="request_confirmation" checked style="width: 18px; height: 18px; accent-color: var(--accent-color);">
+            <label for="request_confirmation" style="font-size: 0.9rem; font-weight: 600; cursor: pointer;">
+              Generate unique 1-tap client confirmation link immediately upon submission
+            </label>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div style="margin-top: 24px;">
+          <button type="submit" class="btn btn-primary btn-lg" id="submit-btn" style="width: 100%;">
+            Publish Proof-of-Work & Generate Link &rarr;
+          </button>
+        </div>
+      </form>
+
+      <!-- Success Modal / Card (Hidden by default) -->
+      <div id="success-box" class="card" style="display: none; border-color: var(--success-border); background-color: #ffffff; margin-top: 32px;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <div class="confirm-status-icon success" style="margin: 0; width: 36px; height: 36px; font-size: 1.1rem;">&#10003;</div>
+          <div>
+            <h2 style="font-size: 1.3rem; font-weight: 800; color: var(--success-text);">Proof-of-Work Published!</h2>
+            <p style="font-size: 0.85rem; color: var(--text-secondary);">Your real deliverables and decisions have been recorded.</p>
+          </div>
+        </div>
+
+        <div id="confirm-link-section" style="display: none; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 18px; margin-bottom: 20px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-primary);">
+              Client Confirmation Link (Send to client)
+            </span>
+            <span class="badge badge-pending">Action Required</span>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 12px;">
+            Send this private link to your client. When they open it, they can confirm your deliverable in 1 tap without any login.
+          </p>
+          <div style="display: flex; gap: 8px;">
+            <input type="text" id="confirm-link-input" class="form-control" readonly style="font-family: var(--font-mono); font-size: 0.85rem; background: #ffffff;">
+            <button type="button" class="btn btn-primary btn-sm" id="copy-confirm-btn" onclick="copyConfirmLink()">Copy</button>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <a id="view-portfolio-btn" href="#" class="btn btn-secondary">View Your Public Portfolio &rarr;</a>
+          <a id="view-project-btn" href="#" class="btn btn-secondary">View Project Proof &rarr;</a>
+          <a id="test-confirm-btn" href="#" class="btn btn-success" target="_blank">Test Client Confirm Link Now &#x2197;</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div>
+        <strong>Proof-of-Work Portfolio</strong> — Week 2 Hacktoberfest "Side Hustle" Entry.
+      </div>
+      <div>
+        <a href="https://github.com/xenover09/proof-of-work-portfolio" target="_blank" class="btn btn-secondary btn-sm">GitHub Repo</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let decisionCount = 0;
+    let artefactCount = 0;
+
+    function addDecision(decision = '', alternative = '', reason = '') {
+      decisionCount++;
+      const id = decisionCount;
+      const container = document.getElementById('decisions-container');
+      const div = document.createElement('div');
+      div.className = 'dynamic-item';
+      div.id = `decision-${id}`;
+      div.innerHTML = `
+        <button type="button" class="dynamic-item-remove" onclick="removeEl('decision-${id}')">&times;</button>
+        <div class="form-group" style="margin-bottom: 12px;">
+          <label class="form-label">Decision Made *</label>
+          <input type="text" class="form-control dec-decision" placeholder="e.g. Chose SQLite with WAL over MongoDB" value="${escapeHtml(decision)}" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group" style="margin-bottom: 0;">
+            <label class="form-label">Rejected Alternative *</label>
+            <input type="text" class="form-control dec-alternative" placeholder="e.g. MongoDB" value="${escapeHtml(alternative)}" required>
+          </div>
+          <div class="form-group" style="margin-bottom: 0;">
+            <label class="form-label">Why was it rejected? *</label>
+            <input type="text" class="form-control dec-reason" placeholder="e.g. Unnecessary network overhead and lacking ACID guarantees for invoices" value="${escapeHtml(reason)}" required>
+          </div>
+        </div>
+      `;
+      container.appendChild(div);
+    }
+
+    function addArtefact(title = '', type = 'commit', url_or_hash = '', date = '', notes = '') {
+      artefactCount++;
+      const id = artefactCount;
+      const today = date || new Date().toISOString().split('T')[0];
+      const container = document.getElementById('artefacts-container');
+      const div = document.createElement('div');
+      div.className = 'dynamic-item';
+      div.id = `artefact-${id}`;
+      div.innerHTML = `
+        <button type="button" class="dynamic-item-remove" onclick="removeEl('artefact-${id}')">&times;</button>
+        <div class="form-row" style="margin-bottom: 12px;">
+          <div class="form-group" style="margin-bottom: 0;">
+            <label class="form-label">Artefact Title *</label>
+            <input type="text" class="form-control art-title" placeholder="e.g. Core WAL storage implementation" value="${escapeHtml(title)}" required>
+          </div>
+          <div class="form-group" style="margin-bottom: 0;">
+            <label class="form-label">Type *</label>
+            <select class="form-control art-type">
+              <option value="commit" ${type === 'commit' ? 'selected' : ''}>Git Commit SHA / Diff</option>
+              <option value="pr" ${type === 'pr' ? 'selected' : ''}>Pull Request</option>
+              <option value="draft" ${type === 'draft' ? 'selected' : ''}>Early Design / Figma Draft</option>
+              <option value="staging" ${type === 'staging' ? 'selected' : ''}>Staging / Preview Deploy</option>
+              <option value="benchmark" ${type === 'benchmark' ? 'selected' : ''}>Benchmark / Terminal Log</option>
+              <option value="document" ${type === 'document' ? 'selected' : ''}>Architecture RFC / Spec</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group" style="margin-bottom: 0;">
+            <label class="form-label">URL or Commit Hash *</label>
+            <input type="text" class="form-control art-url" placeholder="e.g. 7f8a9e2 or https://github.com/.../pull/1" value="${escapeHtml(url_or_hash)}" required>
+          </div>
+          <div class="form-group" style="margin-bottom: 0;">
+            <label class="form-label">Artefact Date *</label>
+            <input type="date" class="form-control art-date" value="${today}" required>
+          </div>
+        </div>
+        <div class="form-group" style="margin-top: 10px; margin-bottom: 0;">
+          <label class="form-label">Verification Note (Optional)</label>
+          <input type="text" class="form-control art-notes" placeholder="e.g. Merged into main branch after passing 14 integration tests" value="${escapeHtml(notes)}">
+        </div>
+      `;
+      container.appendChild(div);
+    }
+
+    function removeEl(id) {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+    }
+
+    // Initialize with 1 default decision and 1 default artefact
+    addDecision();
+    addArtefact();
+
+    document.getElementById('add-decision-btn').addEventListener('click', () => addDecision());
+    document.getElementById('add-artefact-btn').addEventListener('click', () => addArtefact());
+
+    document.getElementById('portfolio-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitBtn = document.getElementById('submit-btn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Publishing Proof...';
+
+      try {
+        const decisions = [];
+        document.querySelectorAll('#decisions-container .dynamic-item').forEach(el => {
+          const decision = el.querySelector('.dec-decision')?.value;
+          const alternative = el.querySelector('.dec-alternative')?.value;
+          const reason = el.querySelector('.dec-reason')?.value;
+          if (decision && alternative) {
+            decisions.push({ decision, rejected_alternative: alternative, reason });
+          }
+        });
+
+        const artefacts = [];
+        document.querySelectorAll('#artefacts-container .dynamic-item').forEach(el => {
+          const title = el.querySelector('.art-title')?.value;
+          const type = el.querySelector('.art-type')?.value;
+          const url_or_hash = el.querySelector('.art-url')?.value;
+          const date = el.querySelector('.art-date')?.value;
+          const notes = el.querySelector('.art-notes')?.value;
+          if (title && url_or_hash) {
+            artefacts.push({ title, type, url_or_hash, artefact_date: date, notes });
+          }
+        });
+
+        const payload = {
+          profile: {
+            full_name: document.getElementById('full_name').value.trim(),
+            username: document.getElementById('username').value.trim(),
+            role: document.getElementById('role').value.trim(),
+            github_url: document.getElementById('github_url').value.trim(),
+            bio: document.getElementById('bio').value.trim()
+          },
+          project: {
+            title: document.getElementById('title').value.trim(),
+            summary: document.getElementById('summary').value.trim(),
+            problem: document.getElementById('problem').value.trim(),
+            result: document.getElementById('result').value.trim(),
+            client_name: document.getElementById('client_name').value.trim(),
+            client_email: document.getElementById('client_email').value.trim(),
+            request_confirmation: document.getElementById('request_confirmation').checked
+          },
+          decisions,
+          artefacts
+        };
+
+        const res = await fetch('/api/projects', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        if (!data.success) {
+          alert('Error: ' + (data.error || 'Failed to create project'));
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Publish Proof-of-Work & Generate Link \u2192';
+          return;
+        }
+
+        // Show success box
+        document.getElementById('portfolio-form').style.display = 'none';
+        const successBox = document.getElementById('success-box');
+        successBox.style.display = 'block';
+
+        document.getElementById('view-portfolio-btn').href = data.portfolioUrl;
+        document.getElementById('view-project-btn').href = data.projectUrl;
+
+        if (data.confirmUrl) {
+          document.getElementById('confirm-link-section').style.display = 'block';
+          document.getElementById('confirm-link-input').value = data.confirmUrl;
+          document.getElementById('test-confirm-btn').href = data.confirmUrl;
+        } else {
+          document.getElementById('test-confirm-btn').style.display = 'none';
+        }
+
+        window.scrollTo({ top: successBox.offsetTop - 80, behavior: 'smooth' });
+
+      } catch (err) {
+        console.error(err);
+        alert('Unexpected error: ' + err.message);
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Publish Proof-of-Work & Generate Link \u2192';
+      }
+    });
+
+    function copyConfirmLink() {
+      const input = document.getElementById('confirm-link-input');
+      input.select();
+      navigator.clipboard.writeText(input.value);
+      const copyBtn = document.getElementById('copy-confirm-btn');
+      copyBtn.textContent = 'Copied!';
+      setTimeout(() => { copyBtn.textContent = 'Copy'; }, 2000);
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proof-of-Work Portfolio</title>
+  <meta name="description" content="Verified proof-of-work portfolio with dated artefacts, trade-off decisions, and client confirmations.">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="/" class="nav-brand" id="brand-link">
+        <span>Proof-of-Work</span>
+        <span class="nav-brand-badge">Verified Portfolio</span>
+      </a>
+      <div class="nav-links">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/create" class="btn btn-primary btn-sm">+ Add Project</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Profile Header -->
+  <header class="section" style="padding: 48px 0; background-color: var(--bg-secondary);">
+    <div class="container">
+      <div id="profile-loading" style="color: var(--text-muted); font-size: 0.95rem;">
+        Loading portfolio...
+      </div>
+
+      <div id="profile-content" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+              <h1 id="prof-name" style="font-size: 2.2rem; font-weight: 800; letter-spacing: -0.02em;"></h1>
+              <span id="prof-verified-badge" class="badge badge-confirmed">Verified Creator</span>
+            </div>
+            <div id="prof-role" style="font-size: 1.1rem; color: var(--text-secondary); font-weight: 600; margin-bottom: 8px;"></div>
+            <p id="prof-bio" style="font-size: 0.95rem; color: var(--text-secondary); max-width: 600px; margin-bottom: 14px;"></p>
+            <div id="prof-links" style="display: flex; gap: 14px; align-items: center; font-size: 0.85rem;">
+              <!-- GitHub link -->
+            </div>
+          </div>
+
+          <!-- Trust Score Card -->
+          <div style="border: 1px solid var(--border-color); background: #ffffff; border-radius: var(--radius-md); padding: 16px 20px; min-width: 240px;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 8px;">
+              Verification Score
+            </div>
+            <div style="display: flex; align-items: baseline; gap: 6px;">
+              <span id="score-confirmed" style="font-size: 1.8rem; font-weight: 800; font-family: var(--font-mono); color: var(--success-text);">0</span>
+              <span style="font-size: 0.9rem; color: var(--text-secondary);">/ <span id="score-total">0</span> Confirmed</span>
+            </div>
+            <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">
+              <span id="score-artefacts">0</span> dated artefacts verified
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Projects List Section -->
+  <main class="section">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+        <h2 style="font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em;">
+          Proof-of-Work Projects & Deliverables
+        </h2>
+        <span id="project-count-badge" class="badge badge-neutral">0 Projects</span>
+      </div>
+
+      <div id="projects-list">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal for Client Confirmation Link -->
+  <div id="confirm-modal" style="display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.4); z-index: 100; align-items: center; justify-content: center;">
+    <div style="background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 24px; max-width: 520px; width: 90%; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <h3 style="font-size: 1.15rem; font-weight: 700;">Client Confirmation Link</h3>
+        <button type="button" onclick="closeConfirmModal()" style="background: none; border: none; font-size: 1.2rem; cursor: pointer;">&times;</button>
+      </div>
+      <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 14px;">
+        Send this private link to your client. They can confirm your deliverable in 1 tap without any login.
+      </p>
+      <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+        <input type="text" id="modal-confirm-input" class="form-control" readonly style="font-family: var(--font-mono); font-size: 0.85rem;">
+        <button type="button" class="btn btn-primary btn-sm" id="modal-copy-btn" onclick="copyModalLink()">Copy</button>
+      </div>
+      <div style="display: flex; justify-content: flex-end; gap: 8px;">
+        <a id="modal-open-link" href="#" target="_blank" class="btn btn-secondary btn-sm">Open Link in New Tab</a>
+        <button type="button" class="btn btn-secondary btn-sm" onclick="closeConfirmModal()">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div>
+        <strong>Proof-of-Work Portfolio</strong> — Week 2 Hacktoberfest "Side Hustle" Entry.
+      </div>
+      <div>
+        <a href="https://github.com/xenover09/proof-of-work-portfolio" target="_blank" class="btn btn-secondary btn-sm">GitHub Repo</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const pathParts = window.location.pathname.split('/');
+    const username = pathParts[pathParts.length - 1] || pathParts[pathParts.length - 2];
+
+    async function loadPortfolio() {
+      try {
+        const res = await fetch(`/api/portfolio/${username}`);
+        const data = await res.json();
+
+        if (!data.success) {
+          document.getElementById('profile-loading').innerHTML = `
+            <div style="text-align: center; padding: 40px 0;">
+              <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 8px;">Portfolio Not Found</h2>
+              <p style="color: var(--text-secondary); margin-bottom: 16px;">No proof-of-work portfolio exists for @${escapeHtml(username)}.</p>
+              <a href="/create" class="btn btn-primary">Create Your Portfolio &rarr;</a>
+            </div>
+          `;
+          return;
+        }
+
+        const { profile, projects } = data;
+        document.title = `${profile.full_name} (@${profile.username}) — Proof-of-Work Portfolio`;
+
+        document.getElementById('profile-loading').style.display = 'none';
+        document.getElementById('profile-content').style.display = 'block';
+
+        document.getElementById('prof-name').textContent = profile.full_name;
+        document.getElementById('prof-role').textContent = profile.role || 'Builder';
+        document.getElementById('prof-bio').textContent = profile.bio || '';
+
+        const linksContainer = document.getElementById('prof-links');
+        linksContainer.innerHTML = `
+          <span style="color: var(--text-muted); font-family: var(--font-mono);">@${escapeHtml(profile.username)}</span>
+          ${profile.github_url ? `<span>•</span> <a href="${escapeHtml(profile.github_url)}" target="_blank" rel="noopener noreferrer" style="color: var(--accent-blue); text-decoration: underline;">GitHub Profile &rarr;</a>` : ''}
+        `;
+
+        // Calculate stats
+        const total = projects.length;
+        const confirmed = projects.filter(p => p.client_confirm_status === 'confirmed').length;
+        let totalArtefacts = 0;
+        projects.forEach(p => { totalArtefacts += (p.artefacts ? p.artefacts.length : 0); });
+
+        document.getElementById('score-confirmed').textContent = confirmed;
+        document.getElementById('score-total').textContent = total;
+        document.getElementById('score-artefacts').textContent = totalArtefacts;
+        document.getElementById('project-count-badge').textContent = `${total} Projects`;
+
+        const listContainer = document.getElementById('projects-list');
+        if (projects.length === 0) {
+          listContainer.innerHTML = `
+            <div style="border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 40px; text-align: center; background: var(--bg-secondary);">
+              <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 8px;">No Projects Logged Yet</h3>
+              <p style="color: var(--text-secondary); margin-bottom: 16px;">This user has not published any proof-of-work entries yet.</p>
+              <a href="/create" class="btn btn-primary btn-sm">+ Add Project</a>
+            </div>
+          `;
+          return;
+        }
+
+        listContainer.innerHTML = projects.map(p => {
+          let statusBadge = '';
+          let confirmAction = '';
+
+          if (p.client_confirm_status === 'confirmed') {
+            statusBadge = `<span class="badge badge-confirmed">✓ Confirmed by Client</span>`;
+          } else if (p.client_confirm_status === 'pending') {
+            statusBadge = `<span class="badge badge-pending">⏳ Confirmation Pending</span>`;
+            confirmAction = `
+              <button type="button" class="btn btn-secondary btn-sm" onclick="showConfirmModal('${p.id}', '${p.client_confirm_token || ''}')">
+                Client Confirms Link
+              </button>
+            `;
+          } else if (p.client_confirm_status === 'disputed') {
+            statusBadge = `<span class="badge badge-disputed">Disputed by Client</span>`;
+          } else {
+            statusBadge = `<span class="badge badge-neutral">Unrequested</span>`;
+            confirmAction = `
+              <button type="button" class="btn btn-secondary btn-sm" onclick="requestConfirm('${p.id}')">
+                Request Confirmation
+              </button>
+            `;
+          }
+
+          // Decisions snippet
+          let decisionsHtml = '';
+          if (p.decisions && p.decisions.length > 0) {
+            decisionsHtml = `
+              <div style="margin: 16px 0; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 12px 16px;">
+                <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 6px;">
+                  Key Trade-Off Made (${p.decisions.length} Documented)
+                </div>
+                <div style="font-size: 0.9rem;">
+                  <strong>Decision:</strong> ${escapeHtml(p.decisions[0].decision)}
+                  <span style="color: var(--danger-text); margin-left: 8px;">[Rejected: ${escapeHtml(p.decisions[0].rejected_alternative)}]</span>
+                </div>
+              </div>
+            `;
+          }
+
+          // Client feedback snippet if confirmed
+          let feedbackHtml = '';
+          if (p.client_confirm_status === 'confirmed' && (p.client_feedback || p.client_name)) {
+            feedbackHtml = `
+              <div style="background: var(--success-bg); border: 1px solid var(--success-border); border-radius: var(--radius-md); padding: 12px 16px; margin: 14px 0; font-size: 0.88rem; color: var(--success-text);">
+                <strong>Client Tasdeeq (${escapeHtml(p.client_name || 'Client')}):</strong> 
+                "${escapeHtml(p.client_feedback || 'Delivered exactly as described.')}"
+              </div>
+            `;
+          }
+
+          return `
+            <article class="card">
+              <div class="card-header">
+                <div>
+                  <a href="/project/${p.id}" class="card-title">${escapeHtml(p.title)}</a>
+                  <div class="card-meta">
+                    <span>Published ${new Date(p.created_at).toLocaleDateString()}</span>
+                    ${p.client_name ? `<span>•</span> <span>Client: ${escapeHtml(p.client_name)}</span>` : ''}
+                  </div>
+                </div>
+                <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                  ${statusBadge}
+                  ${confirmAction}
+                </div>
+              </div>
+
+              ${feedbackHtml}
+
+              <div style="margin-bottom: 12px;">
+                <div style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 2px;">
+                  The Problem
+                </div>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5;">
+                  ${escapeHtml(p.problem)}
+                </p>
+              </div>
+
+              ${decisionsHtml}
+
+              <div style="margin-bottom: 14px;">
+                <div style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 2px;">
+                  Result / Outcome
+                </div>
+                <p style="color: var(--text-primary); font-weight: 500; font-size: 0.95rem;">
+                  ${escapeHtml(p.result)}
+                </p>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-color); padding-top: 14px; margin-top: 14px; font-size: 0.85rem; color: var(--text-muted); flex-wrap: wrap; gap: 10px;">
+                <div style="font-family: var(--font-mono); display: flex; gap: 14px;">
+                  <span>📋 ${p.decisions ? p.decisions.length : 0} Trade-offs</span>
+                  <span>🔗 ${p.artefacts ? p.artefacts.length : 0} Dated Receipts</span>
+                </div>
+                <div>
+                  <a href="/project/${p.id}" class="btn btn-secondary btn-sm">
+                    View Full Proof & Receipts &rarr;
+                  </a>
+                </div>
+              </div>
+            </article>
+          `;
+        }).join('');
+
+      } catch (err) {
+        console.error('Failed to load portfolio:', err);
+      }
+    }
+
+    async function showConfirmModal(projectId, token) {
+      let confirmUrl = `${window.location.origin}/confirm/${token}`;
+      if (!token) {
+        const res = await fetch(`/api/projects/${projectId}/request-confirm`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({}) });
+        const data = await res.json();
+        if (data.success) {
+          confirmUrl = data.confirmUrl;
+        }
+      }
+
+      document.getElementById('modal-confirm-input').value = confirmUrl;
+      document.getElementById('modal-open-link').href = confirmUrl;
+      const modal = document.getElementById('confirm-modal');
+      modal.style.display = 'flex';
+    }
+
+    async function requestConfirm(projectId) {
+      try {
+        const res = await fetch(`/api/projects/${projectId}/request-confirm`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({})
+        });
+        const data = await res.json();
+        if (data.success) {
+          showConfirmModal(projectId, data.token);
+        } else {
+          alert('Failed to generate confirmation link: ' + data.error);
+        }
+      } catch (err) {
+        alert('Error: ' + err.message);
+      }
+    }
+
+    function closeConfirmModal() {
+      document.getElementById('confirm-modal').style.display = 'none';
+    }
+
+    function copyModalLink() {
+      const input = document.getElementById('modal-confirm-input');
+      input.select();
+      navigator.clipboard.writeText(input.value);
+      const btn = document.getElementById('modal-copy-btn');
+      btn.textContent = 'Copied!';
+      setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    loadPortfolio();
+  </script>
+</body>
+</html>

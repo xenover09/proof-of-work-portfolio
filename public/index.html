@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proof-of-Work Portfolio — Verified Artefacts & Client Confirmation</title>
+  <meta name="description" content="Anti-bullshit portfolio for freelancers and students. Har daawe ke saath saboot aur client ki tasdeeq. AI se bana jhoota portfolio iska muqabla nahi kar sakta.">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="/" class="nav-brand" id="brand-link">
+        <span>Proof-of-Work</span>
+        <span class="nav-brand-badge">Hacktoberfest W2</span>
+      </a>
+      <div class="nav-links">
+        <a href="#how-it-works" class="nav-link">Kaise Kaam Karta Hai</a>
+        <a href="#comparison" class="nav-link">AI vs Proof</a>
+        <a href="#recent-proofs" class="nav-link">Proofs</a>
+        <a href="/create" class="btn btn-primary btn-sm" id="nav-cta-btn">Apna portfolio banao</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <div class="container">
+      <div class="hero-pill">
+        <span>Week 2 Hacktoberfest Entry: Side Hustle • Oct 19 Deadline</span>
+      </div>
+      <h1 class="hero-title">Portfolios Backed by Proof,<br>Not AI Hallucinations.</h1>
+      <p class="hero-subtitle">
+        Har freelancer aur student ke claim ke saath saboot (dated artefacts) aur client ki direct tasdeeq.
+        AI resume writers aur ChatGPT portfolios ke daur mein trust khatam ho chuka hai — 
+        asli kaam woh hai jo trade-offs aur verifiable proof ke sath khara ho.
+      </p>
+      <div class="hero-actions">
+        <a href="/create" class="btn btn-primary btn-lg" id="hero-create-btn">
+          <span>Apna portfolio banao</span>
+          <span style="font-family: var(--font-mono);">&rarr;</span>
+        </a>
+        <a href="#how-it-works" class="btn btn-secondary btn-lg">Samjhein kaise kaam karta hai</a>
+      </div>
+
+      <!-- Live Stats Ribbon -->
+      <div class="stats-ribbon" id="stats-ribbon">
+        <div class="stat-item">
+          <div class="stat-value" id="stat-confirmed">0</div>
+          <div class="stat-label">Client Confirmed Proofs</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="stat-artefacts">0</div>
+          <div class="stat-label">Dated Artefacts Logged</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="stat-decisions">0</div>
+          <div class="stat-label">Trade-offs Documented</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="stat-profiles">0</div>
+          <div class="stat-label">Verified Creators</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Comparison Section: AI vs Proof-of-Work -->
+  <section class="section" id="comparison">
+    <div class="container">
+      <h2 class="section-title">The Trust Crisis: AI vs Real Work</h2>
+      <p class="section-desc">
+        Recruiters aur clients generic bullet points dekh kar thak chuke hain. 
+        Anyone can prompt an LLM to write "Architected scalable microservices". 
+        Here is how Proof-of-Work separates true builders from prompt copy-pasters.
+      </p>
+
+      <div class="comparison-grid">
+        <div class="comparison-card">
+          <div class="comparison-header">
+            <span class="badge badge-disputed" style="margin-bottom: 8px;">Untrusted</span>
+            <h3 class="comparison-title">AI & Traditional Portfolios</h3>
+          </div>
+          <ul class="comparison-list">
+            <li class="comparison-item">
+              <span class="icon cross">&times;</span>
+              <span>Vague buzzwords ("Delivered high impact solutions")</span>
+            </li>
+            <li class="comparison-item">
+              <span class="icon cross">&times;</span>
+              <span>Fabricated client logos without any point of contact</span>
+            </li>
+            <li class="comparison-item">
+              <span class="icon cross">&times;</span>
+              <span>No trade-off explanation — everything looks effortless</span>
+            </li>
+            <li class="comparison-item">
+              <span class="icon cross">&times;</span>
+              <span>Zero timestamped history or audit trail</span>
+            </li>
+            <li class="comparison-item">
+              <span class="icon cross">&times;</span>
+              <span>Can be faked by ChatGPT in 15 seconds</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="comparison-card highlight">
+          <div class="comparison-header">
+            <span class="badge badge-confirmed" style="margin-bottom: 8px;">Tamper-Resistant</span>
+            <h3 class="comparison-title">Proof-of-Work Portfolio</h3>
+          </div>
+          <ul class="comparison-list">
+            <li class="comparison-item">
+              <span class="icon check">&#10003;</span>
+              <span><strong>Hard Problem Defined</strong>: The exact real friction solved</span>
+            </li>
+            <li class="comparison-item">
+              <span class="icon check">&#10003;</span>
+              <span><strong>Decisions & Rejected Alternatives</strong>: Why X was chosen over Y</span>
+            </li>
+            <li class="comparison-item">
+              <span class="icon check">&#10003;</span>
+              <span><strong>Dated Artefacts</strong>: Commit hashes, PRs, Figma drafts, and staging logs</span>
+            </li>
+            <li class="comparison-item">
+              <span class="icon check">&#10003;</span>
+              <span><strong>1-Tap Client Confirmation</strong>: Verified directly by the buyer via private link</span>
+            </li>
+            <li class="comparison-item">
+              <span class="icon check">&#10003;</span>
+              <span><strong>Impossible to AI-Hallucinate</strong>: Grounded in cryptographic & human proof</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section ("Kaise Kaam Karta Hai") -->
+  <section class="section" id="how-it-works">
+    <div class="container">
+      <h2 class="section-title">Kaise Kaam Karta Hai (3 Simple Steps)</h2>
+      <p class="section-desc">
+        A structured workflow designed for freelancers, students, and engineers who actually build.
+      </p>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">STEP 01</div>
+          <h3 class="step-title">Document the Messy Reality</h3>
+          <p class="step-text">
+            Don't write marketing fluff. State the raw problem, the engineering/design decision you took, and crucially, 
+            <strong>the alternatives you rejected</strong> and why. That's what proves you actually reasoned through it.
+          </p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">STEP 02</div>
+          <h3 class="step-title">Anchor with Dated Artefacts</h3>
+          <p class="step-text">
+            Attach immutable receipts: GitHub commit SHAs, timestamped pull requests, early Figma drafts, 
+            staging preview links, or benchmark terminal logs. Proof has dates.
+          </p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">STEP 03</div>
+          <h3 class="step-title">1-Tap Client Confirmation</h3>
+          <p class="step-text">
+            Generate a unique client-confirmation link. Send it via WhatsApp, Slack, or Email. 
+            The client taps <strong>"Yes, Confirmed"</strong> in 5 seconds without signing up. 
+            The verified badge immediately updates on your public portfolio.
+          </p>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 40px;">
+        <a href="/create" class="btn btn-primary btn-lg" id="section-cta-btn">Apna portfolio banao &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Real Proofs Section -->
+  <section class="section" id="recent-proofs">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px; flex-wrap: wrap; gap: 12px;">
+        <div>
+          <h2 class="section-title" style="margin-bottom: 4px;">Verified Portfolios & Real Deliverables</h2>
+          <p class="section-desc" style="margin-bottom: 0;">Live proofs published by real developers & freelancers.</p>
+        </div>
+        <a href="/create" class="btn btn-secondary btn-sm">+ Add Your Project</a>
+      </div>
+
+      <div id="proofs-container">
+        <!-- Rendered dynamically -->
+        <div style="border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 40px; text-align: center; color: var(--text-muted); background: var(--bg-secondary);">
+          <p style="font-size: 1rem; margin-bottom: 12px;">Loading live proofs from database...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final Call to Action -->
+  <section class="section" style="background-color: var(--bg-secondary); border-bottom: none;">
+    <div class="container container-narrow" style="text-align: center; padding: 40px 20px;">
+      <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 14px; letter-spacing: -0.02em;">
+        Stop Competing with Fake AI Resumes.
+      </h2>
+      <p style="color: var(--text-secondary); margin-bottom: 24px; font-size: 1.05rem;">
+        Publish your first verified project in under 3 minutes. Zero cost, 100% free forever.
+      </p>
+      <a href="/create" class="btn btn-primary btn-lg" id="final-cta-btn">Apna portfolio banao &rarr;</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div>
+        <strong>Proof-of-Work Portfolio</strong> — Week 2 Hacktoberfest "Side Hustle" Entry.
+        <div style="font-size: 0.8rem; margin-top: 4px; color: var(--text-muted);">
+          Deadline: Oct 19, 2026, 11:59 AM PKT • Built with Zero Paid Plans • Clean Light Theme
+        </div>
+      </div>
+      <div>
+        <a href="https://github.com/xenover09/proof-of-work-portfolio" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+          GitHub Repo (Public)
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    async function loadStatsAndProjects() {
+      try {
+        const statsRes = await fetch('/api/stats');
+        const statsData = await statsRes.json();
+        if (statsData.success) {
+          document.getElementById('stat-confirmed').textContent = statsData.stats.confirmedProjects;
+          document.getElementById('stat-artefacts').textContent = statsData.stats.totalArtefacts;
+          document.getElementById('stat-decisions').textContent = statsData.stats.totalDecisions;
+          document.getElementById('stat-profiles').textContent = statsData.stats.totalProfiles;
+        }
+
+        const projRes = await fetch('/api/projects?limit=6');
+        const projData = await projRes.json();
+        const container = document.getElementById('proofs-container');
+
+        if (projData.success && projData.projects && projData.projects.length > 0) {
+          container.innerHTML = projData.projects.map(p => {
+            const statusBadge = p.client_confirm_status === 'confirmed'
+              ? `<span class="badge badge-confirmed">✓ Confirmed by Client</span>`
+              : (p.client_confirm_status === 'pending'
+                ? `<span class="badge badge-pending">⏳ Client Confirmation Pending</span>`
+                : `<span class="badge badge-neutral">Unrequested</span>`);
+
+            return `
+              <div class="card">
+                <div class="card-header">
+                  <div>
+                    <a href="/project/${p.id}" class="card-title">${escapeHtml(p.title)}</a>
+                    <div class="card-meta">
+                      <span>By <a href="/p/${escapeHtml(p.username)}" style="color: var(--text-primary); font-weight: 600; text-decoration: underline;">${escapeHtml(p.author_name)}</a> (${escapeHtml(p.author_role || 'Developer')})</span>
+                      <span>•</span>
+                      <span>${new Date(p.created_at).toLocaleDateString()}</span>
+                    </div>
+                  </div>
+                  <div>
+                    ${statusBadge}
+                  </div>
+                </div>
+                <p style="color: var(--text-secondary); margin-bottom: 14px; font-size: 0.95rem;">
+                  ${escapeHtml(p.summary || p.problem.slice(0, 160) + '...')}
+                </p>
+                <div style="display: flex; gap: 16px; font-size: 0.85rem; color: var(--text-muted); font-family: var(--font-mono); border-top: 1px solid var(--border-color); padding-top: 12px;">
+                  <span>📋 ${p.decisionsCount} Trade-offs</span>
+                  <span>🔗 ${p.artefactsCount} Dated Artefacts</span>
+                  ${p.client_name ? `<span>👤 Client: ${escapeHtml(p.client_name)}</span>` : ''}
+                </div>
+              </div>
+            `;
+          }).join('');
+        } else {
+          container.innerHTML = `
+            <div style="border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 48px 24px; text-align: center; background: var(--bg-secondary);">
+              <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 8px;">No Proofs Published Yet</h3>
+              <p style="color: var(--text-secondary); margin-bottom: 20px; max-width: 440px; margin-left: auto; margin-right: auto; font-size: 0.95rem;">
+                No fake entries pre-baked. Sab real user se aayega! Be the first to publish your real deliverable.
+              </p>
+              <a href="/create" class="btn btn-primary">Apna portfolio banao &rarr;</a>
+            </div>
+          `;
+        }
+      } catch (err) {
+        console.error('Failed to load stats/projects:', err);
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    loadStatsAndProjects();
+  </script>
+</body>
+</html>

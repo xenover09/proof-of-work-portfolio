@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Proof — Proof-of-Work</title>
+  <meta name="description" content="Detailed proof-of-work project: problem statement, architectural trade-offs, dated artefacts, and client confirmation.">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="/" class="nav-brand" id="brand-link">
+        <span>Proof-of-Work</span>
+        <span class="nav-brand-badge">Project Proof</span>
+      </a>
+      <div class="nav-links">
+        <a id="back-to-portfolio" href="/" class="nav-link">&larr; Back to Portfolio</a>
+        <a href="/create" class="btn btn-primary btn-sm">+ Add Project</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="section">
+    <div class="container container-narrow">
+      <div id="project-loading" style="color: var(--text-muted); font-size: 0.95rem;">
+        Loading project proof...
+      </div>
+
+      <div id="project-content" style="display: none;">
+        <!-- Header -->
+        <header style="margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--border-color);">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; margin-bottom: 14px;">
+            <div id="project-status-badge">
+              <!-- Rendered badge -->
+            </div>
+            <div id="confirm-action-container">
+              <!-- Copy confirm link or request -->
+            </div>
+          </div>
+
+          <h1 id="proj-title" style="font-size: 2.4rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 12px;"></h1>
+          
+          <div style="display: flex; align-items: center; gap: 12px; font-size: 0.9rem; color: var(--text-secondary); flex-wrap: wrap;">
+            <span>By <a id="author-link" href="#" style="color: var(--text-primary); font-weight: 600; text-decoration: underline;"></a> (<span id="author-role"></span>)</span>
+            <span>•</span>
+            <span id="proj-date"></span>
+            <span id="client-info-meta"></span>
+          </div>
+        </header>
+
+        <!-- Client Confirmation Testimonial Banner if Confirmed -->
+        <div id="confirmed-banner" style="display: none; background: var(--success-bg); border: 1px solid var(--success-border); border-radius: var(--radius-lg); padding: 20px; margin-bottom: 32px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+            <span style="font-weight: 700; color: var(--success-text); font-size: 0.95rem;">✓ Client Tasdeeq Confirmed</span>
+            <span id="confirmed-timestamp" style="font-size: 0.8rem; color: var(--text-muted); font-family: var(--font-mono);"></span>
+          </div>
+          <p id="confirmed-feedback" style="font-size: 0.95rem; color: var(--success-text); margin-bottom: 6px; font-style: italic;"></p>
+          <div style="font-size: 0.85rem; color: var(--text-muted);">
+            Verified by: <strong id="confirmed-client-name" style="color: var(--text-primary);"></strong>
+          </div>
+        </div>
+
+        <!-- Problem Statement -->
+        <section style="margin-bottom: 36px;">
+          <h2 style="font-size: 1.3rem; font-weight: 700; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; margin-bottom: 14px;">
+            1. The Real Problem Solved
+          </h2>
+          <div id="proj-problem" style="font-size: 1rem; color: var(--text-secondary); line-height: 1.6; white-space: pre-wrap;"></div>
+        </section>
+
+        <!-- Decisions & Rejected Alternatives -->
+        <section style="margin-bottom: 36px;">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; margin-bottom: 16px;">
+            <h2 style="font-size: 1.3rem; font-weight: 700;">
+              2. Architectural Decisions & Rejected Alternatives
+            </h2>
+            <span id="decisions-count-badge" class="badge badge-neutral">0 Decisions</span>
+          </div>
+          <div id="proj-decisions">
+            <!-- Decision blocks -->
+          </div>
+        </section>
+
+        <!-- Dated Artefacts Timeline (Receipts) -->
+        <section style="margin-bottom: 36px;">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; margin-bottom: 16px;">
+            <h2 style="font-size: 1.3rem; font-weight: 700;">
+              3. Dated Artefacts (The Receipts)
+            </h2>
+            <span id="artefacts-count-badge" class="badge badge-neutral">0 Artefacts</span>
+          </div>
+          <div id="proj-artefacts">
+            <!-- Artefact cards -->
+          </div>
+        </section>
+
+        <!-- Measurable Result -->
+        <section style="margin-bottom: 36px;">
+          <h2 style="font-size: 1.3rem; font-weight: 700; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; margin-bottom: 14px;">
+            4. Measurable Result / Outcome
+          </h2>
+          <div id="proj-result" style="font-size: 1rem; color: var(--text-primary); background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 18px; line-height: 1.6; white-space: pre-wrap;"></div>
+        </section>
+
+        <!-- Client Confirmation Box -->
+        <section id="confirmation-cta-box" style="margin-bottom: 40px; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 24px; background: var(--bg-secondary);">
+          <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 8px;">Client Confirmation Status</h3>
+          <p id="confirm-box-desc" style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 16px;"></p>
+          <div id="confirm-box-action"></div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div>
+        <strong>Proof-of-Work Portfolio</strong> — Week 2 Hacktoberfest "Side Hustle" Entry.
+      </div>
+      <div>
+        <a href="https://github.com/xenover09/proof-of-work-portfolio" target="_blank" class="btn btn-secondary btn-sm">GitHub Repo</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const pathParts = window.location.pathname.split('/');
+    const projectId = pathParts[pathParts.length - 1] || pathParts[pathParts.length - 2];
+
+    async function loadProject() {
+      try {
+        const res = await fetch(`/api/projects/${projectId}`);
+        const data = await res.json();
+
+        if (!data.success || !data.project) {
+          document.getElementById('project-loading').innerHTML = `
+            <div style="text-align: center; padding: 40px 0;">
+              <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 8px;">Project Proof Not Found</h2>
+              <p style="color: var(--text-secondary); margin-bottom: 16px;">This project does not exist or may have been removed.</p>
+              <a href="/" class="btn btn-primary">Return Home &rarr;</a>
+            </div>
+          `;
+          return;
+        }
+
+        const p = data.project;
+        document.title = `${p.title} — Proof-of-Work`;
+
+        document.getElementById('project-loading').style.display = 'none';
+        document.getElementById('project-content').style.display = 'block';
+
+        document.getElementById('back-to-portfolio').href = `/p/${p.username}`;
+        document.getElementById('back-to-portfolio').innerHTML = `&larr; Back to @${escapeHtml(p.username)}'s Portfolio`;
+
+        document.getElementById('proj-title').textContent = p.title;
+        document.getElementById('author-link').textContent = p.author_name;
+        document.getElementById('author-link').href = `/p/${p.username}`;
+        document.getElementById('author-role').textContent = p.author_role || 'Developer';
+        document.getElementById('proj-date').textContent = new Date(p.created_at).toLocaleDateString();
+
+        if (p.client_name) {
+          document.getElementById('client-info-meta').innerHTML = `<span>•</span> <span>Client: <strong>${escapeHtml(p.client_name)}</strong></span>`;
+        }
+
+        // Status Badge & Action
+        const statusEl = document.getElementById('project-status-badge');
+        const confirmBoxDesc = document.getElementById('confirm-box-desc');
+        const confirmBoxAction = document.getElementById('confirm-box-action');
+
+        if (p.client_confirm_status === 'confirmed') {
+          statusEl.innerHTML = `<span class="badge badge-confirmed" style="font-size: 0.9rem; padding: 5px 10px;">✓ Confirmed by Client</span>`;
+          
+          document.getElementById('confirmed-banner').style.display = 'block';
+          document.getElementById('confirmed-client-name').textContent = p.client_name || 'Client';
+          document.getElementById('confirmed-feedback').textContent = `"${p.client_feedback || 'Work verified and accepted as described.'}"`;
+          if (p.client_confirmed_at) {
+            document.getElementById('confirmed-timestamp').textContent = `Confirmed on ${new Date(p.client_confirmed_at).toLocaleDateString()}`;
+          }
+
+          confirmBoxDesc.textContent = `This project has been officially verified by ${p.client_name || 'the client'}. The claims, artefacts, and deliverables have been authenticated.`;
+          confirmBoxAction.innerHTML = `<span class="badge badge-confirmed">Verification Sealed</span>`;
+
+        } else if (p.client_confirm_status === 'pending') {
+          statusEl.innerHTML = `<span class="badge badge-pending" style="font-size: 0.9rem; padding: 5px 10px;">⏳ Client Confirmation Pending</span>`;
+          
+          const confirmUrl = data.confirmUrl || `${window.location.origin}/confirm/${p.client_confirm_token}`;
+          
+          document.getElementById('confirm-action-container').innerHTML = `
+            <a href="${confirmUrl}" target="_blank" class="btn btn-secondary btn-sm">Open Client Link &#x2197;</a>
+          `;
+
+          confirmBoxDesc.textContent = `A unique confirmation link has been issued for this project. Once the client taps "Yes", this page will display the green verified seal.`;
+          confirmBoxAction.innerHTML = `
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+              <input type="text" id="direct-confirm-url" value="${confirmUrl}" readonly class="form-control" style="font-family: var(--font-mono); font-size: 0.85rem; max-width: 440px;">
+              <button type="button" class="btn btn-primary btn-sm" onclick="copyDirectConfirmLink()">Copy Link</button>
+              <a href="${confirmUrl}" target="_blank" class="btn btn-success btn-sm">Test Client Tap Now</a>
+            </div>
+          `;
+        } else if (p.client_confirm_status === 'disputed') {
+          statusEl.innerHTML = `<span class="badge badge-disputed" style="font-size: 0.9rem; padding: 5px 10px;">✕ Disputed by Client</span>`;
+          confirmBoxDesc.textContent = `The client reviewed this submission and marked it as disputed or inaccurate. Note: ${p.client_feedback || 'No feedback provided.'}`;
+        } else {
+          statusEl.innerHTML = `<span class="badge badge-neutral" style="font-size: 0.9rem; padding: 5px 10px;">Verification Unrequested</span>`;
+          confirmBoxDesc.textContent = `No client confirmation link has been generated yet for this project.`;
+          confirmBoxAction.innerHTML = `
+            <button type="button" class="btn btn-secondary btn-sm" onclick="requestConfirm('${p.id}')">Generate Client Confirmation Link</button>
+          `;
+        }
+
+        // Problem & Result
+        document.getElementById('proj-problem').textContent = p.problem;
+        document.getElementById('proj-result').textContent = p.result;
+
+        // Decisions
+        const decisionsContainer = document.getElementById('proj-decisions');
+        document.getElementById('decisions-count-badge').textContent = `${p.decisions.length} Decisions`;
+
+        if (p.decisions.length === 0) {
+          decisionsContainer.innerHTML = `<p style="color: var(--text-muted); font-size: 0.9rem;">No decision trade-offs recorded for this project.</p>`;
+        } else {
+          decisionsContainer.innerHTML = p.decisions.map((d, idx) => `
+            <div class="decision-block">
+              <div class="decision-row">
+                <div class="decision-label">Decision #${idx + 1}</div>
+                <div class="decision-content" style="font-weight: 700; color: var(--text-primary);">
+                  ${escapeHtml(d.decision)}
+                </div>
+              </div>
+              <div class="decision-row">
+                <div class="decision-label" style="color: var(--danger-text);">Rejected</div>
+                <div class="decision-content decision-rejected" style="font-weight: 600;">
+                  ${escapeHtml(d.rejected_alternative)}
+                </div>
+              </div>
+              <div class="decision-row" style="margin-bottom: 0;">
+                <div class="decision-label">Rationale</div>
+                <div class="decision-content">
+                  ${escapeHtml(d.reason || 'No rationale provided.')}
+                </div>
+              </div>
+            </div>
+          `).join('');
+        }
+
+        // Artefacts
+        const artefactsContainer = document.getElementById('proj-artefacts');
+        document.getElementById('artefacts-count-badge').textContent = `${p.artefacts.length} Artefacts`;
+
+        if (p.artefacts.length === 0) {
+          artefactsContainer.innerHTML = `<p style="color: var(--text-muted); font-size: 0.9rem;">No dated artefacts attached.</p>`;
+        } else {
+          artefactsContainer.innerHTML = p.artefacts.map(a => {
+            const isUrl = a.url_or_hash.startsWith('http://') || a.url_or_hash.startsWith('https://');
+            const linkHtml = isUrl
+              ? `<a href="${escapeHtml(a.url_or_hash)}" target="_blank" rel="noopener noreferrer" class="artefact-link">${escapeHtml(a.url_or_hash)}</a>`
+              : `<span style="font-family: var(--font-mono); background: var(--bg-secondary); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border-color);">${escapeHtml(a.url_or_hash)}</span>`;
+
+            return `
+              <div class="artefact-item">
+                <div class="artefact-info">
+                  <div class="artefact-header">
+                    <span class="artefact-type">${escapeHtml(a.type)}</span>
+                    <span class="artefact-title">${escapeHtml(a.title)}</span>
+                  </div>
+                  ${a.notes ? `<p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 2px;">${escapeHtml(a.notes)}</p>` : ''}
+                </div>
+                <div class="artefact-meta">
+                  <span>${escapeHtml(a.artefact_date)}</span>
+                  <span>${linkHtml}</span>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+
+      } catch (err) {
+        console.error('Failed to load project:', err);
+      }
+    }
+
+    function copyDirectConfirmLink() {
+      const input = document.getElementById('direct-confirm-url');
+      input.select();
+      navigator.clipboard.writeText(input.value);
+      alert('Client confirmation link copied to clipboard!');
+    }
+
+    async function requestConfirm(id) {
+      try {
+        const res = await fetch(`/api/projects/${id}/request-confirm`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({})
+        });
+        const data = await res.json();
+        if (data.success) {
+          location.reload();
+        } else {
+          alert('Failed to generate link: ' + data.error);
+        }
+      } catch (err) {
+        alert('Error: ' + err.message);
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    loadProject();
+  </script>
+</body>
+</html>
