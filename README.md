@@ -96,10 +96,10 @@ Adhering strictly to a 100% free, vendor-neutral architecture:
    - Optional client name/organization & testimonial quote input.
    - Instant state transition with live portfolio update.
 7. **Verified CV Builder & Job-Criteria Audit (`/cv`):**
-   - **4 Researched Template Architectures:** Classic Professional (Harvard style), Modern Two-Column (Novoresume style), Skills-First/Functional (Rezi style), and Minimal Single-Page (Compact ATS).
-   - **Verified-Only Rule:** CV exports exclusively contain entries backed by dated commit receipts, benchmark logs, or authenticated client confirmations. Unverified claims are automatically flagged and excluded.
-   - **Job-Criteria CV Audit:** Paste any target Job Description to run an automated criteria-wise gap analysis (Met requirements with proof citations vs Missing evidence gaps). Strictly zero arbitrary "% match" scores.
-   - **Print & PDF Export:** Native print styling (`@media print`) for clean, ATS-compliant A4/Letter PDF generation.
+   - **4 ATS-Safe Single-Column Templates:** Classic Professional (Harvard-style), Modern (Single-column typography & hierarchy, skills top), Skills-First/Functional (Career-switchers with competency clusters top), and Minimal Single-Page (Compact ATS, standard headings). Zero two-column layouts, sidebars, tables, or decorative icons.
+   - **Verified-Only Rule:** CV exports exclusively contain entries backed by dated commit receipts, benchmark logs, or authenticated client confirmations. Unverified claims display the warning: *"Ye entry verified nahi hai — CV mein add nahi hogi jab tak saboot na ho."* and are excluded from output until verifiable proof is linked.
+   - **Job-Criteria CV Audit:** Paste any target Job Description to run an automated criteria-wise gap analysis (Met requirements with proof citations vs Missing evidence gaps). Strictly zero arbitrary "% match" scores and zero exaggerated ranking claims.
+   - **Print & PDF Export:** Native print styling (`@media print`) for clean, single-column ATS-compliant A4/Letter PDF generation via `window.print()`.
 
 ---
 

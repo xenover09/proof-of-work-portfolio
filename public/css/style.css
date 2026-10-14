@@ -1354,7 +1354,11 @@ textarea.form-control {
   box-shadow: var(--shadow-sm);
 }
 
-/* Template 1: Classic Professional (Harvard / Google Docs Style) */
+/* Template 1: Classic Professional (Harvard-Style Single Column) */
+.cv-template-classic {
+  font-family: var(--font-sans);
+}
+
 .cv-template-classic .cv-header {
   border-bottom: 2px solid #0f172a;
   padding-bottom: 14px;
@@ -1420,38 +1424,122 @@ textarea.form-control {
   margin-bottom: 4px;
 }
 
-/* Template 2: Modern Two-Column (Novoresume / Zety Style) */
-.cv-template-two-column .two-col-layout {
-  display: grid;
-  grid-template-columns: 230px 1fr;
-  gap: 32px;
+/* Template 2: Modern (Single Column — Differentiated via Typography & Hierarchy) */
+.cv-template-modern {
+  font-family: var(--font-sans);
+  line-height: 1.55;
 }
 
-.cv-template-two-column .sidebar-col {
-  border-right: 1px solid #e2e8f0;
-  padding-right: 24px;
+.cv-template-modern .cv-header {
+  border-bottom: 2px solid #0f172a;
+  padding-bottom: 14px;
+  margin-bottom: 20px;
 }
 
-.cv-template-two-column .main-col {
-  padding-left: 4px;
+.cv-template-modern .cv-name {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: #0f172a;
+  margin-bottom: 2px;
 }
 
-.cv-template-two-column .sidebar-section-title {
-  font-size: 0.82rem;
+.cv-template-modern .cv-subtitle {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #2563eb;
+  margin-bottom: 6px;
+}
+
+.cv-template-modern .cv-contact-line {
+  font-size: 0.84rem;
+  color: #475569;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.cv-template-modern .cv-section-title {
+  font-size: 0.96rem;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   color: #0f172a;
-  margin: 18px 0 8px;
-  border-bottom: 1px solid #cbd5e1;
-  padding-bottom: 3px;
+  border-bottom: 1.5px solid #0f172a;
+  padding-bottom: 4px;
+  margin: 20px 0 12px;
 }
 
-.cv-template-two-column .sidebar-section-title:first-child {
-  margin-top: 0;
+.cv-template-modern .modern-skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 6px;
 }
 
-.cv-template-two-column .main-section-title {
+.cv-template-modern .modern-skill-pill {
+  background-color: #f8fafc;
+  border: 1px solid #cbd5e1;
+  padding: 3px 8px;
+  border-radius: var(--radius-xs);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.cv-template-modern .cv-item {
+  margin-bottom: 14px;
+}
+
+.cv-template-modern .cv-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.94rem;
+}
+
+.cv-template-modern .cv-item-title {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.cv-template-modern .cv-item-date {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+/* Template 3: Functional / Skills-First (Single Column for Career Switchers) */
+.cv-template-functional {
+  font-family: var(--font-sans);
+}
+
+.cv-template-functional .cv-header {
+  border-bottom: 2px solid #0f172a;
+  padding-bottom: 14px;
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.cv-template-functional .cv-name {
+  font-size: 1.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+  color: #0f172a;
+}
+
+.cv-template-functional .cv-contact-line {
+  font-size: 0.84rem;
+  color: #334155;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.cv-template-functional .cv-section-title {
   font-size: 0.95rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -1459,14 +1547,9 @@ textarea.form-control {
   color: #0f172a;
   border-bottom: 1px solid #cbd5e1;
   padding-bottom: 3px;
-  margin: 20px 0 10px;
+  margin: 18px 0 10px;
 }
 
-.cv-template-two-column .main-section-title:first-child {
-  margin-top: 0;
-}
-
-/* Template 3: Functional / Skills-First (Rezi Style) */
 .cv-template-functional .functional-cluster {
   background: #f8fafc;
   border: 1px solid #e2e8f0;
@@ -1483,11 +1566,17 @@ textarea.form-control {
   margin-bottom: 4px;
 }
 
-/* Template 4: Minimal Single-Page (Compact ATS) */
+/* Template 4: Minimal Single-Page (Compact ATS Single Column) */
 .cv-template-minimal {
   font-size: 0.86rem;
   line-height: 1.45;
   padding: 36px 42px;
+}
+
+.cv-template-minimal .cv-header {
+  margin-bottom: 12px;
+  border-bottom: 1.5px solid #0f172a;
+  padding-bottom: 8px;
 }
 
 .cv-template-minimal .cv-name {

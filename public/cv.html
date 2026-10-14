@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Proof-of-Work — Verified CV Builder &amp; Job Criteria Audit</title>
-  <meta name="description" content="Build evidence-backed developer CVs using researched structural templates (Harvard, Modern Two-Column, Skills-First, Minimal ATS) auto-filled strictly from verified deliverables.">
+  <meta name="description" content="Build evidence-backed developer CVs using 4 ATS-safe single-column templates (Classic, Modern, Skills-First, Minimal) auto-filled strictly from verified deliverables.">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body class="bg-grid">
@@ -42,8 +42,8 @@
               Verified CV Builder &amp; Criteria Audit
             </h1>
             <p style="color: var(--text-body); font-size: 0.98rem; max-width: 680px; line-height: 1.55;">
-              Construct ATS-compliant resumes grounded exclusively in verifiable technical receipts. 
-              Switch between 4 researched template architectures and audit your claims against specific job criteria.
+              Construct ATS-safe single-column resumes grounded exclusively in verifiable technical receipts. 
+              Switch between 4 standard template structures and audit your claims against specific job criteria.
             </p>
           </div>
 
@@ -81,7 +81,7 @@
         <!-- Unverified Warning Box (Shown if any unverified entries exist) -->
         <div id="unverified-warning-container" class="unverified-warning-box" style="display: none; margin-top: 14px;">
           <strong>⚠️ Verified-Only Rule Active:</strong>
-          <span id="unverified-warning-text">One or more projects lack verifiable receipts or client confirmation and have been excluded from the CV export.</span>
+          <span id="unverified-warning-text">Ye entry verified nahi hai — CV mein add nahi hogi jab tak saboot na ho.</span>
         </div>
       </div>
 
@@ -92,27 +92,27 @@
           <!-- Template Selector Tabs -->
           <div class="card" style="padding: 20px; margin-bottom: 20px;">
             <div style="font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 12px;">
-              Researched Template Structure
+              ATS-Safe Template Structures
             </div>
             <div style="display: flex; flex-direction: column; gap: 8px;">
               <button type="button" class="template-tab active" id="tab-classic" onclick="setTemplate('classic')">
-                <div style="font-weight: 700;">Classic Professional</div>
-                <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">Harvard Style &bull; Reverse Chronological</div>
+                <div style="font-weight: 700;">Classic / Professional</div>
+                <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">Harvard-Style &bull; Reverse Chronological</div>
               </button>
 
-              <button type="button" class="template-tab" id="tab-two-column" onclick="setTemplate('two-column')">
-                <div style="font-weight: 700;">Modern Two-Column</div>
-                <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">Novoresume Style &bull; Sidebar + Body</div>
+              <button type="button" class="template-tab" id="tab-modern" onclick="setTemplate('modern')">
+                <div style="font-weight: 700;">Modern Single-Column</div>
+                <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">Hierarchy &amp; Typography &bull; Skills Top</div>
               </button>
 
               <button type="button" class="template-tab" id="tab-functional" onclick="setTemplate('functional')">
                 <div style="font-weight: 700;">Skills-First / Functional</div>
-                <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">Rezi Style &bull; Competency Clusters</div>
+                <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">Career-Switchers &bull; Competency Groups</div>
               </button>
 
               <button type="button" class="template-tab" id="tab-minimal" onclick="setTemplate('minimal')">
                 <div style="font-weight: 700;">Minimal Single-Page</div>
-                <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">High-Density ATS &bull; Standard Headings</div>
+                <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">Compact ATS &bull; Standard Headings</div>
               </button>
             </div>
           </div>
@@ -272,7 +272,7 @@
   <script>
     // Global CV State
     let cvState = {
-      template: 'classic', // classic | two-column | functional | minimal
+      template: 'classic', // classic | modern | functional | minimal
       profile: {
         full_name: 'Salaar Hussain',
         role: 'Backend & Systems Engineer',
@@ -388,7 +388,7 @@
         if (unverifiedCount > 0) {
           warningContainer.style.display = 'block';
           document.getElementById('unverified-warning-text').textContent = 
-            `${unverifiedCount} unverified project(s) lack receipts and were automatically filtered out of the CV. Only evidence-backed projects are included.`;
+            `Ye entry verified nahi hai — CV mein add nahi hogi jab tak saboot na ho. (${unverifiedCount} unverified project(s) lack receipts and were excluded from the CV export).`;
         } else {
           warningContainer.style.display = 'none';
         }
@@ -444,10 +444,10 @@
 
         if (!isVerified) {
           return `
-            <div style="opacity: 0.6; padding: 6px 8px; border: 1px dashed var(--border-medium); border-radius: var(--radius-xs); font-size: 0.82rem;">
+            <div style="padding: 8px 10px; border: 1px dashed var(--danger-border); border-radius: var(--radius-xs); font-size: 0.82rem; background: var(--danger-bg); margin-bottom: 6px;">
               <span style="color: var(--danger-text); font-weight: 700;">[UNVERIFIED - EXCLUDED]</span>
-              <div>${escapeHtml(p.title)}</div>
-              <div style="font-size: 0.75rem; color: var(--text-muted);">Attach receipts in project builder to enable.</div>
+              <div style="font-weight: 600; color: var(--text-main); margin-top: 2px;">${escapeHtml(p.title)}</div>
+              <div style="font-size: 0.75rem; color: var(--danger-text); margin-top: 2px;">Ye entry verified nahi hai — CV mein add nahi hogi jab tak saboot na ho.</div>
             </div>
           `;
         }
@@ -482,9 +482,9 @@
       if (activeTab) activeTab.classList.add('active');
 
       const labels = {
-        'classic': 'Classic Professional (Harvard Style)',
-        'two-column': 'Modern Two-Column (Novoresume Style)',
-        'functional': 'Skills-First / Functional (Rezi Style)',
+        'classic': 'Classic / Professional (Harvard Style)',
+        'modern': 'Modern (Single Column)',
+        'functional': 'Skills-First / Functional (Career-Switchers)',
         'minimal': 'Minimal Single-Page (Compact ATS)'
       };
       document.getElementById('current-template-label').textContent = labels[templateName] || templateName;
@@ -511,8 +511,8 @@
 
       if (cvState.template === 'classic') {
         container.innerHTML = renderClassicTemplate(data);
-      } else if (cvState.template === 'two-column') {
-        container.innerHTML = renderTwoColumnTemplate(data);
+      } else if (cvState.template === 'modern') {
+        container.innerHTML = renderModernTemplate(data);
       } else if (cvState.template === 'functional') {
         container.innerHTML = renderFunctionalTemplate(data);
       } else if (cvState.template === 'minimal') {
@@ -521,11 +521,12 @@
     }
 
     // ==========================================
-    // 1. CLASSIC PROFESSIONAL (HARVARD STYLE)
+    // 1. CLASSIC PROFESSIONAL (HARVARD-STYLE SINGLE COLUMN)
+    // Order: Header (no photo) -> Summary -> Experience -> Skills -> Education -> Certifications/Projects
     // ==========================================
     function renderClassicTemplate({ profile, experience, projects }) {
       return `
-        <!-- Header -->
+        <!-- Header (Name + Contact, No Photo) -->
         <header class="cv-header">
           <h1 class="cv-name">${escapeHtml(profile.full_name)}</h1>
           <div style="font-weight: 700; font-size: 0.95rem; color: #334155; margin-bottom: 6px;">
@@ -540,7 +541,7 @@
           </div>
         </header>
 
-        <!-- Professional Summary -->
+        <!-- 1. Summary -->
         <section>
           <h2 class="cv-section-title">Professional Summary</h2>
           <p style="color: #1e293b; line-height: 1.55; margin-bottom: 0;">
@@ -548,16 +549,15 @@
           </p>
         </section>
 
-        <!-- Experience -->
+        <!-- 2. Experience (Org + Title + Dates, Action-Verb Bullets, Quantify) -->
         <section>
           <h2 class="cv-section-title">Professional Experience</h2>
           ${experience.map(exp => `
             <div class="cv-item">
               <div class="cv-item-header">
-                <span class="cv-item-title">${escapeHtml(exp.role)}</span>
+                <span class="cv-item-title">${escapeHtml(exp.role)} &mdash; ${escapeHtml(exp.organization || '')}</span>
                 <span class="cv-item-date">${escapeHtml(exp.period || '')}</span>
               </div>
-              <div class="cv-item-sub">${escapeHtml(exp.organization || '')}</div>
               <p style="margin-bottom: 4px; font-size: 0.88rem; color: #334155;">${escapeHtml(exp.summary || '')}</p>
               ${exp.achievements ? `
                 <ul style="padding-left: 18px; margin-top: 4px; font-size: 0.86rem; color: #1e293b;">
@@ -568,9 +568,26 @@
           `).join('')}
         </section>
 
-        <!-- Verified Technical Projects -->
+        <!-- 3. Skills -->
         <section>
-          <h2 class="cv-section-title">Verified Technical Projects &amp; Deliverables</h2>
+          <h2 class="cv-section-title">Technical Skills</h2>
+          <div style="font-size: 0.88rem; color: #1e293b; line-height: 1.5;">
+            <strong>Core Engineering Stack:</strong> ${escapeHtml(profile.skills)}
+          </div>
+        </section>
+
+        <!-- 4. Education -->
+        <section>
+          <h2 class="cv-section-title">Education</h2>
+          <div style="display: flex; justify-content: space-between; font-size: 0.88rem; color: #1e293b;">
+            <span>${escapeHtml(profile.education)}</span>
+            <span style="font-family: var(--font-mono); color: #64748b;">Verified Graduate</span>
+          </div>
+        </section>
+
+        <!-- 5. Certifications & Verified Projects -->
+        <section>
+          <h2 class="cv-section-title">Certifications &amp; Verified Projects</h2>
           ${projects.length === 0 ? `<p style="font-size: 0.85rem; color: #64748b;">No verified projects selected.</p>` : ''}
           ${projects.map(p => {
             const hasConfirm = p.client_confirm_status === 'confirmed';
@@ -580,14 +597,14 @@
                 <div class="cv-item-header">
                   <span class="cv-item-title">${escapeHtml(p.title)}</span>
                   <span class="cv-item-date">
-                    ${hasConfirm ? `<span class="cv-verified-tag">&check; Client Confirmed</span>` : (receipt ? `<span class="cv-verified-tag">&check; Receipt Linked</span>` : '')}
+                    ${hasConfirm ? `<span class="cv-verified-tag">[Verified: Client Confirmed]</span>` : (receipt ? `<span class="cv-verified-tag">[Verified: Receipt Linked]</span>` : '')}
                   </span>
                 </div>
                 <div style="font-size: 0.86rem; color: #334155; margin-bottom: 4px;">
                   ${p.defensible_number ? `<strong>Defensible Metric:</strong> ${escapeHtml(p.defensible_number)} &bull; ` : ''}
-                  ${p.repo_url ? `<a href="${escapeHtml(p.repo_url)}" target="_blank" style="color: #2563eb; text-decoration: underline;">GitHub Repository</a>` : ''}
+                  ${p.repo_url ? `<a href="${escapeHtml(p.repo_url)}" target="_blank" style="color: #2563eb; text-decoration: underline;">Repository</a>` : ''}
                 </div>
-                <ul style="padding-left: 18px; font-size: 0.86rem; color: #1e293b;">
+                <ul style="padding-left: 18px; font-size: 0.86rem; color: #1e293b; margin-bottom: 0;">
                   <li><strong>Challenge Solved:</strong> ${escapeHtml(p.problem)}</li>
                   ${p.decisions && p.decisions.length > 0 ? `<li><strong>Trade-Off Made:</strong> ${escapeHtml(p.decisions[0].decision)} <em>(Rejected: ${escapeHtml(p.decisions[0].rejected_alternative)})</em></li>` : ''}
                   <li><strong>Outcome:</strong> ${escapeHtml(p.result)}</li>
@@ -597,130 +614,111 @@
             `;
           }).join('')}
         </section>
-
-        <!-- Technical Skills -->
-        <section>
-          <h2 class="cv-section-title">Technical Competencies</h2>
-          <div style="font-size: 0.88rem; color: #1e293b; line-height: 1.5;">
-            <strong>Core Engineering Stack:</strong> ${escapeHtml(profile.skills)}
-          </div>
-        </section>
-
-        <!-- Education -->
-        <section>
-          <h2 class="cv-section-title">Education &amp; Credentials</h2>
-          <div style="display: flex; justify-content: space-between; font-size: 0.88rem; color: #1e293b;">
-            <span>${escapeHtml(profile.education)}</span>
-            <span style="font-family: var(--font-mono); color: #64748b;">Verified Graduate</span>
-          </div>
-        </section>
       `;
     }
 
     // ==========================================
-    // 2. MODERN TWO-COLUMN (NOVORESUME STYLE)
+    // 2. MODERN (SINGLE COLUMN)
+    // Order: Header -> Summary -> Skills -> Experience -> Education -> Certifications/Projects
+    // Differentiated via typography, spacing, and hierarchy — NO sidebars or tables
     // ==========================================
-    function renderTwoColumnTemplate({ profile, experience, projects }) {
+    function renderModernTemplate({ profile, experience, projects }) {
       const skillsArray = profile.skills.split(',').map(s => s.trim()).filter(Boolean);
 
       return `
-        <header style="border-bottom: 2px solid #0f172a; padding-bottom: 16px; margin-bottom: 20px;">
-          <h1 style="font-size: 2rem; font-weight: 800; text-transform: uppercase; letter-spacing: -0.02em; margin-bottom: 2px;">
-            ${escapeHtml(profile.full_name)}
-          </h1>
-          <div style="font-size: 1.1rem; font-weight: 600; color: #2563eb;">
-            ${escapeHtml(profile.role)}
+        <!-- Modern Single-Column Header -->
+        <header class="cv-header">
+          <h1 class="cv-name">${escapeHtml(profile.full_name)}</h1>
+          <div class="cv-subtitle">${escapeHtml(profile.role)}</div>
+          <div class="cv-contact-line">
+            <span>${escapeHtml(profile.location)}</span>
+            <span>&bull;</span>
+            <a href="mailto:${escapeHtml(profile.email)}" style="text-decoration: underline; color: #2563eb;">${escapeHtml(profile.email)}</a>
+            ${profile.github_url ? `<span>&bull;</span> <a href="${escapeHtml(profile.github_url)}" target="_blank" style="text-decoration: underline; color: #2563eb;">GitHub</a>` : ''}
+            ${profile.portfolio_url ? `<span>&bull;</span> <a href="${escapeHtml(profile.portfolio_url)}" target="_blank" style="text-decoration: underline; color: #2563eb;">Verified Proof Portfolio</a>` : ''}
           </div>
         </header>
 
-        <div class="two-col-layout">
-          <!-- Left Sidebar -->
-          <div class="sidebar-col">
-            <h3 class="sidebar-section-title">Contact &amp; Links</h3>
-            <div style="font-size: 0.82rem; color: #334155; line-height: 1.6; margin-bottom: 16px;">
-              <div><strong>Email:</strong> <a href="mailto:${escapeHtml(profile.email)}" style="text-decoration: underline;">${escapeHtml(profile.email)}</a></div>
-              <div><strong>Location:</strong> ${escapeHtml(profile.location)}</div>
-              ${profile.github_url ? `<div><strong>GitHub:</strong> <a href="${escapeHtml(profile.github_url)}" target="_blank" style="text-decoration: underline;">Profile &#x2197;</a></div>` : ''}
-              ${profile.portfolio_url ? `<div><strong>Proof Portfolio:</strong> <a href="${escapeHtml(profile.portfolio_url)}" target="_blank" style="text-decoration: underline;">Verified URL &#x2197;</a></div>` : ''}
-            </div>
+        <!-- 1. Summary -->
+        <section>
+          <h2 class="cv-section-title">Summary</h2>
+          <p style="font-size: 0.9rem; color: #1e293b; line-height: 1.6; margin-bottom: 0;">
+            ${escapeHtml(profile.about || profile.bio)}
+          </p>
+        </section>
 
-            <h3 class="sidebar-section-title">Technical Skills</h3>
-            <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 18px;">
-              ${skillsArray.map(s => `
-                <span style="background: #f1f5f9; border: 1px solid #cbd5e1; padding: 2px 7px; border-radius: 3px; font-size: 0.78rem; font-family: var(--font-mono); font-weight: 600;">
-                  ${escapeHtml(s)}
-                </span>
-              `).join('')}
-            </div>
-
-            <h3 class="sidebar-section-title">Education</h3>
-            <div style="font-size: 0.82rem; color: #334155; margin-bottom: 18px;">
-              <strong>${escapeHtml(profile.education)}</strong>
-            </div>
-
-            <h3 class="sidebar-section-title">Trust &amp; Verification</h3>
-            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; padding: 10px; border-radius: 4px; font-size: 0.78rem; color: #166534;">
-              <strong>&check; Proof-of-Work Backed</strong>
-              <div style="margin-top: 3px;">All project claims link directly to public commit SHAs or private stakeholder tokens.</div>
-            </div>
-          </div>
-
-          <!-- Main Column -->
-          <div class="main-col">
-            <h2 class="main-section-title">Profile Narrative</h2>
-            <p style="font-size: 0.88rem; color: #334155; line-height: 1.55; margin-bottom: 18px;">
-              ${escapeHtml(profile.about || profile.bio)}
-            </p>
-
-            <h2 class="main-section-title">Verified Technical Projects</h2>
-            ${projects.length === 0 ? `<p style="font-size: 0.85rem; color: #64748b;">No verified projects selected.</p>` : ''}
-            ${projects.map(p => {
-              const receipt = p.artefacts && p.artefacts.length > 0 ? p.artefacts[0] : null;
-              return `
-                <div style="margin-bottom: 16px;">
-                  <div style="display: flex; justify-content: space-between; align-items: baseline;">
-                    <strong style="font-size: 0.95rem; color: #0f172a;">${escapeHtml(p.title)}</strong>
-                    <span class="cv-verified-tag">&check; Verified</span>
-                  </div>
-                  ${p.defensible_number ? `<div style="font-size: 0.82rem; font-family: var(--font-mono); font-weight: 700; color: #2563eb; margin: 2px 0;">Metric: ${escapeHtml(p.defensible_number)}</div>` : ''}
-                  <p style="font-size: 0.84rem; color: #334155; margin-bottom: 4px;">
-                    ${escapeHtml(p.problem)}
-                  </p>
-                  <div style="font-size: 0.82rem; color: #1e293b;">
-                    <strong>Outcome:</strong> ${escapeHtml(p.result)}
-                  </div>
-                  ${receipt ? `<div style="font-size: 0.78rem; font-family: var(--font-mono); color: #64748b; margin-top: 2px;">Receipt: [${receipt.type.toUpperCase()}] ${escapeHtml(receipt.url_or_hash)}</div>` : ''}
-                </div>
-              `;
-            }).join('')}
-
-            <h2 class="main-section-title">Work Experience</h2>
-            ${experience.map(exp => `
-              <div style="margin-bottom: 14px;">
-                <div style="display: flex; justify-content: space-between;">
-                  <strong style="font-size: 0.92rem; color: #0f172a;">${escapeHtml(exp.role)}</strong>
-                  <span style="font-size: 0.8rem; font-family: var(--font-mono); color: #64748b;">${escapeHtml(exp.period || '')}</span>
-                </div>
-                <div style="font-size: 0.84rem; font-weight: 600; color: #334155; margin-bottom: 2px;">${escapeHtml(exp.organization || '')}</div>
-                <p style="font-size: 0.84rem; color: #334155; margin-bottom: 0;">${escapeHtml(exp.summary || '')}</p>
-              </div>
+        <!-- 2. Skills (Up Top after Summary) -->
+        <section>
+          <h2 class="cv-section-title">Technical Skills</h2>
+          <div class="modern-skills-grid">
+            ${skillsArray.map(s => `
+              <span class="modern-skill-pill">${escapeHtml(s)}</span>
             `).join('')}
           </div>
-        </div>
+        </section>
+
+        <!-- 3. Experience -->
+        <section>
+          <h2 class="cv-section-title">Experience</h2>
+          ${experience.map(exp => `
+            <div class="cv-item">
+              <div class="cv-item-header">
+                <span class="cv-item-title">${escapeHtml(exp.role)} &bull; ${escapeHtml(exp.organization || '')}</span>
+                <span class="cv-item-date">${escapeHtml(exp.period || '')}</span>
+              </div>
+              <p style="font-size: 0.88rem; color: #334155; margin-bottom: 4px;">${escapeHtml(exp.summary || '')}</p>
+              ${exp.achievements ? `
+                <ul style="padding-left: 18px; margin-top: 4px; font-size: 0.86rem; color: #1e293b;">
+                  ${exp.achievements.map(a => `<li>${escapeHtml(a)}</li>`).join('')}
+                </ul>
+              ` : ''}
+            </div>
+          `).join('')}
+        </section>
+
+        <!-- 4. Education -->
+        <section>
+          <h2 class="cv-section-title">Education</h2>
+          <div style="display: flex; justify-content: space-between; font-size: 0.88rem; color: #1e293b;">
+            <span>${escapeHtml(profile.education)}</span>
+            <span style="font-family: var(--font-mono); color: #64748b;">Verified</span>
+          </div>
+        </section>
+
+        <!-- 5. Certifications & Projects -->
+        <section>
+          <h2 class="cv-section-title">Certifications &amp; Verified Deliverables</h2>
+          ${projects.length === 0 ? `<p style="font-size: 0.85rem; color: #64748b;">No verified projects selected.</p>` : ''}
+          ${projects.map(p => {
+            const hasConfirm = p.client_confirm_status === 'confirmed';
+            const receipt = p.artefacts && p.artefacts.length > 0 ? p.artefacts[0] : null;
+            return `
+              <div class="cv-item">
+                <div class="cv-item-header">
+                  <span class="cv-item-title">${escapeHtml(p.title)}</span>
+                  <span class="cv-verified-tag">${hasConfirm ? '[Verified: Client Confirmed]' : '[Verified: Receipt Attached]'}</span>
+                </div>
+                ${p.defensible_number ? `<div style="font-size: 0.84rem; font-family: var(--font-mono); font-weight: 700; color: #2563eb; margin: 2px 0;">Defensible Metric: ${escapeHtml(p.defensible_number)}</div>` : ''}
+                <p style="font-size: 0.86rem; color: #334155; margin-bottom: 4px;">${escapeHtml(p.problem)}</p>
+                <div style="font-size: 0.84rem; color: #1e293b;"><strong>Outcome:</strong> ${escapeHtml(p.result)}</div>
+                ${receipt ? `<div style="font-size: 0.78rem; font-family: var(--font-mono); color: #64748b; margin-top: 2px;">Receipt: [${receipt.type.toUpperCase()}] ${escapeHtml(receipt.url_or_hash)}</div>` : ''}
+              </div>
+            `;
+          }).join('')}
+        </section>
       `;
     }
 
     // ==========================================
-    // 3. SKILLS-FIRST / FUNCTIONAL (REZI STYLE)
+    // 3. SKILLS-FIRST / FUNCTIONAL (SINGLE COLUMN FOR CAREER-SWITCHERS)
+    // Order: Header -> Summary -> Skills groups upar -> Experience (short) -> Projects -> Education
     // ==========================================
     function renderFunctionalTemplate({ profile, experience, projects }) {
       return `
         <!-- Header -->
-        <header style="border-bottom: 2px solid #0f172a; padding-bottom: 12px; margin-bottom: 18px; text-align: center;">
-          <h1 style="font-size: 1.85rem; font-weight: 800; text-transform: uppercase; margin-bottom: 2px;">
-            ${escapeHtml(profile.full_name)}
-          </h1>
-          <div style="font-weight: 700; font-size: 0.95rem; color: #334155; margin-bottom: 6px;">
+        <header class="cv-header">
+          <h1 class="cv-name">${escapeHtml(profile.full_name)}</h1>
+          <div style="font-weight: 700; font-size: 0.95rem; color: #334155; margin-bottom: 4px;">
             ${escapeHtml(profile.role)} &bull; Career Focus
           </div>
           <div class="cv-contact-line">
@@ -732,71 +730,77 @@
           </div>
         </header>
 
-        <!-- Pivot Summary -->
+        <!-- Summary -->
         <section>
-          <h2 class="cv-section-title">Executive Career Transition Summary</h2>
+          <h2 class="cv-section-title">Career Transition Summary</h2>
           <p style="font-size: 0.88rem; color: #1e293b; line-height: 1.55; margin-bottom: 0;">
             ${escapeHtml(profile.about || profile.bio)}
           </p>
         </section>
 
-        <!-- Core Competency Clusters -->
+        <!-- Skills Groups UPAR (Core Competencies & Evidence) -->
         <section>
-          <h2 class="cv-section-title">Core Competencies &amp; Proven Evidence</h2>
+          <h2 class="cv-section-title">Core Competencies &amp; Verified Evidence</h2>
           
           <div class="functional-cluster">
-            <div class="cluster-title">1. High-Concurrency Backend Architecture &amp; Event Streaming</div>
+            <div class="cluster-title">High-Concurrency Backend Architecture &amp; Event Queues</div>
             <ul style="padding-left: 18px; font-size: 0.85rem; color: #1e293b; margin-bottom: 0;">
-              <li>Engineered zero-downtime event queuing sustaining <strong>4,800 req/s @ p99 38ms</strong> on low-cost single-node infrastructure.</li>
-              <li>Replaced distributed network clusters with memory-mapped SQLite WAL buffers to eliminate cross-datacenter latency.</li>
-              <li><span class="cv-verified-tag">&check; Verified Project:</span> High-Throughput Webhook Pipeline [Receipt: Commit 3f8a1c9e]</li>
+              <li>Engineered high-throughput event processing pipelines sustaining measured traffic under low latency.</li>
+              <li>Replaced multi-hop network roundtrips with local transaction buffers and write-ahead logging.</li>
+              <li><span class="cv-verified-tag">[Verified Project]</span> High-Throughput Webhook Processing Pipeline</li>
             </ul>
           </div>
 
           <div class="functional-cluster">
-            <div class="cluster-title">2. Storage Engine Optimization &amp; Transaction Durability</div>
+            <div class="cluster-title">Storage Optimization &amp; Transaction Durability</div>
             <ul style="padding-left: 18px; font-size: 0.85rem; color: #1e293b; margin-bottom: 0;">
-              <li>Overcame synchronous disk write blocking using connection pooling and batch transaction flushing.</li>
-              <li>Eliminated cache dog-piling with sequence-numbered pub/sub broadcasting, cutting replication lag under 50ms.</li>
-              <li><span class="cv-verified-tag">&check; Verified Project:</span> Distributed Cache Invalidation Gateway [Receipt: Benchmark Log e8b42c19]</li>
+              <li>Implemented WAL mode concurrency and connection pooling to prevent synchronous lock contention.</li>
+              <li>Engineered cache invalidation fan-out keeping replication lag within predictable bounds.</li>
+              <li><span class="cv-verified-tag">[Verified Project]</span> Distributed Cache Invalidation &amp; Event Gateway</li>
             </ul>
           </div>
 
           <div class="functional-cluster">
-            <div class="cluster-title">3. Automated Performance Auditing &amp; Verifiable Telemetry</div>
+            <div class="cluster-title">Automated Benchmarking &amp; Verifiable Telemetry</div>
             <ul style="padding-left: 18px; font-size: 0.85rem; color: #1e293b; margin-bottom: 0;">
-              <li>Designed automated k6 load testing scenarios reproducing production traffic spikes.</li>
-              <li>Enforced radical transparency with link-based client confirmations and cryptographic commit audits.</li>
+              <li>Executed reproducible load tests documenting p95/p99 response curves and throughput ceilings.</li>
+              <li>Enforced radical transparency by attaching dated commit hashes and client confirmations.</li>
             </ul>
           </div>
         </section>
 
-        <!-- Verified Projects -->
+        <!-- Experience (Short) -->
         <section>
-          <h2 class="cv-section-title">Key Shipped Deliverables (Case Studies)</h2>
-          ${projects.map(p => `
-            <div class="cv-item">
-              <div class="cv-item-header">
-                <span class="cv-item-title">${escapeHtml(p.title)}</span>
-                <span class="cv-verified-tag">&check; Verified</span>
-              </div>
-              <div style="font-size: 0.84rem; color: #334155;">
-                ${p.defensible_number ? `<strong>Metric:</strong> ${escapeHtml(p.defensible_number)} &bull; ` : ''}
-                ${escapeHtml(p.result)}
-              </div>
-            </div>
-          `).join('')}
-        </section>
-
-        <!-- Chronological Timeline -->
-        <section>
-          <h2 class="cv-section-title">Professional History</h2>
+          <h2 class="cv-section-title">Work History</h2>
           ${experience.map(exp => `
             <div style="display: flex; justify-content: space-between; font-size: 0.86rem; margin-bottom: 6px;">
               <span><strong>${escapeHtml(exp.role)}</strong> &mdash; ${escapeHtml(exp.organization || '')}</span>
               <span style="font-family: var(--font-mono); color: #64748b;">${escapeHtml(exp.period || '')}</span>
             </div>
+            <div style="font-size: 0.82rem; color: #475569; margin-bottom: 8px;">${escapeHtml(exp.summary || '')}</div>
           `).join('')}
+        </section>
+
+        <!-- Projects -->
+        <section>
+          <h2 class="cv-section-title">Verified Technical Projects</h2>
+          ${projects.map(p => {
+            const hasConfirm = p.client_confirm_status === 'confirmed';
+            const receipt = p.artefacts && p.artefacts.length > 0 ? p.artefacts[0] : null;
+            return `
+              <div class="cv-item">
+                <div class="cv-item-header">
+                  <span class="cv-item-title">${escapeHtml(p.title)}</span>
+                  <span class="cv-verified-tag">${hasConfirm ? '[Verified: Client Confirmed]' : '[Verified: Receipt Attached]'}</span>
+                </div>
+                <div style="font-size: 0.84rem; color: #334155;">
+                  ${p.defensible_number ? `<strong>Defensible Metric:</strong> ${escapeHtml(p.defensible_number)} &bull; ` : ''}
+                  ${escapeHtml(p.result)}
+                </div>
+                ${receipt ? `<div style="font-size: 0.76rem; font-family: var(--font-mono); color: #64748b; margin-top: 2px;">Receipt: [${receipt.type.toUpperCase()}] ${escapeHtml(receipt.url_or_hash)}</div>` : ''}
+              </div>
+            `;
+          }).join('')}
         </section>
 
         <!-- Education -->
@@ -810,12 +814,14 @@
     }
 
     // ==========================================
-    // 4. MINIMAL SINGLE-PAGE (COMPACT ATS)
+    // 4. MINIMAL SINGLE-PAGE (COMPACT ATS SINGLE COLUMN)
+    // Order: Header -> Summary -> Experience -> Projects -> Skills -> Education
+    // Standard section headings, standard fonts, no icons/charts/columns
     // ==========================================
     function renderMinimalTemplate({ profile, experience, projects }) {
       return `
-        <!-- ATS Header -->
-        <header style="margin-bottom: 12px; border-bottom: 1.5px solid #0f172a; padding-bottom: 8px;">
+        <!-- ATS Header (Compact, No Graphics) -->
+        <header class="cv-header">
           <h1 class="cv-name">${escapeHtml(profile.full_name)}</h1>
           <div style="font-weight: 700; font-size: 0.92rem; color: #0f172a;">${escapeHtml(profile.role)}</div>
           <div style="font-size: 0.8rem; color: #334155; margin-top: 2px;">
@@ -823,17 +829,17 @@
           </div>
         </header>
 
-        <!-- Professional Summary -->
+        <!-- 1. Summary -->
         <section>
-          <h2 class="cv-section-title">Professional Summary</h2>
+          <h2 class="cv-section-title">SUMMARY</h2>
           <p style="font-size: 0.82rem; margin-bottom: 0; line-height: 1.45;">
             ${escapeHtml(profile.about || profile.bio)}
           </p>
         </section>
 
-        <!-- Work Experience -->
+        <!-- 2. Experience -->
         <section>
-          <h2 class="cv-section-title">Work Experience</h2>
+          <h2 class="cv-section-title">EXPERIENCE</h2>
           ${experience.map(exp => `
             <div class="cv-item">
               <div style="display: flex; justify-content: space-between; font-size: 0.85rem;">
@@ -850,14 +856,14 @@
           `).join('')}
         </section>
 
-        <!-- Verified Technical Projects -->
+        <!-- 3. Verified Projects -->
         <section>
-          <h2 class="cv-section-title">Verified Technical Projects</h2>
+          <h2 class="cv-section-title">VERIFIED PROJECTS</h2>
           ${projects.map(p => `
             <div class="cv-item">
               <div style="display: flex; justify-content: space-between; font-size: 0.84rem;">
                 <strong>${escapeHtml(p.title)}</strong>
-                <span class="cv-verified-tag">&check; Verified</span>
+                <span class="cv-verified-tag">[Verified]</span>
               </div>
               <div style="font-size: 0.8rem; color: #334155;">
                 &bull; <strong>Problem:</strong> ${escapeHtml(p.problem)}<br>
@@ -867,17 +873,17 @@
           `).join('')}
         </section>
 
-        <!-- Technical Skills -->
+        <!-- 4. Technical Skills -->
         <section>
-          <h2 class="cv-section-title">Technical Skills</h2>
+          <h2 class="cv-section-title">TECHNICAL SKILLS</h2>
           <div style="font-size: 0.82rem;">
-            <strong>Skills:</strong> ${escapeHtml(profile.skills)}
+            <strong>Core Skills:</strong> ${escapeHtml(profile.skills)}
           </div>
         </section>
 
-        <!-- Education -->
+        <!-- 5. Education -->
         <section>
-          <h2 class="cv-section-title">Education</h2>
+          <h2 class="cv-section-title">EDUCATION</h2>
           <div style="font-size: 0.82rem;">
             ${escapeHtml(profile.education)}
           </div>

@@ -291,6 +291,8 @@ function auditCvAgainstJob(cvData, jobDescription) {
         ...(parsed.productionDaily || []),
         ...(parsed.familiarShipped || [])
       ];
+    } else if (typeof profile.skills === 'string') {
+      skillsList = profile.skills.split(',').map(s => s.trim()).filter(Boolean);
     } else if (Array.isArray(profile.skills)) {
       skillsList = profile.skills;
     }
