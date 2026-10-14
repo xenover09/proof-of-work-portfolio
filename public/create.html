@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apna Portfolio Banao — Proof-of-Work Project Creator</title>
-  <meta name="description" content="Create a verified proof-of-work portfolio project with problem definitions, architectural trade-offs, dated artefacts, and 1-tap client confirmations.">
+  <title>Create Your Proof-of-Work Portfolio — Evidence-First Project Builder</title>
+  <meta name="description" content="Build an authentic, tamper-resistant developer portfolio with real problem statements, architectural trade-offs, dated artefacts, and one-tap client confirmations.">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -13,9 +13,9 @@
     <div class="container nav-container">
       <a href="/" class="nav-brand" id="brand-link">
         <span>Proof-of-Work</span>
-        <span class="nav-brand-badge">Portfolio Creator</span>
+        <span class="nav-tag">Project Builder</span>
       </a>
-      <div class="nav-links">
+      <div class="nav-menu" style="display: flex;">
         <a href="/" class="nav-link">&larr; Back to Home</a>
       </div>
     </div>
@@ -23,38 +23,37 @@
 
   <main class="section">
     <div class="container container-narrow">
-      <div style="margin-bottom: 32px;">
-        <span class="badge badge-neutral" style="margin-bottom: 8px;">Proof-First Submission</span>
-        <h1 style="font-size: 2.2rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px;">
-          Apna Proof-of-Work Portfolio Banao
+      <div style="margin-bottom: 36px;">
+        <span class="badge badge-neutral" style="margin-bottom: 10px;">Evidence-Based Submission</span>
+        <h1 style="font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 800; letter-spacing: -0.025em; margin-bottom: 8px;">
+          Create Your Proof-of-Work Project
         </h1>
-        <p style="color: var(--text-secondary); font-size: 1rem;">
-          Har daawe ke saath saboot. No buzzwords, no AI-generated fluff. 
-          Fill out your real project, trade-offs, dated artefacts, and client confirmation request.
+        <p style="color: var(--text-body); font-size: 1rem; line-height: 1.6;">
+          Every claim requires proof. Document your real engineering constraints, architectural trade-offs, timestamped receipts, and issue a one-tap verification link to your client.
         </p>
       </div>
 
       <form id="portfolio-form">
-        <!-- Section 1: Profile Information -->
+        <!-- Section 1: Creator Profile -->
         <div class="card">
-          <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+          <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 16px; border-bottom: 1px solid var(--border-light); padding-bottom: 10px;">
             1. Creator Profile
           </h2>
           <div class="form-row">
             <div class="form-group">
               <label class="form-label" for="full_name">Full Name *</label>
-              <input type="text" id="full_name" class="form-control" placeholder="e.g. Salaar Hussain" required>
+              <input type="text" id="full_name" class="form-control" placeholder="e.g. Alex Henderson" required>
             </div>
             <div class="form-group">
-              <label class="form-label" for="username">Username (Public URL) *</label>
-              <input type="text" id="username" class="form-control" placeholder="e.g. salaarhussain" pattern="[a-zA-Z0-9_-]+" required>
-              <div class="form-hint">Your portfolio will be at /p/username</div>
+              <label class="form-label" for="username">Username (Public Portfolio URL) *</label>
+              <input type="text" id="username" class="form-control" placeholder="e.g. alexhenderson" pattern="[a-zA-Z0-9_-]+" required>
+              <div class="form-hint">Your portfolio will be available at /p/username</div>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group">
               <label class="form-label" for="role">Role / Specialization *</label>
-              <input type="text" id="role" class="form-control" placeholder="e.g. Backend Engineer / Systems Architect" required>
+              <input type="text" id="role" class="form-control" placeholder="e.g. Distributed Systems Engineer" required>
             </div>
             <div class="form-group">
               <label class="form-label" for="github_url">GitHub Profile URL</label>
@@ -62,83 +61,82 @@
             </div>
           </div>
           <div class="form-group" style="margin-bottom: 0;">
-            <label class="form-label" for="bio">Bio / One-Liner</label>
-            <input type="text" id="bio" class="form-control" placeholder="Building reliable systems with verifiable evidence.">
+            <label class="form-label" for="bio">Professional Bio / Summary</label>
+            <input type="text" id="bio" class="form-control" placeholder="e.g. Building high-concurrency event processors with zero vendor lock-in.">
           </div>
         </div>
 
         <!-- Section 2: Project Core & Problem -->
         <div class="card">
-          <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
-            2. Project Core & The Hard Problem
+          <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 16px; border-bottom: 1px solid var(--border-light); padding-bottom: 10px;">
+            2. Project Scope &amp; Real Constraints
           </h2>
           <div class="form-group">
             <label class="form-label" for="title">Project Title *</label>
-            <input type="text" id="title" class="form-control" placeholder="e.g. High-Throughput Webhook Processing Pipeline" required>
+            <input type="text" id="title" class="form-control" placeholder="e.g. High-Throughput Event Queue &amp; Ingestion Engine" required>
           </div>
           <div class="form-group">
-            <label class="form-label" for="summary">Summary (1-2 sentences)</label>
-            <input type="text" id="summary" class="form-control" placeholder="Zero-downtime event queuing engine handling 5k webhook deliveries per second.">
+            <label class="form-label" for="summary">Summary (1&ndash;2 Sentences)</label>
+            <input type="text" id="summary" class="form-control" placeholder="e.g. Low-latency webhook ingestion service sustaining 5,000 requests/sec with durable replay.">
           </div>
           <div class="form-group">
-            <label class="form-label" for="problem">The Real Problem Solved * (Not vague fluff)</label>
-            <textarea id="problem" class="form-control" rows="4" placeholder="Detail the exact problem: What was failing, slow, or broken before? E.g., The existing third-party webhook receiver dropped 12% of payloads during traffic spikes due to synchronous HTTP blocking." required></textarea>
-            <div class="form-hint">AI writes generic summaries; true engineers articulate the actual constraints and bottlenecks.</div>
+            <label class="form-label" for="problem">The Real Problem Solved * (Specific Technical Friction)</label>
+            <textarea id="problem" class="form-control" rows="4" placeholder="Detail the authentic problem: What was failing, slow, or unmaintainable? e.g. The legacy webhook receiver dropped 12% of incoming payloads during traffic spikes due to synchronous HTTP blocking and unbuffered disk writes." required></textarea>
+            <div class="form-hint">State actual technical constraints. Authentic builders articulate real trade-offs rather than generic bullet points.</div>
           </div>
           <div class="form-group" style="margin-bottom: 0;">
             <label class="form-label" for="result">Measurable Result / Outcome *</label>
-            <textarea id="result" class="form-control" rows="3" placeholder="e.g. Payload delivery success reached 99.99%, latency reduced from 820ms to 45ms, processed 2.4M webhooks on single $5/mo VM." required></textarea>
+            <textarea id="result" class="form-control" rows="3" placeholder="e.g. Sustained 99.99% delivery reliability across 2.4M webhooks, reducing 99th percentile response time from 820ms to 45ms on a single node." required></textarea>
           </div>
         </div>
 
         <!-- Section 3: Decisions & Rejected Alternatives -->
         <div class="card">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid var(--border-light); padding-bottom: 10px; flex-wrap: wrap; gap: 8px;">
             <div>
-              <h2 style="font-size: 1.25rem; font-weight: 700;">3. Architectural Decisions & Rejected Alternatives</h2>
-              <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 2px;">
-                Show what you rejected and why. This is the #1 proof that you actually built it.
+              <h2 style="font-size: 1.25rem; font-weight: 700;">3. Architectural Decisions &amp; Rejected Alternatives</h2>
+              <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 2px;">
+                Demonstrate what technical choices you evaluated and rejected.
               </div>
             </div>
             <button type="button" class="btn btn-secondary btn-sm" id="add-decision-btn">+ Add Decision</button>
           </div>
 
           <div id="decisions-container">
-            <!-- Dynamic decision items added here -->
+            <!-- Dynamic decision items -->
           </div>
         </div>
 
-        <!-- Section 4: Dated Artefacts -->
+        <!-- Section 4: Dated Artefacts (The Receipts) -->
         <div class="card">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid var(--border-light); padding-bottom: 10px; flex-wrap: wrap; gap: 8px;">
             <div>
               <h2 style="font-size: 1.25rem; font-weight: 700;">4. Dated Artefacts (The Receipts)</h2>
-              <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 2px;">
-                Attach verifiable links, commit hashes, PRs, or dated draft milestones.
+              <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 2px;">
+                Attach verifiable links, git commit hashes, pull requests, or benchmark logs.
               </div>
             </div>
             <button type="button" class="btn btn-secondary btn-sm" id="add-artefact-btn">+ Add Artefact</button>
           </div>
 
           <div id="artefacts-container">
-            <!-- Dynamic artefact items added here -->
+            <!-- Dynamic artefact items -->
           </div>
         </div>
 
         <!-- Section 5: Client Confirmation Request -->
         <div class="card">
-          <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
-            5. Client Confirmation Flow
+          <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 16px; border-bottom: 1px solid var(--border-light); padding-bottom: 10px;">
+            5. Client Confirmation Request
           </h2>
-          <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 16px;">
-            Issuing a confirmation link generates an un-falsifiable token. You can send this link to your client or buyer. 
-            Once they tap "Yes", your portfolio gains the green <strong>"✓ Confirmed by Client"</strong> verification badge.
+          <p style="font-size: 0.92rem; color: var(--text-body); margin-bottom: 16px; line-height: 1.55;">
+            Generating a confirmation link issues a tamper-proof verification URL. Share this link with your client or product lead. Once they tap "Yes", your portfolio gains the official green <strong>"✓ Confirmed by Client"</strong> verification seal.
           </p>
 
           <div class="form-row">
             <div class="form-group">
               <label class="form-label" for="client_name">Client / Stakeholder Name</label>
-              <input type="text" id="client_name" class="form-control" placeholder="e.g. Alex Rivera, Head of Product">
+              <input type="text" id="client_name" class="form-control" placeholder="e.g. Sarah Chen, VP of Engineering">
             </div>
             <div class="form-group">
               <label class="form-label" for="client_email">Client Email (Optional)</label>
@@ -146,52 +144,52 @@
             </div>
           </div>
 
-          <div style="display: flex; align-items: center; gap: 10px; margin-top: 8px;">
-            <input type="checkbox" id="request_confirmation" checked style="width: 18px; height: 18px; accent-color: var(--accent-color);">
-            <label for="request_confirmation" style="font-size: 0.9rem; font-weight: 600; cursor: pointer;">
+          <div style="display: flex; align-items: flex-start; gap: 10px; margin-top: 10px;">
+            <input type="checkbox" id="request_confirmation" checked style="width: 18px; height: 18px; margin-top: 2px; accent-color: var(--primary);">
+            <label for="request_confirmation" style="font-size: 0.9rem; font-weight: 600; cursor: pointer; color: var(--text-main);">
               Generate unique 1-tap client confirmation link immediately upon submission
             </label>
           </div>
         </div>
 
         <!-- Submit Button -->
-        <div style="margin-top: 24px;">
-          <button type="submit" class="btn btn-primary btn-lg" id="submit-btn" style="width: 100%;">
-            Publish Proof-of-Work & Generate Link &rarr;
+        <div style="margin-top: 28px;">
+          <button type="submit" class="btn btn-primary btn-lg btn-full" id="submit-btn">
+            Publish Proof-of-Work &amp; Generate Link &rarr;
           </button>
         </div>
       </form>
 
-      <!-- Success Modal / Card (Hidden by default) -->
-      <div id="success-box" class="card" style="display: none; border-color: var(--success-border); background-color: #ffffff; margin-top: 32px;">
-        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-          <div class="confirm-status-icon success" style="margin: 0; width: 36px; height: 36px; font-size: 1.1rem;">&#10003;</div>
+      <!-- Success Section -->
+      <div id="success-box" class="card" style="display: none; border: 2px solid var(--success-border); background-color: var(--bg-surface); margin-top: 36px; padding: 32px;">
+        <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 20px;">
+          <div class="confirm-status-icon success" style="margin: 0; width: 40px; height: 40px; font-size: 1.2rem;">&#10003;</div>
           <div>
-            <h2 style="font-size: 1.3rem; font-weight: 800; color: var(--success-text);">Proof-of-Work Published!</h2>
-            <p style="font-size: 0.85rem; color: var(--text-secondary);">Your real deliverables and decisions have been recorded.</p>
+            <h2 style="font-size: 1.4rem; font-weight: 800; color: var(--success-text);">Project Proof Published Successfully!</h2>
+            <p style="font-size: 0.9rem; color: var(--text-body); margin-bottom: 0;">Your technical decisions and verifiable receipts have been recorded in the database.</p>
           </div>
         </div>
 
-        <div id="confirm-link-section" style="display: none; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 18px; margin-bottom: 20px;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-            <span style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-primary);">
-              Client Confirmation Link (Send to client)
+        <div id="confirm-link-section" style="display: none; background: var(--bg-subtle); border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 20px; margin-bottom: 24px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+            <span style="font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-main);">
+              Client Confirmation Link (Share with Client)
             </span>
             <span class="badge badge-pending">Action Required</span>
           </div>
-          <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 12px;">
-            Send this private link to your client. When they open it, they can confirm your deliverable in 1 tap without any login.
+          <p style="font-size: 0.88rem; color: var(--text-body); margin-bottom: 14px; line-height: 1.5;">
+            Send this private link to your client. They can authenticate your deliverable in one tap without creating an account.
           </p>
-          <div style="display: flex; gap: 8px;">
-            <input type="text" id="confirm-link-input" class="form-control" readonly style="font-family: var(--font-mono); font-size: 0.85rem; background: #ffffff;">
-            <button type="button" class="btn btn-primary btn-sm" id="copy-confirm-btn" onclick="copyConfirmLink()">Copy</button>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <input type="text" id="confirm-link-input" class="form-control" readonly style="font-family: var(--font-mono); font-size: 0.85rem; background: #ffffff; flex: 1 1 240px;">
+            <button type="button" class="btn btn-primary btn-sm" id="copy-confirm-btn" onclick="copyConfirmLink()">Copy Link</button>
           </div>
         </div>
 
         <div style="display: flex; gap: 12px; flex-wrap: wrap;">
           <a id="view-portfolio-btn" href="#" class="btn btn-secondary">View Your Public Portfolio &rarr;</a>
-          <a id="view-project-btn" href="#" class="btn btn-secondary">View Project Proof &rarr;</a>
-          <a id="test-confirm-btn" href="#" class="btn btn-success" target="_blank">Test Client Confirm Link Now &#x2197;</a>
+          <a id="view-project-btn" href="#" class="btn btn-secondary">View Project Page &rarr;</a>
+          <a id="test-confirm-btn" href="#" class="btn btn-success" target="_blank">Test Client Confirmation Portal &#x2197;</a>
         </div>
       </div>
     </div>
@@ -201,10 +199,10 @@
   <footer class="footer">
     <div class="container footer-content">
       <div>
-        <strong>Proof-of-Work Portfolio</strong> — Week 2 Hacktoberfest "Side Hustle" Entry.
+        <strong>Proof-of-Work Portfolio</strong> &bull; Hacktoberfest 2026 Week 2 Entry.
       </div>
       <div>
-        <a href="https://github.com/xenover09/proof-of-work-portfolio" target="_blank" class="btn btn-secondary btn-sm">GitHub Repo</a>
+        <a href="https://github.com/xenover09/proof-of-work-portfolio" target="_blank" class="btn btn-secondary btn-sm">GitHub Repository</a>
       </div>
     </div>
   </footer>
@@ -221,19 +219,19 @@
       div.className = 'dynamic-item';
       div.id = `decision-${id}`;
       div.innerHTML = `
-        <button type="button" class="dynamic-item-remove" onclick="removeEl('decision-${id}')">&times;</button>
-        <div class="form-group" style="margin-bottom: 12px;">
+        <button type="button" class="dynamic-item-remove" onclick="removeEl('decision-${id}')" aria-label="Remove decision">&times;</button>
+        <div class="form-group" style="margin-bottom: 14px;">
           <label class="form-label">Decision Made *</label>
-          <input type="text" class="form-control dec-decision" placeholder="e.g. Chose SQLite with WAL over MongoDB" value="${escapeHtml(decision)}" required>
+          <input type="text" class="form-control dec-decision" placeholder="e.g. Selected SQLite with WAL mode over a MongoDB replica set" value="${escapeHtml(decision)}" required>
         </div>
         <div class="form-row">
           <div class="form-group" style="margin-bottom: 0;">
             <label class="form-label">Rejected Alternative *</label>
-            <input type="text" class="form-control dec-alternative" placeholder="e.g. MongoDB" value="${escapeHtml(alternative)}" required>
+            <input type="text" class="form-control dec-alternative" placeholder="e.g. MongoDB Replica Set" value="${escapeHtml(alternative)}" required>
           </div>
           <div class="form-group" style="margin-bottom: 0;">
             <label class="form-label">Why was it rejected? *</label>
-            <input type="text" class="form-control dec-reason" placeholder="e.g. Unnecessary network overhead and lacking ACID guarantees for invoices" value="${escapeHtml(reason)}" required>
+            <input type="text" class="form-control dec-reason" placeholder="e.g. Avoided distributed network latency; needed ACID transactions for invoice integrity" value="${escapeHtml(reason)}" required>
           </div>
         </div>
       `;
@@ -249,37 +247,37 @@
       div.className = 'dynamic-item';
       div.id = `artefact-${id}`;
       div.innerHTML = `
-        <button type="button" class="dynamic-item-remove" onclick="removeEl('artefact-${id}')">&times;</button>
-        <div class="form-row" style="margin-bottom: 12px;">
+        <button type="button" class="dynamic-item-remove" onclick="removeEl('artefact-${id}')" aria-label="Remove artefact">&times;</button>
+        <div class="form-row" style="margin-bottom: 14px;">
           <div class="form-group" style="margin-bottom: 0;">
             <label class="form-label">Artefact Title *</label>
-            <input type="text" class="form-control art-title" placeholder="e.g. Core WAL storage implementation" value="${escapeHtml(title)}" required>
+            <input type="text" class="form-control art-title" placeholder="e.g. Durable buffer transaction worker implementation" value="${escapeHtml(title)}" required>
           </div>
           <div class="form-group" style="margin-bottom: 0;">
-            <label class="form-label">Type *</label>
+            <label class="form-label">Receipt Type *</label>
             <select class="form-control art-type">
-              <option value="commit" ${type === 'commit' ? 'selected' : ''}>Git Commit SHA / Diff</option>
+              <option value="commit" ${type === 'commit' ? 'selected' : ''}>Git Commit SHA / Code Diff</option>
               <option value="pr" ${type === 'pr' ? 'selected' : ''}>Pull Request</option>
               <option value="draft" ${type === 'draft' ? 'selected' : ''}>Early Design / Figma Draft</option>
               <option value="staging" ${type === 'staging' ? 'selected' : ''}>Staging / Preview Deploy</option>
-              <option value="benchmark" ${type === 'benchmark' ? 'selected' : ''}>Benchmark / Terminal Log</option>
-              <option value="document" ${type === 'document' ? 'selected' : ''}>Architecture RFC / Spec</option>
+              <option value="benchmark" ${type === 'benchmark' ? 'selected' : ''}>Benchmark / Terminal Execution Log</option>
+              <option value="document" ${type === 'document' ? 'selected' : ''}>Architecture RFC / Technical Specification</option>
             </select>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group" style="margin-bottom: 0;">
             <label class="form-label">URL or Commit Hash *</label>
-            <input type="text" class="form-control art-url" placeholder="e.g. 7f8a9e2 or https://github.com/.../pull/1" value="${escapeHtml(url_or_hash)}" required>
+            <input type="text" class="form-control art-url" placeholder="e.g. 7f8a9e2 or https://github.com/.../pull/12" value="${escapeHtml(url_or_hash)}" required>
           </div>
           <div class="form-group" style="margin-bottom: 0;">
-            <label class="form-label">Artefact Date *</label>
+            <label class="form-label">Artefact Timestamp *</label>
             <input type="date" class="form-control art-date" value="${today}" required>
           </div>
         </div>
-        <div class="form-group" style="margin-top: 10px; margin-bottom: 0;">
+        <div class="form-group" style="margin-top: 12px; margin-bottom: 0;">
           <label class="form-label">Verification Note (Optional)</label>
-          <input type="text" class="form-control art-notes" placeholder="e.g. Merged into main branch after passing 14 integration tests" value="${escapeHtml(notes)}">
+          <input type="text" class="form-control art-notes" placeholder="e.g. Passed all 42 concurrent load tests and merged into production branch" value="${escapeHtml(notes)}">
         </div>
       `;
       container.appendChild(div);
@@ -290,7 +288,7 @@
       if (el) el.remove();
     }
 
-    // Initialize with 1 default decision and 1 default artefact
+    // Default items
     addDecision();
     addArtefact();
 
@@ -301,7 +299,7 @@
       e.preventDefault();
       const submitBtn = document.getElementById('submit-btn');
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Publishing Proof...';
+      submitBtn.textContent = 'Publishing Proof-of-Work...';
 
       try {
         const decisions = [];
@@ -355,13 +353,13 @@
 
         const data = await res.json();
         if (!data.success) {
-          alert('Error: ' + (data.error || 'Failed to create project'));
+          alert('Submission Error: ' + (data.error || 'Failed to create project'));
           submitBtn.disabled = false;
           submitBtn.textContent = 'Publish Proof-of-Work & Generate Link \u2192';
           return;
         }
 
-        // Show success box
+        // Display confirmation box
         document.getElementById('portfolio-form').style.display = 'none';
         const successBox = document.getElementById('success-box');
         successBox.style.display = 'block';
@@ -393,7 +391,7 @@
       navigator.clipboard.writeText(input.value);
       const copyBtn = document.getElementById('copy-confirm-btn');
       copyBtn.textContent = 'Copied!';
-      setTimeout(() => { copyBtn.textContent = 'Copy'; }, 2000);
+      setTimeout(() => { copyBtn.textContent = 'Copy Link'; }, 2000);
     }
 
     function escapeHtml(str) {
