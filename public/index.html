@@ -3,15 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Proof-of-Work Portfolio — Verified Artefacts & Client Confirmations</title>
-  <meta name="description" content="The anti-hallucination portfolio builder for freelancers, engineers, and students. Every claim is anchored by dated artefacts, architectural trade-offs, and one-tap client confirmations.">
+  <title>Proof-of-Work Portfolio — Evidence-First Developer Portfolios</title>
+  <meta name="description" content="The anti-hallucination portfolio builder for engineers, freelancers, and students. Every claim is anchored by dated artefacts, architectural trade-offs, and one-tap client confirmations.">
   <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
+<body class="bg-grid">
   <!-- Navigation -->
   <nav class="navbar">
     <div class="container nav-container">
       <a href="/" class="nav-brand" id="brand-link">
+        <div class="nav-brand-icon">PoW</div>
         <span>Proof-of-Work</span>
         <span class="nav-tag">Hacktoberfest W2</span>
       </a>
@@ -23,8 +24,9 @@
       <div class="nav-menu" id="nav-menu">
         <a href="#how-it-works" class="nav-link">How It Works</a>
         <a href="#comparison" class="nav-link">AI vs Proof</a>
-        <a href="#recent-proofs" class="nav-link">Explore Proofs</a>
-        <a href="/create" class="btn btn-primary btn-sm" id="nav-cta-btn">Create Portfolio</a>
+        <a href="#recent-proofs" class="nav-link">Live Proofs</a>
+        <a href="https://github.com/xenover09/proof-of-work-portfolio" target="_blank" class="nav-link">GitHub</a>
+        <a href="/create" class="btn btn-primary btn-sm" id="nav-cta-btn">Create Portfolio &rarr;</a>
       </div>
     </div>
   </nav>
@@ -32,83 +34,152 @@
   <!-- Hero Section -->
   <header class="hero">
     <div class="container">
-      <div class="hero-pill">
-        <span>Hacktoberfest 2026: Side Hustle Track &bull; Oct 19 Deadline</span>
-      </div>
-      <h1 class="hero-title">Portfolios Backed by Proof,<br>Not AI Hallucinations.</h1>
-      <p class="hero-subtitle">
-        In an era flooded with ChatGPT-generated resumes and fabricated claims, trust has collapsed. 
-        Proof-of-Work anchors every project with dated technical artefacts, architectural trade-offs, 
-        and authentic one-tap client confirmations.
-      </p>
-      
-      <div class="hero-actions">
-        <a href="/create" class="btn btn-primary btn-lg" id="hero-create-btn">
-          <span>Create Your Portfolio</span>
-          <span style="font-family: var(--font-mono);">&rarr;</span>
-        </a>
-        <a href="#how-it-works" class="btn btn-secondary btn-lg">Explore How It Works</a>
-      </div>
+      <div class="hero-grid">
+        <!-- Left Column: Copy & Actions -->
+        <div class="hero-content">
+          <div class="hero-pill">
+            <span class="hero-pill-dot"></span>
+            <span>Hacktoberfest 2026: Side Hustle Track &bull; Oct 19 Deadline</span>
+          </div>
 
-      <!-- Live Platform Stats Ribbon -->
-      <div class="stats-ribbon" id="stats-ribbon">
-        <div class="stat-item">
-          <div class="stat-value" id="stat-confirmed">0</div>
-          <div class="stat-label">Client Confirmed Proofs</div>
+          <h1 class="hero-title">Portfolios Backed by Proof, Not AI Hallucinations.</h1>
+          
+          <p class="hero-subtitle">
+            AI resume writers and ChatGPT portfolios have made claims worthless. 
+            <strong>Proof-of-Work</strong> anchors your projects in dated technical artefacts, 
+            documented trade-offs, and tamper-proof client confirmations.
+          </p>
+
+          <div class="hero-actions">
+            <a href="/create" class="btn btn-primary btn-lg" id="hero-create-btn">
+              <span>Create Your Portfolio</span>
+              <span style="font-family: var(--font-mono);">&rarr;</span>
+            </a>
+            <a href="#how-it-works" class="btn btn-secondary btn-lg">How Verification Works</a>
+          </div>
+
+          <div class="hero-guarantee">
+            <span>&check; 100% Free Forever</span>
+            <span>&bull;</span>
+            <span>&check; No Account Required for Clients</span>
+            <span>&bull;</span>
+            <span>&check; Open Source</span>
+          </div>
         </div>
-        <div class="stat-item">
-          <div class="stat-value" id="stat-artefacts">0</div>
-          <div class="stat-label">Dated Artefacts Logged</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-value" id="stat-decisions">0</div>
-          <div class="stat-label">Trade-Offs Documented</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-value" id="stat-profiles">0</div>
-          <div class="stat-label">Verified Creators</div>
+
+        <!-- Right Column: Interactive Live Proof Showcase -->
+        <div class="hero-preview">
+          <div class="mockup-card">
+            <div class="mockup-header">
+              <div class="mockup-user">
+                <div class="mockup-avatar">AH</div>
+                <div class="mockup-user-info">
+                  <span class="mockup-user-name">Alex Henderson</span>
+                  <span class="mockup-user-role">Distributed Systems Engineer</span>
+                </div>
+              </div>
+              <span class="badge badge-confirmed">&check; Client Confirmed</span>
+            </div>
+
+            <div>
+              <div class="mockup-title">High-Throughput Webhook Processing Pipeline</div>
+              <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; font-family: var(--font-mono);">
+                Published Oct 13, 2026 &bull; Production Release v1.2
+              </div>
+            </div>
+
+            <div class="mockup-tradeoff">
+              <div class="mockup-tradeoff-label">Architectural Trade-Off</div>
+              <div style="font-weight: 700; color: var(--text-main); margin-bottom: 2px;">
+                Selected SQLite with WAL mode over MongoDB Replica Set
+              </div>
+              <div style="font-size: 0.8rem; color: var(--text-muted);">
+                Rejected MongoDB: Avoided network latency and ensured strict ACID payment auditability.
+              </div>
+            </div>
+
+            <div class="mockup-receipt">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="badge badge-neutral" style="font-size: 0.7rem; font-family: var(--font-mono);">COMMIT</span>
+                <span style="font-family: var(--font-mono); font-weight: 600; color: var(--accent-blue);">9e4a1f8b2c</span>
+              </div>
+              <span style="font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono);">5.2k req/s at p99 42ms</span>
+            </div>
+
+            <div class="mockup-client-banner">
+              <strong>Verified by Sarah Chen (VP Engineering at FinFlow):</strong>
+              <div style="margin-top: 2px; font-style: italic;">
+                "Alex eliminated our webhook drop rate completely. Delivered ahead of deadline."
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </header>
 
+  <!-- Live Stats Ribbon -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="stat-confirmed">0</div>
+          <div class="stat-label">Client Confirmed Proofs</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="stat-artefacts">0</div>
+          <div class="stat-label">Dated Artefacts Logged</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="stat-decisions">0</div>
+          <div class="stat-label">Trade-Offs Documented</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="stat-profiles">0</div>
+          <div class="stat-label">Verified Creators</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Comparison Section -->
   <section class="section" id="comparison">
     <div class="container">
       <div class="section-header">
-        <h2 class="section-title">The Trust Crisis: Generic Portfolios vs Verifiable Proof</h2>
+        <span class="section-badge">The Signal Problem</span>
+        <h2 class="section-title">Generic AI Portfolios vs. Verifiable Proof</h2>
         <p class="section-desc">
-          Hiring managers and prospective clients are overwhelmed by generic bullet points. Anyone can prompt an LLM to claim they designed a high-scale architecture. Here is how Proof-of-Work restores genuine technical signal.
+          Anyone can ask ChatGPT to write "Built a high-scale microservices platform". Proof-of-Work separates true builders from resume prompt-crafters by requiring receipts.
         </p>
       </div>
 
       <div class="comparison-grid">
-        <!-- Traditional Portfolio -->
+        <!-- Generic Resumes -->
         <div class="comparison-card">
           <div class="comparison-header">
-            <span class="badge badge-disputed" style="margin-bottom: 8px;">Untrusted &amp; Unverified</span>
-            <h3 class="comparison-title">AI &amp; Traditional Resumes</h3>
+            <span class="badge badge-disputed" style="margin-bottom: 8px;">Zero Proof &bull; Unverified</span>
+            <h3 class="comparison-title">Traditional &amp; AI Resumes</h3>
           </div>
           <ul class="comparison-list">
             <li class="comparison-item">
               <span class="icon cross">&times;</span>
-              <span><strong>Vague Buzzwords:</strong> "Architected scalable, high-throughput cloud infrastructure."</span>
+              <span><strong>Vague Buzzwords:</strong> "Spearheaded cloud optimization across multi-region services."</span>
             </li>
             <li class="comparison-item">
               <span class="icon cross">&times;</span>
-              <span><strong>Fabricated Logos:</strong> Client brand icons without verifiable points of contact.</span>
+              <span><strong>Unverifiable Brand Logos:</strong> Logos pasted onto pages with zero point of contact.</span>
             </li>
             <li class="comparison-item">
               <span class="icon cross">&times;</span>
-              <span><strong>No Trade-Offs:</strong> Everything appears seamless, hiding real engineering trade-offs.</span>
+              <span><strong>No Engineering Trade-Offs:</strong> Everything appears effortless, hiding true architectural decisions.</span>
             </li>
             <li class="comparison-item">
               <span class="icon cross">&times;</span>
-              <span><strong>Zero Chronology:</strong> No timestamped audit trail or commit history.</span>
+              <span><strong>Zero Chronology:</strong> No git commit hashes, no drafts, no audit trail.</span>
             </li>
             <li class="comparison-item">
               <span class="icon cross">&times;</span>
-              <span><strong>Zero Friction to Fake:</strong> Can be generated in 15 seconds by any generative model.</span>
+              <span><strong>Zero Friction to Fake:</strong> Generated by an LLM in 15 seconds.</span>
             </li>
           </ul>
         </div>
@@ -116,21 +187,21 @@
         <!-- Proof-of-Work Portfolio -->
         <div class="comparison-card highlight">
           <div class="comparison-header">
-            <span class="badge badge-confirmed" style="margin-bottom: 8px;">Tamper-Resistant</span>
+            <span class="badge badge-confirmed" style="margin-bottom: 8px;">Tamper-Resistant Proof</span>
             <h3 class="comparison-title">Proof-of-Work Portfolio</h3>
           </div>
           <ul class="comparison-list">
             <li class="comparison-item">
               <span class="icon check">&#10003;</span>
-              <span><strong>Hard Problem Definition:</strong> Explicit documentation of the actual friction solved.</span>
+              <span><strong>Explicit Technical Constraints:</strong> What broke, what was slow, and what constraints existed.</span>
             </li>
             <li class="comparison-item">
               <span class="icon check">&#10003;</span>
-              <span><strong>Decisions &amp; Rejected Alternatives:</strong> Proves why Option A was picked over Option B.</span>
+              <span><strong>Decisions &amp; Rejected Alternatives:</strong> Proves authentic reasoning by documenting rejected paths.</span>
             </li>
             <li class="comparison-item">
               <span class="icon check">&#10003;</span>
-              <span><strong>Dated Artefacts:</strong> Git commit SHAs, PRs, staging links, and benchmark logs.</span>
+              <span><strong>Dated Technical Receipts:</strong> Commit SHAs, PR diffs, staging URLs, and benchmark runs.</span>
             </li>
             <li class="comparison-item">
               <span class="icon check">&#10003;</span>
@@ -138,7 +209,7 @@
             </li>
             <li class="comparison-item">
               <span class="icon check">&#10003;</span>
-              <span><strong>Impossible to Hallucinate:</strong> Anchored in immutable receipts and authentic feedback.</span>
+              <span><strong>Impossible to Hallucinate:</strong> Grounded in real-world human and cryptographic authentication.</span>
             </li>
           </ul>
         </div>
@@ -147,43 +218,46 @@
   </section>
 
   <!-- How It Works Section -->
-  <section class="section" id="how-it-works" style="background-color: var(--bg-surface);">
+  <section class="section" id="how-it-works" style="background-color: #ffffff;">
     <div class="container">
       <div class="section-header">
-        <h2 class="section-title">How It Works in 3 Clear Steps</h2>
+        <span class="section-badge">How It Works</span>
+        <h2 class="section-title">Three Steps to Unshakeable Credibility</h2>
         <p class="section-desc">
-          A streamlined engineering workflow designed for freelancers, developers, and students who build real systems.
+          Built for software developers, freelancers, and technical students who want their work to speak for itself.
         </p>
       </div>
 
       <div class="steps-grid">
         <div class="step-card">
-          <div class="step-number">STEP 01</div>
-          <h3 class="step-title">Document the Problem &amp; Trade-Offs</h3>
+          <div class="step-number-badge">01</div>
+          <h3 class="step-title">Document Problem &amp; Trade-Offs</h3>
           <p class="step-text">
-            Skip marketing jargon. Detail the exact problem constraints and technical bottlenecks. Document the decisions you made and the specific alternatives you rejected. That is the true signature of authentic engineering.
+            Skip marketing jargon. State the authentic bottleneck, the choice you made, and crucially, 
+            <strong>which alternatives you rejected and why</strong>. That is the authentic fingerprint of real engineering.
           </p>
         </div>
 
         <div class="step-card">
-          <div class="step-number">STEP 02</div>
-          <h3 class="step-title">Anchor with Dated Receipts</h3>
+          <div class="step-number-badge">02</div>
+          <h3 class="step-title">Attach Dated Receipts</h3>
           <p class="step-text">
-            Attach immutable receipts: GitHub commit SHAs, timestamped pull requests, early Figma drafts, staging preview URLs, or benchmark terminal logs. Genuine proof carries timestamps.
+            Provide immutable evidence: Git commit SHAs, timestamped pull request links, staging previews, or terminal benchmark outputs. Genuine proof has verifiable timestamps.
           </p>
         </div>
 
         <div class="step-card">
-          <div class="step-number">STEP 03</div>
-          <h3 class="step-title">One-Tap Client Confirmation</h3>
+          <div class="step-number-badge">03</div>
+          <h3 class="step-title">1-Tap Client Authentication</h3>
           <p class="step-text">
-            Generate an un-falsifiable confirmation link. Send it via Slack, WhatsApp, or Email. The client taps "Yes, I Confirm Deliverable" in seconds with zero login required, immediately updating your public verified seal.
+            Issue a private confirmation link. Send it via WhatsApp, Slack, or Email. Your client taps 
+            <strong>"Yes, I Confirm Deliverable"</strong> in 5 seconds with zero signup required. Your portfolio turns green instantly.
           </p>
         </div>
       </div>
 
       <div style="text-align: center; margin-top: 48px;">
-        <a href="/create" class="btn btn-primary btn-lg" id="section-cta-btn">Create Your Portfolio Now &rarr;</a>
+        <a href="/create" class="btn btn-primary btn-lg" id="section-cta-btn">Create Your Verified Portfolio &rarr;</a>
       </div>
     </div>
   </section>
@@ -191,17 +265,18 @@
   <!-- Recent Real Proofs Section -->
   <section class="section" id="recent-proofs">
     <div class="container">
-      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 28px; flex-wrap: wrap; gap: 16px;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px; flex-wrap: wrap; gap: 16px;">
         <div>
-          <h2 class="section-title" style="margin-bottom: 6px;">Verified Portfolios &amp; Projects</h2>
-          <p class="section-desc" style="margin-bottom: 0;">Live deliverables published and verified by real builders.</p>
+          <span class="section-badge">Live Submissions</span>
+          <h2 class="section-title" style="margin-bottom: 6px;">Verified Deliverables &amp; Projects</h2>
+          <p class="section-desc" style="margin-bottom: 0;">Authentic projects authenticated by real clients and documented trade-offs.</p>
         </div>
-        <a href="/create" class="btn btn-secondary btn-sm">+ Add Your Project</a>
+        <a href="/create" class="btn btn-secondary btn-sm">+ Publish Your Project</a>
       </div>
 
       <div id="proofs-container">
         <!-- Dynamically rendered -->
-        <div style="border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 48px 24px; text-align: center; color: var(--text-muted); background: var(--bg-surface);">
+        <div style="border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 48px 24px; text-align: center; color: var(--text-muted); background: #ffffff;">
           <p style="font-size: 1rem; margin-bottom: 12px;">Loading live proofs from database...</p>
         </div>
       </div>
@@ -209,15 +284,15 @@
   </section>
 
   <!-- Final Call to Action -->
-  <section class="section" style="background-color: var(--bg-surface); border-bottom: none;">
+  <section class="section" style="background-color: #ffffff; border-bottom: none;">
     <div class="container container-narrow" style="text-align: center; padding: 48px 20px;">
-      <h2 style="font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 800; margin-bottom: 16px; letter-spacing: -0.025em;">
+      <h2 style="font-size: clamp(2rem, 4vw, 2.6rem); font-weight: 800; margin-bottom: 16px; letter-spacing: -0.03em;">
         Stop Competing Against Fabricated AI Portfolios.
       </h2>
-      <p style="color: var(--text-body); margin-bottom: 28px; font-size: 1.05rem; line-height: 1.6;">
-        Publish your first verified project in under three minutes. 100% free, open-source, and hosted on zero-cost infrastructure.
+      <p style="color: var(--text-body); margin-bottom: 32px; font-size: 1.1rem; line-height: 1.6;">
+        Build a portfolio that clients and recruiters can actually verify. Free, open-source, and hosted on zero-cost infrastructure.
       </p>
-      <a href="/create" class="btn btn-primary btn-lg" id="final-cta-btn">Create Your Portfolio &rarr;</a>
+      <a href="/create" class="btn btn-primary btn-lg" id="final-cta-btn">Create Your Portfolio Now &rarr;</a>
     </div>
   </section>
 
@@ -225,8 +300,8 @@
   <footer class="footer">
     <div class="container footer-content">
       <div>
-        <div style="font-weight: 700; color: var(--text-main); margin-bottom: 4px;">Proof-of-Work Portfolio</div>
-        <div style="font-size: 0.82rem; color: var(--text-muted);">
+        <div style="font-weight: 800; color: var(--text-main); font-size: 1.05rem; margin-bottom: 4px;">Proof-of-Work Portfolio</div>
+        <div style="font-size: 0.85rem; color: var(--text-muted);">
           Hacktoberfest 2026 Week 2 Entry: Side Hustle Track &bull; Submission Deadline: Oct 19, 11:59 AM PKT
         </div>
       </div>
@@ -239,7 +314,7 @@
   </footer>
 
   <script>
-    // Responsive Navigation Toggle
+    // Responsive Mobile Nav Toggle
     const navToggle = document.getElementById('mobile-nav-toggle');
     const navMenu = document.getElementById('nav-menu');
     navToggle.addEventListener('click', () => {
@@ -275,7 +350,7 @@
                   <div>
                     <a href="/project/${p.id}" class="card-title">${escapeHtml(p.title)}</a>
                     <div class="card-meta">
-                      <span>By <a href="/p/${escapeHtml(p.username)}" style="color: var(--text-main); font-weight: 600; text-decoration: underline;">${escapeHtml(p.author_name)}</a> (${escapeHtml(p.author_role || 'Developer')})</span>
+                      <span>By <a href="/p/${escapeHtml(p.username)}" style="color: var(--text-main); font-weight: 700; text-decoration: underline;">${escapeHtml(p.author_name)}</a> (${escapeHtml(p.author_role || 'Developer')})</span>
                       <span>&bull;</span>
                       <span>${new Date(p.created_at).toLocaleDateString()}</span>
                     </div>
@@ -284,10 +359,10 @@
                     ${statusBadge}
                   </div>
                 </div>
-                <p style="color: var(--text-body); margin-bottom: 16px; font-size: 0.95rem;">
+                <p style="color: var(--text-body); margin-bottom: 16px; font-size: 0.95rem; line-height: 1.6;">
                   ${escapeHtml(p.summary || p.problem.slice(0, 160) + '...')}
                 </p>
-                <div style="display: flex; gap: 16px; font-size: 0.82rem; color: var(--text-muted); font-family: var(--font-mono); border-top: 1px solid var(--border-light); padding-top: 12px; flex-wrap: wrap;">
+                <div style="display: flex; gap: 16px; font-size: 0.82rem; color: var(--text-muted); font-family: var(--font-mono); border-top: 1px solid var(--border-light); padding-top: 14px; flex-wrap: wrap;">
                   <span>&bull; ${p.decisionsCount} Trade-Offs Documented</span>
                   <span>&bull; ${p.artefactsCount} Dated Artefacts</span>
                   ${p.client_name ? `<span>&bull; Client: ${escapeHtml(p.client_name)}</span>` : ''}
@@ -297,9 +372,9 @@
           }).join('');
         } else {
           container.innerHTML = `
-            <div style="border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 48px 24px; text-align: center; background: var(--bg-surface);">
-              <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 8px;">No Proofs Published Yet</h3>
-              <p style="color: var(--text-body); margin-bottom: 20px; max-width: 460px; margin-left: auto; margin-right: auto; font-size: 0.95rem;">
+            <div style="border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 48px 24px; text-align: center; background: #ffffff;">
+              <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 8px;">No Proofs Published Yet</h3>
+              <p style="color: var(--text-body); margin-bottom: 20px; max-width: 480px; margin-left: auto; margin-right: auto; font-size: 0.95rem;">
                 No pre-baked dummy data. Everything is published and verified by real builders. Be the first to publish your authentic work.
               </p>
               <a href="/create" class="btn btn-primary">Create Your Portfolio &rarr;</a>
