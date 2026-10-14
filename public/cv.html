@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proof-of-Work — Verified CV Builder &amp; Job Criteria Audit</title>
+  <meta name="description" content="Build evidence-backed developer CVs using researched structural templates (Harvard, Modern Two-Column, Skills-First, Minimal ATS) auto-filled strictly from verified deliverables.">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="bg-grid">
+  <!-- Navigation (Hidden on Print) -->
+  <nav class="navbar no-print">
+    <div class="container nav-container">
+      <a href="/" class="nav-brand" id="brand-link">
+        <div class="nav-brand-icon">PoW</div>
+        <span>Proof-of-Work</span>
+        <span class="nav-tag">CV Builder</span>
+      </a>
+
+      <button type="button" class="mobile-toggle" id="mobile-nav-toggle" aria-label="Toggle navigation menu">
+        &#9776;
+      </button>
+
+      <div class="nav-menu" id="nav-menu">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/create" class="nav-link">+ Add Project</a>
+        <a href="/cv" class="nav-link active" style="font-weight: 700; color: var(--text-main);">CV Builder</a>
+        <a href="https://github.com/xenover09/proof-of-work-portfolio" target="_blank" class="nav-link">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="section" style="padding-top: 32px; padding-bottom: 60px;">
+    <div class="container">
+      <!-- Page Header (Hidden on Print) -->
+      <div class="no-print" style="margin-bottom: 28px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;">
+          <div>
+            <span class="badge badge-neutral" style="margin-bottom: 8px;">Proof-Backed Resume Engine</span>
+            <h1 style="font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 800; letter-spacing: -0.025em; margin-bottom: 6px;">
+              Verified CV Builder &amp; Criteria Audit
+            </h1>
+            <p style="color: var(--text-body); font-size: 0.98rem; max-width: 680px; line-height: 1.55;">
+              Construct ATS-compliant resumes grounded exclusively in verifiable technical receipts. 
+              Switch between 4 researched template architectures and audit your claims against specific job criteria.
+            </p>
+          </div>
+
+          <!-- Top Action Buttons -->
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+            <button type="button" class="btn btn-secondary" onclick="openAuditModal()">
+              <span>🔍 Job-Criteria CV Audit</span>
+            </button>
+            <button type="button" class="btn btn-primary" onclick="printCv()">
+              <span>🖨️ Download / Print PDF</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Portfolio Auto-Fill Ribbon -->
+        <div style="background: #ffffff; border: 1px solid var(--border-medium); border-radius: var(--radius-sm); padding: 16px 20px; margin-top: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;">
+          <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+            <label for="autofill-username" style="font-weight: 700; font-size: 0.88rem; color: var(--text-main);">
+              Auto-Fill from Portfolio:
+            </label>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-family: var(--font-mono); color: var(--text-muted);">/p/</span>
+              <input type="text" id="autofill-username" class="form-control" placeholder="username" value="salaarhussain" style="width: 170px; padding: 6px 10px; font-size: 0.88rem;">
+            </div>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="triggerAutoFill()">
+              Load Verified Data
+            </button>
+          </div>
+
+          <div id="autofill-status" style="font-size: 0.85rem; color: var(--text-muted);">
+            <!-- Status message -->
+          </div>
+        </div>
+
+        <!-- Unverified Warning Box (Shown if any unverified entries exist) -->
+        <div id="unverified-warning-container" class="unverified-warning-box" style="display: none; margin-top: 14px;">
+          <strong>⚠️ Verified-Only Rule Active:</strong>
+          <span id="unverified-warning-text">One or more projects lack verifiable receipts or client confirmation and have been excluded from the CV export.</span>
+        </div>
+      </div>
+
+      <!-- CV Builder Layout -->
+      <div class="cv-builder-layout">
+        <!-- Left Column: Controls & Edit Form (Hidden on Print) -->
+        <aside class="cv-controls-panel no-print">
+          <!-- Template Selector Tabs -->
+          <div class="card" style="padding: 20px; margin-bottom: 20px;">
+            <div style="font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 12px;">
+              Researched Template Structure
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <button type="button" class="template-tab active" id="tab-classic" onclick="setTemplate('classic')">
+                <div style="font-weight: 700;">Classic Professional</div>
+                <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">Harvard Style &bull; Reverse Chronological</div>
+              </button>
+
+              <button type="button" class="template-tab" id="tab-two-column" onclick="setTemplate('two-column')">
+                <div style="font-weight: 700;">Modern Two-Column</div>
+                <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">Novoresume Style &bull; Sidebar + Body</div>
+              </button>
+
+              <button type="button" class="template-tab" id="tab-functional" onclick="setTemplate('functional')">
+                <div style="font-weight: 700;">Skills-First / Functional</div>
+                <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">Rezi Style &bull; Competency Clusters</div>
+              </button>
+
+              <button type="button" class="template-tab" id="tab-minimal" onclick="setTemplate('minimal')">
+                <div style="font-weight: 700;">Minimal Single-Page</div>
+                <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">High-Density ATS &bull; Standard Headings</div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Section Editor Form -->
+          <div class="card" style="padding: 20px; margin-bottom: 20px;">
+            <div style="font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 14px;">
+              CV Content Editor
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="edit-name">Full Name</label>
+              <input type="text" id="edit-name" class="form-control" oninput="updateCvFromForm()">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="edit-role">Professional Title / Specialization</label>
+              <input type="text" id="edit-role" class="form-control" oninput="updateCvFromForm()">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="edit-email">Email Address</label>
+                <input type="email" id="edit-email" class="form-control" oninput="updateCvFromForm()">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="edit-location">Location / Timezone</label>
+                <input type="text" id="edit-location" class="form-control" oninput="updateCvFromForm()">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="edit-github">GitHub Profile URL</label>
+                <input type="text" id="edit-github" class="form-control" oninput="updateCvFromForm()">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="edit-portfolio">Portfolio URL</label>
+                <input type="text" id="edit-portfolio" class="form-control" oninput="updateCvFromForm()">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="edit-summary">Professional Summary</label>
+              <textarea id="edit-summary" class="form-control" rows="3" oninput="updateCvFromForm()"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="edit-skills">Skills (Comma-separated)</label>
+              <textarea id="edit-skills" class="form-control" rows="2" placeholder="e.g. Node.js, SQLite, WAL Mode, Docker, k6 Benchmark, TypeScript" oninput="updateCvFromForm()"></textarea>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label" for="edit-education">Education &amp; Credentials</label>
+              <input type="text" id="edit-education" class="form-control" placeholder="e.g. B.S. in Computer Science &bull; 2024" oninput="updateCvFromForm()">
+            </div>
+          </div>
+
+          <!-- Verified Projects Checkbox Filter -->
+          <div class="card" style="padding: 20px;">
+            <div style="font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 12px;">
+              Include in CV (Verified Only)
+            </div>
+            <div id="verified-projects-checklist" style="display: flex; flex-direction: column; gap: 10px;">
+              <!-- Checkboxes rendered dynamically -->
+            </div>
+          </div>
+        </aside>
+
+        <!-- Right Column: Live CV Paper Preview -->
+        <section class="cv-preview-area" id="cv-preview-wrapper">
+          <!-- Active Template Banner (No-print) -->
+          <div class="no-print" style="width: 100%; max-width: 820px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.85rem; color: var(--text-muted);">
+            <div>
+              Active Layout: <strong id="current-template-label" style="color: var(--text-main);">Classic Professional</strong>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span class="cv-verified-tag">&check; Verified Receipts Only</span>
+            </div>
+          </div>
+
+          <!-- The Rendered CV Paper -->
+          <div id="cv-paper-container" class="cv-paper cv-template-classic">
+            <!-- Dynamically rendered based on active template -->
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- Job-Criteria CV Audit Modal -->
+  <div id="modal-audit" class="modal-overlay no-print">
+    <div class="modal-content" style="max-width: 680px; max-height: 85vh; overflow-y: auto;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; border-bottom: 1px solid var(--border-light); padding-bottom: 10px;">
+        <div>
+          <h2 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 2px;">Job-Criteria CV Audit</h2>
+          <div style="font-size: 0.82rem; color: var(--text-muted);">Objective gap analysis against target role requirements</div>
+        </div>
+        <button type="button" onclick="closeAuditModal()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-muted);">&times;</button>
+      </div>
+
+      <div style="font-size: 0.88rem; color: var(--text-body); margin-bottom: 16px; line-height: 1.5;">
+        Paste a target Job Description below. Our local semantic analyzer extracts technical requirements and audits your verified CV entries to identify <strong>corroborated criteria</strong> versus <strong>missing evidence gaps</strong>.
+        <div style="margin-top: 4px; font-size: 0.8rem; color: var(--text-muted);">
+          <em>Strictly honest: No arbitrary % score, no exaggerated ranking claims.</em>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="job-desc-input">Target Job Description / Requirements *</label>
+        <textarea id="job-desc-input" class="form-control" rows="6" placeholder="Paste job description bullet points here... e.g.
+- 3+ years experience with Node.js and TypeScript
+- Deep understanding of database internals, concurrency, and WAL mode
+- Experience building low-latency ingestion queues (p99 latency < 50ms)
+- Familiarity with performance benchmarking using k6 or similar
+- Knowledge of Docker and CI/CD pipelines"></textarea>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+        <button type="button" class="btn btn-primary" id="btn-run-audit" onclick="runCvAudit()">
+          Analyze Criteria Gaps &rarr;
+        </button>
+        <span id="audit-loading" style="display: none; font-size: 0.85rem; color: var(--text-muted);">
+          Extracting criteria &amp; matching verified receipts...
+        </span>
+      </div>
+
+      <!-- Audit Results Container -->
+      <div id="audit-results" style="display: none;">
+        <div id="audit-summary-bar" style="background: var(--bg-subtle); border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 14px 18px; margin-bottom: 18px;">
+          <div style="font-weight: 700; color: var(--text-main); font-size: 0.95rem; margin-bottom: 4px;" id="audit-summary-title"></div>
+          <div style="font-size: 0.85rem; color: var(--text-body);" id="audit-summary-desc"></div>
+        </div>
+
+        <div style="font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 10px;">
+          Criteria-Wise Gap Analysis
+        </div>
+        <div id="audit-findings-list" style="display: flex; flex-direction: column; gap: 10px;">
+          <!-- Dynamically populated findings -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer (Hidden on Print) -->
+  <footer class="footer no-print">
+    <div class="container footer-content">
+      <div>
+        <strong>Proof-of-Work Portfolio</strong> &bull; Hacktoberfest 2026 Week 2 Entry.
+      </div>
+      <div>
+        <a href="https://github.com/xenover09/proof-of-work-portfolio" target="_blank" class="btn btn-secondary btn-sm">GitHub Repository</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Global CV State
+    let cvState = {
+      template: 'classic', // classic | two-column | functional | minimal
+      profile: {
+        full_name: 'Salaar Hussain',
+        role: 'Backend & Systems Engineer',
+        email: 'salaar@example.internal',
+        location: 'Karachi, PK (UTC+5)',
+        github_url: 'https://github.com/xenover09',
+        resume_url: 'https://github.com/xenover09',
+        bio: 'Systems engineer specializing in high-throughput event processing and zero-dependency backends.',
+        about: 'I build resilient backend systems where performance and reliability can be measured and audited. Deliverables are backed by reproducible benchmarks, documented architectural trade-offs, and verifiable client confirmations.',
+        skills: 'Node.js, TypeScript, SQLite (WAL), Express, REST APIs, Git, Docker, Linux, PostgreSQL, Redis, k6 Benchmark',
+        education: 'B.S. in Computer Science &bull; Systems & Networks Focus'
+      },
+      experience: [
+        {
+          role: 'Backend & Systems Engineer',
+          organization: 'Independent Engineering Consultant',
+          period: '2024 — Present',
+          summary: 'Building high-throughput micro-services, event processing pipelines, and local-first developer tooling.',
+          achievements: [
+            'Architected WAL-mode event streaming engines processing 4.8k req/s on 2-vCPU instances.',
+            'Eliminated cross-network latency by replacing distributed RPC chains with local SQLite memory-mapped buffers.'
+          ]
+        },
+        {
+          role: 'Full Stack Systems Developer',
+          organization: 'Client Deliverables & Open Source',
+          period: '2023 — 2024',
+          summary: 'Shipped containerized backend architectures, automated CI/CD verification harnesses, and API gateways.'
+        }
+      ],
+      projects: [], // Array of project objects
+      includedProjectIds: new Set()
+    };
+
+    // Mobile nav toggle
+    const mobileToggle = document.getElementById('mobile-nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    if (mobileToggle) {
+      mobileToggle.addEventListener('click', () => navMenu.classList.toggle('open'));
+    }
+
+    // Auto-fill from portfolio
+    async function triggerAutoFill() {
+      const usernameInput = document.getElementById('autofill-username');
+      const username = usernameInput.value.trim().toLowerCase();
+      const statusEl = document.getElementById('autofill-status');
+
+      if (!username) {
+        alert('Please enter a portfolio username.');
+        return;
+      }
+
+      statusEl.textContent = 'Fetching verified records...';
+
+      try {
+        const res = await fetch(`/api/portfolio/${username}`);
+        const data = await res.json();
+
+        if (!data.success || !data.profile) {
+          statusEl.textContent = 'Portfolio not found for @' + username;
+          statusEl.style.color = 'var(--danger-text)';
+          return;
+        }
+
+        const p = data.profile;
+        cvState.profile.full_name = p.full_name || '';
+        cvState.profile.role = p.role || '';
+        cvState.profile.email = p.contact_email || p.email || 'developer@example.internal';
+        cvState.profile.location = p.location || 'Remote';
+        cvState.profile.github_url = p.github_url || '';
+        cvState.profile.resume_url = p.resume_url || '';
+        cvState.profile.bio = p.bio || '';
+        cvState.profile.about = p.about || p.bio || '';
+
+        // Skills parsing
+        let skillsString = '';
+        try {
+          if (p.skills && p.skills.startsWith('{')) {
+            const parsedSkills = JSON.parse(p.skills);
+            const all = [...(parsedSkills.productionDaily || []), ...(parsedSkills.familiarShipped || [])];
+            skillsString = all.join(', ');
+          } else if (p.skills) {
+            skillsString = p.skills;
+          }
+        } catch (e) {
+          skillsString = p.skills || '';
+        }
+        cvState.profile.skills = skillsString || 'Node.js, TypeScript, SQLite (WAL), Docker, Git';
+
+        // Experience parsing
+        try {
+          if (p.experience && p.experience.startsWith('[')) {
+            cvState.experience = JSON.parse(p.experience);
+          }
+        } catch (e) {}
+
+        // Projects filtering: VERIFIED-ONLY RULE
+        const rawProjects = data.projects || [];
+        cvState.projects = rawProjects;
+        cvState.includedProjectIds.clear();
+
+        let unverifiedCount = 0;
+        rawProjects.forEach(proj => {
+          const isVerified = (proj.client_confirm_status === 'confirmed') || (proj.artefacts && proj.artefacts.length > 0);
+          if (isVerified) {
+            cvState.includedProjectIds.add(proj.id);
+          } else {
+            unverifiedCount++;
+          }
+        });
+
+        const warningContainer = document.getElementById('unverified-warning-container');
+        if (unverifiedCount > 0) {
+          warningContainer.style.display = 'block';
+          document.getElementById('unverified-warning-text').textContent = 
+            `${unverifiedCount} unverified project(s) lack receipts and were automatically filtered out of the CV. Only evidence-backed projects are included.`;
+        } else {
+          warningContainer.style.display = 'none';
+        }
+
+        statusEl.textContent = `✓ Loaded @${username} (${cvState.includedProjectIds.size} verified projects)`;
+        statusEl.style.color = 'var(--success-text)';
+
+        syncFormWithState();
+        renderProjectChecklist();
+        renderCv();
+
+      } catch (err) {
+        statusEl.textContent = 'Error loading portfolio: ' + err.message;
+        statusEl.style.color = 'var(--danger-text)';
+      }
+    }
+
+    function syncFormWithState() {
+      document.getElementById('edit-name').value = cvState.profile.full_name;
+      document.getElementById('edit-role').value = cvState.profile.role;
+      document.getElementById('edit-email').value = cvState.profile.email;
+      document.getElementById('edit-location').value = cvState.profile.location;
+      document.getElementById('edit-github').value = cvState.profile.github_url;
+      document.getElementById('edit-portfolio').value = `${window.location.origin}/p/${document.getElementById('autofill-username').value.trim()}`;
+      document.getElementById('edit-summary').value = cvState.profile.about || cvState.profile.bio;
+      document.getElementById('edit-skills').value = cvState.profile.skills;
+      document.getElementById('edit-education').value = cvState.profile.education || 'B.S. in Computer Science';
+    }
+
+    function updateCvFromForm() {
+      cvState.profile.full_name = document.getElementById('edit-name').value;
+      cvState.profile.role = document.getElementById('edit-role').value;
+      cvState.profile.email = document.getElementById('edit-email').value;
+      cvState.profile.location = document.getElementById('edit-location').value;
+      cvState.profile.github_url = document.getElementById('edit-github').value;
+      cvState.profile.portfolio_url = document.getElementById('edit-portfolio').value;
+      cvState.profile.about = document.getElementById('edit-summary').value;
+      cvState.profile.skills = document.getElementById('edit-skills').value;
+      cvState.profile.education = document.getElementById('edit-education').value;
+      renderCv();
+    }
+
+    function renderProjectChecklist() {
+      const container = document.getElementById('verified-projects-checklist');
+      if (cvState.projects.length === 0) {
+        container.innerHTML = `<span style="font-size: 0.84rem; color: var(--text-muted);">No projects loaded yet. Click 'Load Verified Data'.</span>`;
+        return;
+      }
+
+      container.innerHTML = cvState.projects.map(p => {
+        const isVerified = (p.client_confirm_status === 'confirmed') || (p.artefacts && p.artefacts.length > 0);
+        const isChecked = cvState.includedProjectIds.has(p.id);
+
+        if (!isVerified) {
+          return `
+            <div style="opacity: 0.6; padding: 6px 8px; border: 1px dashed var(--border-medium); border-radius: var(--radius-xs); font-size: 0.82rem;">
+              <span style="color: var(--danger-text); font-weight: 700;">[UNVERIFIED - EXCLUDED]</span>
+              <div>${escapeHtml(p.title)}</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">Attach receipts in project builder to enable.</div>
+            </div>
+          `;
+        }
+
+        return `
+          <label style="display: flex; align-items: flex-start; gap: 8px; cursor: pointer; font-size: 0.85rem; padding: 4px 0;">
+            <input type="checkbox" style="margin-top: 3px;" ${isChecked ? 'checked' : ''} onchange="toggleProject('${p.id}', this.checked)">
+            <div>
+              <div style="font-weight: 600; color: var(--text-main);">${escapeHtml(p.title)}</div>
+              <div style="font-size: 0.75rem; color: var(--success-text); font-family: var(--font-mono);">
+                &check; ${p.client_confirm_status === 'confirmed' ? 'Client Confirmed' : `${p.artefacts.length} Dated Receipt(s)`}
+              </div>
+            </div>
+          </label>
+        `;
+      }).join('');
+    }
+
+    function toggleProject(projectId, isChecked) {
+      if (isChecked) {
+        cvState.includedProjectIds.add(projectId);
+      } else {
+        cvState.includedProjectIds.delete(projectId);
+      }
+      renderCv();
+    }
+
+    function setTemplate(templateName) {
+      cvState.template = templateName;
+      document.querySelectorAll('.template-tab').forEach(t => t.classList.remove('active'));
+      const activeTab = document.getElementById(`tab-${templateName}`);
+      if (activeTab) activeTab.classList.add('active');
+
+      const labels = {
+        'classic': 'Classic Professional (Harvard Style)',
+        'two-column': 'Modern Two-Column (Novoresume Style)',
+        'functional': 'Skills-First / Functional (Rezi Style)',
+        'minimal': 'Minimal Single-Page (Compact ATS)'
+      };
+      document.getElementById('current-template-label').textContent = labels[templateName] || templateName;
+
+      const paperEl = document.getElementById('cv-paper-container');
+      paperEl.className = `cv-paper cv-template-${templateName}`;
+
+      renderCv();
+    }
+
+    // Get only included verified projects
+    function getVerifiedProjects() {
+      return cvState.projects.filter(p => cvState.includedProjectIds.has(p.id));
+    }
+
+    // Main CV Render Dispatcher
+    function renderCv() {
+      const container = document.getElementById('cv-paper-container');
+      const data = {
+        profile: cvState.profile,
+        experience: cvState.experience,
+        projects: getVerifiedProjects()
+      };
+
+      if (cvState.template === 'classic') {
+        container.innerHTML = renderClassicTemplate(data);
+      } else if (cvState.template === 'two-column') {
+        container.innerHTML = renderTwoColumnTemplate(data);
+      } else if (cvState.template === 'functional') {
+        container.innerHTML = renderFunctionalTemplate(data);
+      } else if (cvState.template === 'minimal') {
+        container.innerHTML = renderMinimalTemplate(data);
+      }
+    }
+
+    // ==========================================
+    // 1. CLASSIC PROFESSIONAL (HARVARD STYLE)
+    // ==========================================
+    function renderClassicTemplate({ profile, experience, projects }) {
+      return `
+        <!-- Header -->
+        <header class="cv-header">
+          <h1 class="cv-name">${escapeHtml(profile.full_name)}</h1>
+          <div style="font-weight: 700; font-size: 0.95rem; color: #334155; margin-bottom: 6px;">
+            ${escapeHtml(profile.role)}
+          </div>
+          <div class="cv-contact-line">
+            <span>${escapeHtml(profile.location)}</span>
+            <span>&bull;</span>
+            <a href="mailto:${escapeHtml(profile.email)}" style="text-decoration: underline;">${escapeHtml(profile.email)}</a>
+            ${profile.github_url ? `<span>&bull;</span> <a href="${escapeHtml(profile.github_url)}" target="_blank" style="text-decoration: underline;">GitHub</a>` : ''}
+            ${profile.portfolio_url ? `<span>&bull;</span> <a href="${escapeHtml(profile.portfolio_url)}" target="_blank" style="text-decoration: underline;">Verified Portfolio</a>` : ''}
+          </div>
+        </header>
+
+        <!-- Professional Summary -->
+        <section>
+          <h2 class="cv-section-title">Professional Summary</h2>
+          <p style="color: #1e293b; line-height: 1.55; margin-bottom: 0;">
+            ${escapeHtml(profile.about || profile.bio)}
+          </p>
+        </section>
+
+        <!-- Experience -->
+        <section>
+          <h2 class="cv-section-title">Professional Experience</h2>
+          ${experience.map(exp => `
+            <div class="cv-item">
+              <div class="cv-item-header">
+                <span class="cv-item-title">${escapeHtml(exp.role)}</span>
+                <span class="cv-item-date">${escapeHtml(exp.period || '')}</span>
+              </div>
+              <div class="cv-item-sub">${escapeHtml(exp.organization || '')}</div>
+              <p style="margin-bottom: 4px; font-size: 0.88rem; color: #334155;">${escapeHtml(exp.summary || '')}</p>
+              ${exp.achievements ? `
+                <ul style="padding-left: 18px; margin-top: 4px; font-size: 0.86rem; color: #1e293b;">
+                  ${exp.achievements.map(a => `<li>${escapeHtml(a)}</li>`).join('')}
+                </ul>
+              ` : ''}
+            </div>
+          `).join('')}
+        </section>
+
+        <!-- Verified Technical Projects -->
+        <section>
+          <h2 class="cv-section-title">Verified Technical Projects &amp; Deliverables</h2>
+          ${projects.length === 0 ? `<p style="font-size: 0.85rem; color: #64748b;">No verified projects selected.</p>` : ''}
+          ${projects.map(p => {
+            const hasConfirm = p.client_confirm_status === 'confirmed';
+            const receipt = p.artefacts && p.artefacts.length > 0 ? p.artefacts[0] : null;
+            return `
+              <div class="cv-item">
+                <div class="cv-item-header">
+                  <span class="cv-item-title">${escapeHtml(p.title)}</span>
+                  <span class="cv-item-date">
+                    ${hasConfirm ? `<span class="cv-verified-tag">&check; Client Confirmed</span>` : (receipt ? `<span class="cv-verified-tag">&check; Receipt Linked</span>` : '')}
+                  </span>
+                </div>
+                <div style="font-size: 0.86rem; color: #334155; margin-bottom: 4px;">
+                  ${p.defensible_number ? `<strong>Defensible Metric:</strong> ${escapeHtml(p.defensible_number)} &bull; ` : ''}
+                  ${p.repo_url ? `<a href="${escapeHtml(p.repo_url)}" target="_blank" style="color: #2563eb; text-decoration: underline;">GitHub Repository</a>` : ''}
+                </div>
+                <ul style="padding-left: 18px; font-size: 0.86rem; color: #1e293b;">
+                  <li><strong>Challenge Solved:</strong> ${escapeHtml(p.problem)}</li>
+                  ${p.decisions && p.decisions.length > 0 ? `<li><strong>Trade-Off Made:</strong> ${escapeHtml(p.decisions[0].decision)} <em>(Rejected: ${escapeHtml(p.decisions[0].rejected_alternative)})</em></li>` : ''}
+                  <li><strong>Outcome:</strong> ${escapeHtml(p.result)}</li>
+                  ${receipt ? `<li><strong>Auditable Receipt:</strong> ${escapeHtml(receipt.title)} <span class="cv-receipt-code">(${escapeHtml(receipt.url_or_hash)})</span></li>` : ''}
+                </ul>
+              </div>
+            `;
+          }).join('')}
+        </section>
+
+        <!-- Technical Skills -->
+        <section>
+          <h2 class="cv-section-title">Technical Competencies</h2>
+          <div style="font-size: 0.88rem; color: #1e293b; line-height: 1.5;">
+            <strong>Core Engineering Stack:</strong> ${escapeHtml(profile.skills)}
+          </div>
+        </section>
+
+        <!-- Education -->
+        <section>
+          <h2 class="cv-section-title">Education &amp; Credentials</h2>
+          <div style="display: flex; justify-content: space-between; font-size: 0.88rem; color: #1e293b;">
+            <span>${escapeHtml(profile.education)}</span>
+            <span style="font-family: var(--font-mono); color: #64748b;">Verified Graduate</span>
+          </div>
+        </section>
+      `;
+    }
+
+    // ==========================================
+    // 2. MODERN TWO-COLUMN (NOVORESUME STYLE)
+    // ==========================================
+    function renderTwoColumnTemplate({ profile, experience, projects }) {
+      const skillsArray = profile.skills.split(',').map(s => s.trim()).filter(Boolean);
+
+      return `
+        <header style="border-bottom: 2px solid #0f172a; padding-bottom: 16px; margin-bottom: 20px;">
+          <h1 style="font-size: 2rem; font-weight: 800; text-transform: uppercase; letter-spacing: -0.02em; margin-bottom: 2px;">
+            ${escapeHtml(profile.full_name)}
+          </h1>
+          <div style="font-size: 1.1rem; font-weight: 600; color: #2563eb;">
+            ${escapeHtml(profile.role)}
+          </div>
+        </header>
+
+        <div class="two-col-layout">
+          <!-- Left Sidebar -->
+          <div class="sidebar-col">
+            <h3 class="sidebar-section-title">Contact &amp; Links</h3>
+            <div style="font-size: 0.82rem; color: #334155; line-height: 1.6; margin-bottom: 16px;">
+              <div><strong>Email:</strong> <a href="mailto:${escapeHtml(profile.email)}" style="text-decoration: underline;">${escapeHtml(profile.email)}</a></div>
+              <div><strong>Location:</strong> ${escapeHtml(profile.location)}</div>
+              ${profile.github_url ? `<div><strong>GitHub:</strong> <a href="${escapeHtml(profile.github_url)}" target="_blank" style="text-decoration: underline;">Profile &#x2197;</a></div>` : ''}
+              ${profile.portfolio_url ? `<div><strong>Proof Portfolio:</strong> <a href="${escapeHtml(profile.portfolio_url)}" target="_blank" style="text-decoration: underline;">Verified URL &#x2197;</a></div>` : ''}
+            </div>
+
+            <h3 class="sidebar-section-title">Technical Skills</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 18px;">
+              ${skillsArray.map(s => `
+                <span style="background: #f1f5f9; border: 1px solid #cbd5e1; padding: 2px 7px; border-radius: 3px; font-size: 0.78rem; font-family: var(--font-mono); font-weight: 600;">
+                  ${escapeHtml(s)}
+                </span>
+              `).join('')}
+            </div>
+
+            <h3 class="sidebar-section-title">Education</h3>
+            <div style="font-size: 0.82rem; color: #334155; margin-bottom: 18px;">
+              <strong>${escapeHtml(profile.education)}</strong>
+            </div>
+
+            <h3 class="sidebar-section-title">Trust &amp; Verification</h3>
+            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; padding: 10px; border-radius: 4px; font-size: 0.78rem; color: #166534;">
+              <strong>&check; Proof-of-Work Backed</strong>
+              <div style="margin-top: 3px;">All project claims link directly to public commit SHAs or private stakeholder tokens.</div>
+            </div>
+          </div>
+
+          <!-- Main Column -->
+          <div class="main-col">
+            <h2 class="main-section-title">Profile Narrative</h2>
+            <p style="font-size: 0.88rem; color: #334155; line-height: 1.55; margin-bottom: 18px;">
+              ${escapeHtml(profile.about || profile.bio)}
+            </p>
+
+            <h2 class="main-section-title">Verified Technical Projects</h2>
+            ${projects.length === 0 ? `<p style="font-size: 0.85rem; color: #64748b;">No verified projects selected.</p>` : ''}
+            ${projects.map(p => {
+              const receipt = p.artefacts && p.artefacts.length > 0 ? p.artefacts[0] : null;
+              return `
+                <div style="margin-bottom: 16px;">
+                  <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                    <strong style="font-size: 0.95rem; color: #0f172a;">${escapeHtml(p.title)}</strong>
+                    <span class="cv-verified-tag">&check; Verified</span>
+                  </div>
+                  ${p.defensible_number ? `<div style="font-size: 0.82rem; font-family: var(--font-mono); font-weight: 700; color: #2563eb; margin: 2px 0;">Metric: ${escapeHtml(p.defensible_number)}</div>` : ''}
+                  <p style="font-size: 0.84rem; color: #334155; margin-bottom: 4px;">
+                    ${escapeHtml(p.problem)}
+                  </p>
+                  <div style="font-size: 0.82rem; color: #1e293b;">
+                    <strong>Outcome:</strong> ${escapeHtml(p.result)}
+                  </div>
+                  ${receipt ? `<div style="font-size: 0.78rem; font-family: var(--font-mono); color: #64748b; margin-top: 2px;">Receipt: [${receipt.type.toUpperCase()}] ${escapeHtml(receipt.url_or_hash)}</div>` : ''}
+                </div>
+              `;
+            }).join('')}
+
+            <h2 class="main-section-title">Work Experience</h2>
+            ${experience.map(exp => `
+              <div style="margin-bottom: 14px;">
+                <div style="display: flex; justify-content: space-between;">
+                  <strong style="font-size: 0.92rem; color: #0f172a;">${escapeHtml(exp.role)}</strong>
+                  <span style="font-size: 0.8rem; font-family: var(--font-mono); color: #64748b;">${escapeHtml(exp.period || '')}</span>
+                </div>
+                <div style="font-size: 0.84rem; font-weight: 600; color: #334155; margin-bottom: 2px;">${escapeHtml(exp.organization || '')}</div>
+                <p style="font-size: 0.84rem; color: #334155; margin-bottom: 0;">${escapeHtml(exp.summary || '')}</p>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    // ==========================================
+    // 3. SKILLS-FIRST / FUNCTIONAL (REZI STYLE)
+    // ==========================================
+    function renderFunctionalTemplate({ profile, experience, projects }) {
+      return `
+        <!-- Header -->
+        <header style="border-bottom: 2px solid #0f172a; padding-bottom: 12px; margin-bottom: 18px; text-align: center;">
+          <h1 style="font-size: 1.85rem; font-weight: 800; text-transform: uppercase; margin-bottom: 2px;">
+            ${escapeHtml(profile.full_name)}
+          </h1>
+          <div style="font-weight: 700; font-size: 0.95rem; color: #334155; margin-bottom: 6px;">
+            ${escapeHtml(profile.role)} &bull; Career Focus
+          </div>
+          <div class="cv-contact-line">
+            <span>${escapeHtml(profile.location)}</span>
+            <span>&bull;</span>
+            <a href="mailto:${escapeHtml(profile.email)}" style="text-decoration: underline;">${escapeHtml(profile.email)}</a>
+            ${profile.github_url ? `<span>&bull;</span> <a href="${escapeHtml(profile.github_url)}" target="_blank">GitHub</a>` : ''}
+            ${profile.portfolio_url ? `<span>&bull;</span> <a href="${escapeHtml(profile.portfolio_url)}" target="_blank">Proof Portfolio</a>` : ''}
+          </div>
+        </header>
+
+        <!-- Pivot Summary -->
+        <section>
+          <h2 class="cv-section-title">Executive Career Transition Summary</h2>
+          <p style="font-size: 0.88rem; color: #1e293b; line-height: 1.55; margin-bottom: 0;">
+            ${escapeHtml(profile.about || profile.bio)}
+          </p>
+        </section>
+
+        <!-- Core Competency Clusters -->
+        <section>
+          <h2 class="cv-section-title">Core Competencies &amp; Proven Evidence</h2>
+          
+          <div class="functional-cluster">
+            <div class="cluster-title">1. High-Concurrency Backend Architecture &amp; Event Streaming</div>
+            <ul style="padding-left: 18px; font-size: 0.85rem; color: #1e293b; margin-bottom: 0;">
+              <li>Engineered zero-downtime event queuing sustaining <strong>4,800 req/s @ p99 38ms</strong> on low-cost single-node infrastructure.</li>
+              <li>Replaced distributed network clusters with memory-mapped SQLite WAL buffers to eliminate cross-datacenter latency.</li>
+              <li><span class="cv-verified-tag">&check; Verified Project:</span> High-Throughput Webhook Pipeline [Receipt: Commit 3f8a1c9e]</li>
+            </ul>
+          </div>
+
+          <div class="functional-cluster">
+            <div class="cluster-title">2. Storage Engine Optimization &amp; Transaction Durability</div>
+            <ul style="padding-left: 18px; font-size: 0.85rem; color: #1e293b; margin-bottom: 0;">
+              <li>Overcame synchronous disk write blocking using connection pooling and batch transaction flushing.</li>
+              <li>Eliminated cache dog-piling with sequence-numbered pub/sub broadcasting, cutting replication lag under 50ms.</li>
+              <li><span class="cv-verified-tag">&check; Verified Project:</span> Distributed Cache Invalidation Gateway [Receipt: Benchmark Log e8b42c19]</li>
+            </ul>
+          </div>
+
+          <div class="functional-cluster">
+            <div class="cluster-title">3. Automated Performance Auditing &amp; Verifiable Telemetry</div>
+            <ul style="padding-left: 18px; font-size: 0.85rem; color: #1e293b; margin-bottom: 0;">
+              <li>Designed automated k6 load testing scenarios reproducing production traffic spikes.</li>
+              <li>Enforced radical transparency with link-based client confirmations and cryptographic commit audits.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Verified Projects -->
+        <section>
+          <h2 class="cv-section-title">Key Shipped Deliverables (Case Studies)</h2>
+          ${projects.map(p => `
+            <div class="cv-item">
+              <div class="cv-item-header">
+                <span class="cv-item-title">${escapeHtml(p.title)}</span>
+                <span class="cv-verified-tag">&check; Verified</span>
+              </div>
+              <div style="font-size: 0.84rem; color: #334155;">
+                ${p.defensible_number ? `<strong>Metric:</strong> ${escapeHtml(p.defensible_number)} &bull; ` : ''}
+                ${escapeHtml(p.result)}
+              </div>
+            </div>
+          `).join('')}
+        </section>
+
+        <!-- Chronological Timeline -->
+        <section>
+          <h2 class="cv-section-title">Professional History</h2>
+          ${experience.map(exp => `
+            <div style="display: flex; justify-content: space-between; font-size: 0.86rem; margin-bottom: 6px;">
+              <span><strong>${escapeHtml(exp.role)}</strong> &mdash; ${escapeHtml(exp.organization || '')}</span>
+              <span style="font-family: var(--font-mono); color: #64748b;">${escapeHtml(exp.period || '')}</span>
+            </div>
+          `).join('')}
+        </section>
+
+        <!-- Education -->
+        <section>
+          <h2 class="cv-section-title">Education &amp; Credentials</h2>
+          <div style="font-size: 0.86rem; color: #1e293b;">
+            ${escapeHtml(profile.education)}
+          </div>
+        </section>
+      `;
+    }
+
+    // ==========================================
+    // 4. MINIMAL SINGLE-PAGE (COMPACT ATS)
+    // ==========================================
+    function renderMinimalTemplate({ profile, experience, projects }) {
+      return `
+        <!-- ATS Header -->
+        <header style="margin-bottom: 12px; border-bottom: 1.5px solid #0f172a; padding-bottom: 8px;">
+          <h1 class="cv-name">${escapeHtml(profile.full_name)}</h1>
+          <div style="font-weight: 700; font-size: 0.92rem; color: #0f172a;">${escapeHtml(profile.role)}</div>
+          <div style="font-size: 0.8rem; color: #334155; margin-top: 2px;">
+            ${escapeHtml(profile.location)} | ${escapeHtml(profile.email)} | ${escapeHtml(profile.github_url)} | ${escapeHtml(profile.portfolio_url || 'Verified Portfolio')}
+          </div>
+        </header>
+
+        <!-- Professional Summary -->
+        <section>
+          <h2 class="cv-section-title">Professional Summary</h2>
+          <p style="font-size: 0.82rem; margin-bottom: 0; line-height: 1.45;">
+            ${escapeHtml(profile.about || profile.bio)}
+          </p>
+        </section>
+
+        <!-- Work Experience -->
+        <section>
+          <h2 class="cv-section-title">Work Experience</h2>
+          ${experience.map(exp => `
+            <div class="cv-item">
+              <div style="display: flex; justify-content: space-between; font-size: 0.85rem;">
+                <strong>${escapeHtml(exp.role)} &mdash; ${escapeHtml(exp.organization || '')}</strong>
+                <span style="font-family: var(--font-mono); font-size: 0.78rem;">${escapeHtml(exp.period || '')}</span>
+              </div>
+              <div style="font-size: 0.82rem; color: #334155;">${escapeHtml(exp.summary || '')}</div>
+              ${exp.achievements ? `
+                <ul style="padding-left: 16px; font-size: 0.8rem; margin: 2px 0 0;">
+                  ${exp.achievements.map(a => `<li>${escapeHtml(a)}</li>`).join('')}
+                </ul>
+              ` : ''}
+            </div>
+          `).join('')}
+        </section>
+
+        <!-- Verified Technical Projects -->
+        <section>
+          <h2 class="cv-section-title">Verified Technical Projects</h2>
+          ${projects.map(p => `
+            <div class="cv-item">
+              <div style="display: flex; justify-content: space-between; font-size: 0.84rem;">
+                <strong>${escapeHtml(p.title)}</strong>
+                <span class="cv-verified-tag">&check; Verified</span>
+              </div>
+              <div style="font-size: 0.8rem; color: #334155;">
+                &bull; <strong>Problem:</strong> ${escapeHtml(p.problem)}<br>
+                &bull; <strong>Result:</strong> ${escapeHtml(p.result)} ${p.defensible_number ? `(${escapeHtml(p.defensible_number)})` : ''}
+              </div>
+            </div>
+          `).join('')}
+        </section>
+
+        <!-- Technical Skills -->
+        <section>
+          <h2 class="cv-section-title">Technical Skills</h2>
+          <div style="font-size: 0.82rem;">
+            <strong>Skills:</strong> ${escapeHtml(profile.skills)}
+          </div>
+        </section>
+
+        <!-- Education -->
+        <section>
+          <h2 class="cv-section-title">Education</h2>
+          <div style="font-size: 0.82rem;">
+            ${escapeHtml(profile.education)}
+          </div>
+        </section>
+      `;
+    }
+
+    // Print / PDF Trigger
+    function printCv() {
+      window.print();
+    }
+
+    // Modal Audit Dialog
+    function openAuditModal() {
+      document.getElementById('modal-audit').style.display = 'flex';
+    }
+
+    function closeAuditModal() {
+      document.getElementById('modal-audit').style.display = 'none';
+    }
+
+    // Run Job Criteria CV Audit
+    async function runCvAudit() {
+      const jobDesc = document.getElementById('job-desc-input').value.trim();
+      if (!jobDesc) {
+        alert('Please paste a job description to audit against.');
+        return;
+      }
+
+      const btn = document.getElementById('btn-run-audit');
+      const loading = document.getElementById('audit-loading');
+      const resultsContainer = document.getElementById('audit-results');
+
+      btn.disabled = true;
+      loading.style.display = 'inline';
+      resultsContainer.style.display = 'none';
+
+      try {
+        const cvData = {
+          profile: cvState.profile,
+          experience: cvState.experience,
+          projects: getVerifiedProjects()
+        };
+
+        const res = await fetch('/api/cv-audit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ cvData, jobDescription: jobDesc })
+        });
+
+        const data = await res.json();
+        btn.disabled = false;
+        loading.style.display = 'none';
+
+        if (!data.success || !data.audit) {
+          alert('Audit failed: ' + (data.error || 'Unknown error'));
+          return;
+        }
+
+        const audit = data.audit;
+        resultsContainer.style.display = 'block';
+
+        document.getElementById('audit-summary-title').textContent = 
+          `Criteria Breakdown: ${audit.metCount} Met • ${audit.missingCount} Missing Evidence (Gaps) • ${audit.partialCount} Partial`;
+        document.getElementById('audit-summary-desc').textContent = audit.summary;
+
+        const findingsList = document.getElementById('audit-findings-list');
+        findingsList.innerHTML = audit.findings.map(f => `
+          <div class="audit-findings-card">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; flex-wrap: wrap; gap: 8px;">
+              <strong style="color: var(--text-main); font-size: 0.92rem;">Requirement: "${escapeHtml(f.criteria)}"</strong>
+              <span class="badge ${f.statusBadge}" style="font-size: 0.72rem;">${f.status}</span>
+            </div>
+            <div style="font-size: 0.85rem; color: var(--text-body); margin-bottom: 4px;">
+              <strong>Audit Finding:</strong> ${escapeHtml(f.citation)}
+            </div>
+            ${f.suggestion ? `
+              <div style="font-size: 0.8rem; color: var(--warning-text); background: var(--warning-bg); padding: 4px 8px; border-radius: var(--radius-xs); margin-top: 4px;">
+                💡 <strong>Gap Remedy:</strong> ${escapeHtml(f.suggestion)}
+              </div>
+            ` : ''}
+          </div>
+        `).join('');
+
+      } catch (err) {
+        btn.disabled = false;
+        loading.style.display = 'none';
+        alert('Audit error: ' + err.message);
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    // Auto-initialize with default demo user
+    triggerAutoFill();
+  </script>
+</body>
+</html>

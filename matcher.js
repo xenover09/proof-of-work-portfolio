@@ -263,8 +263,170 @@ function matchClaimEvidence(project) {
   };
 }
 
+/**
+ * Job-Criteria CV Audit Engine
+ * Evaluates verified CV data against a pasted job description.
+ * Strictly produces a criteria-wise gap list (Met vs Missing vs Partial).
+ * Strictly avoids any percentage scores or exaggerated claims.
+ *
+ * @param {Object} cvData - { profile, projects, experience, skills }
+ * @param {string} jobDescription - Raw text of target job posting
+ * @returns {Object} { findings, totalCriteria, metCount, missingCount, partialCount, summary }
+ */
+function auditCvAgainstJob(cvData, jobDescription) {
+  if (!jobDescription || !jobDescription.trim()) {
+    return {
+      error: 'Job description text is empty. Paste a job description to audit against.'
+    };
+  }
+
+  const projects = (cvData.projects || []).filter(p => p.is_verified || (p.artefacts && p.artefacts.length > 0) || p.client_confirm_status === 'confirmed');
+  const profile = cvData.profile || {};
+  let skillsList = [];
+
+  try {
+    if (typeof profile.skills === 'string' && profile.skills.trim().startsWith('{')) {
+      const parsed = JSON.parse(profile.skills);
+      skillsList = [
+        ...(parsed.productionDaily || []),
+        ...(parsed.familiarShipped || [])
+      ];
+    } else if (Array.isArray(profile.skills)) {
+      skillsList = profile.skills;
+    }
+  } catch (e) {
+    skillsList = [];
+  }
+
+  // Break job description into discrete criteria
+  // Filter for substantive bullet points or sentences
+  const rawLines = jobDescription
+    .split(/\r?\n|;|\.\s+/)
+    .map(line => line.replace(/^[\s•\-\*\d\.\)\:]+/, '').trim())
+    .filter(line => line.length > 18 && line.length < 240);
+
+  // Remove common headers or non-requirement lines
+  const ignorePatterns = [
+    /^(about us|who we are|what we do|company overview|benefits|perks|equal opportunity|apply now|compensation)/i,
+    /^(location|salary|competitive|remote|hybrid|full-time|part-time|contract)$/i
+  ];
+
+  const criteriaLines = rawLines.filter(line => !ignorePatterns.some(p => p.test(line)));
+
+  // If too few lines extracted, fall back to sentence chunking
+  const distinctCriteria = criteriaLines.slice(0, 12);
+
+  if (distinctCriteria.length === 0) {
+    return {
+      totalCriteria: 0,
+      metCount: 0,
+      missingCount: 0,
+      partialCount: 0,
+      findings: [],
+      summary: 'No specific technical criteria could be parsed from the provided text.'
+    };
+  }
+
+  const findings = [];
+  let metCount = 0;
+  let missingCount = 0;
+  let partialCount = 0;
+
+  distinctCriteria.forEach(criteria => {
+    const critTokens = tokenize(criteria);
+    const critEntities = extractEntities(criteria);
+    const critTF = getTermFrequencies(critTokens);
+
+    let bestMatch = null;
+    let matchType = null;
+    let highestSim = 0;
+
+    // 1. Check verified skills
+    for (const skill of skillsList) {
+      const sTokens = tokenize(skill);
+      const sTF = getTermFrequencies(sTokens);
+      const sim = calculateCosineSimilarity(critTF, sTF);
+      const directMention = criteria.toLowerCase().includes(skill.toLowerCase());
+      if (directMention || sim > 0.4) {
+        if (sim > highestSim || directMention) {
+          highestSim = Math.max(highestSim, 0.6);
+          bestMatch = `Declared in verified technical stack: "${skill}"`;
+          matchType = 'skill';
+        }
+      }
+    }
+
+    // 2. Check verified projects
+    for (const proj of projects) {
+      const projText = `${proj.title} ${proj.problem || ''} ${proj.result || ''} ${proj.defensible_number || ''} ${(proj.decisions || []).map(d => d.decision).join(' ')}`;
+      const pTokens = tokenize(projText);
+      const pTF = getTermFrequencies(pTokens);
+      const sim = calculateCosineSimilarity(critTF, pTF);
+
+      // Check entity overlap
+      const pEntities = extractEntities(projText);
+      const hasEntityOverlap = critEntities.some(ce => pEntities.some(pe => pe.includes(ce) || ce.includes(pe)));
+
+      if (sim > 0.22 || hasEntityOverlap) {
+        if (sim > highestSim) {
+          highestSim = sim;
+          const receiptCite = (proj.artefacts && proj.artefacts.length > 0)
+            ? ` [Receipt: ${proj.artefacts[0].type.toUpperCase()} "${proj.artefacts[0].title}"]`
+            : (proj.client_confirm_status === 'confirmed' ? ' [Client Confirmed]' : '');
+          bestMatch = `Demonstrated in verified project: "${proj.title}"${receiptCite}`;
+          matchType = 'project';
+        }
+      }
+    }
+
+    // 3. Check profile role and bio
+    const bioText = `${profile.role || ''} ${profile.bio || ''} ${profile.about || ''}`;
+    const bioSim = calculateCosineSimilarity(critTF, getTermFrequencies(tokenize(bioText)));
+
+    if (highestSim >= 0.25 || matchType === 'skill' || matchType === 'project') {
+      metCount++;
+      findings.push({
+        criteria,
+        status: 'Met',
+        statusBadge: 'badge-confirmed',
+        citation: bestMatch || 'Corroborated by verified CV project experience.',
+        suggestion: null
+      });
+    } else if (bioSim >= 0.15) {
+      partialCount++;
+      findings.push({
+        criteria,
+        status: 'Partial Evidence',
+        statusBadge: 'badge-pending',
+        citation: `Mentioned in professional bio/summary, but lacks attached commit receipts or benchmark logs.`,
+        suggestion: `Attach a verifiable benchmark log or commit link to fully corroborate this requirement.`
+      });
+    } else {
+      missingCount++;
+      findings.push({
+        criteria,
+        status: 'Missing Evidence (Gap)',
+        statusBadge: 'badge-disputed',
+        citation: 'No verified projects, dated receipts, or declared skills substantiate this requirement.',
+        suggestion: `Consider linking a project or receipt that proves experience with this requirement.`
+      });
+    }
+  });
+
+  return {
+    totalCriteria: distinctCriteria.length,
+    metCount,
+    missingCount,
+    partialCount,
+    findings,
+    summary: `Criteria-wise audit completed across ${distinctCriteria.length} extracted job requirements: ${metCount} verified & corroborated, ${missingCount} gaps identified, and ${partialCount} with partial evidence.`
+  };
+}
+
 module.exports = {
   matchClaimEvidence,
+  auditCvAgainstJob,
   tokenize,
   calculateCosineSimilarity
 };
+

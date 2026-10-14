@@ -2,13 +2,14 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const db = require('./db.js');
+const matcher = require('./matcher.js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '2mb' }));
+app.use(express.urlencoded({ extended: true, limit: '2mb' }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // HTML Page Routes
@@ -18,6 +19,14 @@ app.get('/', (req, res) => {
 
 app.get('/create', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'create.html'));
+});
+
+app.get('/cv', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'cv.html'));
+});
+
+app.get('/cv-builder', (req, res) => {
+  res.redirect('/cv');
 });
 
 app.get('/p/:username', (req, res) => {
@@ -33,6 +42,21 @@ app.get('/confirm/:token', (req, res) => {
 });
 
 // API Routes
+
+// Job-Criteria CV Audit
+app.post('/api/cv-audit', (req, res) => {
+  try {
+    const { cvData, jobDescription } = req.body;
+    if (!cvData || !jobDescription) {
+      return res.status(400).json({ success: false, error: 'Both cvData and jobDescription are required.' });
+    }
+    const audit = matcher.auditCvAgainstJob(cvData, jobDescription);
+    res.json({ success: true, audit });
+  } catch (err) {
+    console.error('CV Audit Error:', err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
 
 // Platform stats
 app.get('/api/stats', (req, res) => {

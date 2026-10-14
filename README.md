@@ -95,6 +95,11 @@ Adhering strictly to a 100% free, vendor-neutral architecture:
    - One-tap **"Yes, I Confirm Deliverable"** or **"No, Dispute Claim"**.
    - Optional client name/organization & testimonial quote input.
    - Instant state transition with live portfolio update.
+7. **Verified CV Builder & Job-Criteria Audit (`/cv`):**
+   - **4 Researched Template Architectures:** Classic Professional (Harvard style), Modern Two-Column (Novoresume style), Skills-First/Functional (Rezi style), and Minimal Single-Page (Compact ATS).
+   - **Verified-Only Rule:** CV exports exclusively contain entries backed by dated commit receipts, benchmark logs, or authenticated client confirmations. Unverified claims are automatically flagged and excluded.
+   - **Job-Criteria CV Audit:** Paste any target Job Description to run an automated criteria-wise gap analysis (Met requirements with proof citations vs Missing evidence gaps). Strictly zero arbitrary "% match" scores.
+   - **Print & PDF Export:** Native print styling (`@media print`) for clean, ATS-compliant A4/Letter PDF generation.
 
 ---
 

@@ -1268,3 +1268,338 @@ textarea.form-control {
   margin-bottom: 16px;
 }
 
+/* ==========================================================================
+   CV Builder & Researched Templates Styling
+   Zero gradients, clean light theme, ATS-compliant typography, @media print
+   ========================================================================== */
+
+.cv-builder-layout {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+}
+
+@media (max-width: 1024px) {
+  .cv-builder-layout {
+    flex-direction: column;
+  }
+}
+
+.cv-controls-panel {
+  flex: 0 0 380px;
+  width: 100%;
+}
+
+.cv-preview-area {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Simulated A4 / Letter CV Paper */
+.cv-paper {
+  background-color: #ffffff;
+  color: #0f172a;
+  width: 100%;
+  max-width: 820px;
+  min-height: 1060px;
+  border: 1px solid var(--border-medium);
+  box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.08);
+  border-radius: var(--radius-xs);
+  padding: 44px 50px;
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  font-size: 0.9rem;
+}
+
+/* Template Selector Bar */
+.template-tab-bar {
+  display: flex;
+  gap: 8px;
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-light);
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 820px;
+  flex-wrap: wrap;
+}
+
+.template-tab {
+  flex: 1 1 140px;
+  padding: 8px 12px;
+  border-radius: var(--radius-xs);
+  border: 1px solid transparent;
+  background: transparent;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-body);
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s ease;
+}
+
+.template-tab:hover {
+  background-color: #ffffff;
+  color: var(--text-main);
+}
+
+.template-tab.active {
+  background-color: #ffffff;
+  color: var(--text-main);
+  border-color: var(--border-medium);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Template 1: Classic Professional (Harvard / Google Docs Style) */
+.cv-template-classic .cv-header {
+  border-bottom: 2px solid #0f172a;
+  padding-bottom: 14px;
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.cv-template-classic .cv-name {
+  font-size: 1.85rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #0f172a;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.cv-template-classic .cv-contact-line {
+  font-size: 0.84rem;
+  color: #334155;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.cv-template-classic .cv-section-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #0f172a;
+  border-bottom: 1px solid #cbd5e1;
+  padding-bottom: 3px;
+  margin: 18px 0 10px;
+}
+
+.cv-template-classic .cv-item {
+  margin-bottom: 12px;
+}
+
+.cv-template-classic .cv-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.92rem;
+}
+
+.cv-template-classic .cv-item-title {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.cv-template-classic .cv-item-date {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.cv-template-classic .cv-item-sub {
+  font-style: italic;
+  font-size: 0.86rem;
+  color: #334155;
+  margin-bottom: 4px;
+}
+
+/* Template 2: Modern Two-Column (Novoresume / Zety Style) */
+.cv-template-two-column .two-col-layout {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  gap: 32px;
+}
+
+.cv-template-two-column .sidebar-col {
+  border-right: 1px solid #e2e8f0;
+  padding-right: 24px;
+}
+
+.cv-template-two-column .main-col {
+  padding-left: 4px;
+}
+
+.cv-template-two-column .sidebar-section-title {
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #0f172a;
+  margin: 18px 0 8px;
+  border-bottom: 1px solid #cbd5e1;
+  padding-bottom: 3px;
+}
+
+.cv-template-two-column .sidebar-section-title:first-child {
+  margin-top: 0;
+}
+
+.cv-template-two-column .main-section-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #0f172a;
+  border-bottom: 1px solid #cbd5e1;
+  padding-bottom: 3px;
+  margin: 20px 0 10px;
+}
+
+.cv-template-two-column .main-section-title:first-child {
+  margin-top: 0;
+}
+
+/* Template 3: Functional / Skills-First (Rezi Style) */
+.cv-template-functional .functional-cluster {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 3px solid #0f172a;
+  padding: 12px 16px;
+  border-radius: var(--radius-xs);
+  margin-bottom: 12px;
+}
+
+.cv-template-functional .cluster-title {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 4px;
+}
+
+/* Template 4: Minimal Single-Page (Compact ATS) */
+.cv-template-minimal {
+  font-size: 0.86rem;
+  line-height: 1.45;
+  padding: 36px 42px;
+}
+
+.cv-template-minimal .cv-name {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 2px;
+}
+
+.cv-template-minimal .cv-section-title {
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #94a3b8;
+  margin: 14px 0 6px;
+  padding-bottom: 2px;
+}
+
+.cv-template-minimal .cv-item {
+  margin-bottom: 8px;
+}
+
+/* Verified Receipt In-CV Tag */
+.cv-verified-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  background-color: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #166534;
+  padding: 1px 6px;
+  border-radius: 2px;
+  font-weight: 600;
+}
+
+.cv-receipt-code {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: #2563eb;
+}
+
+/* Unverified Item Warning Banner in Builder */
+.unverified-warning-box {
+  background-color: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: var(--radius-xs);
+  padding: 10px 14px;
+  font-size: 0.84rem;
+  color: #92400e;
+  margin-bottom: 14px;
+}
+
+/* Audit Findings List */
+.audit-findings-card {
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  margin-bottom: 10px;
+}
+
+/* ==========================================================================
+   Print / PDF Styles
+   ========================================================================== */
+@media print {
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .navbar,
+  .footer,
+  .no-print,
+  .cv-controls-panel,
+  .template-tab-bar,
+  .btn,
+  #modal-audit,
+  .modal-overlay {
+    display: none !important;
+  }
+
+  .cv-builder-layout {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .cv-preview-area {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .cv-paper {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    min-height: auto !important;
+    page-break-after: avoid;
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 12mm 14mm;
+  }
+}
+
+

@@ -18,6 +18,7 @@
       </a>
       <div class="nav-menu" style="display: flex; gap: 14px; align-items: center;">
         <a href="/" class="nav-link">Home</a>
+        <a href="/cv" class="nav-link">CV Builder</a>
         <a href="/create" class="btn btn-primary btn-sm">+ Add Project</a>
       </div>
     </div>
@@ -266,6 +267,7 @@
           const email = profile.contact_email || profile.email;
           actionsHtml += `<a href="mailto:${escapeHtml(email)}">✉️ Email Developer</a>`;
         }
+        actionsHtml += `<a href="/cv" style="background: var(--text-main); color: #ffffff; border-color: var(--text-main);">⚡ Build Verified CV &rarr;</a>`;
         actionsContainer.innerHTML = actionsHtml;
 
         // Populate About
